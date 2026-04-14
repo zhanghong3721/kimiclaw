@@ -1,0 +1,12 @@
+{
+  "invoke_time": 1,
+  "ltm": {
+    "identity": null,
+    "work_method": "User works locally with a CLI environment (openclaw on macOS) and frequently pastes terminal output directly into chat, including curl commands and API responses. They expect direct, actionable help with debugging technical issues in real time, and often verify claims by asking for test commands or follow-up calculations. They share screenshots and PDF attachments to support financial or data-heavy questions.",
+    "communication": "Concise, task-driven, and technically fluent in Chinese. Messages are often fragmented—mixing terminal prompts, API keys, and brief questions without much framing. They push back or re-prompt when something doesn't work (e.g., \"这个key 没失效\"). Tone is pragmatic and slightly impatient, favoring getting to the answer over pleasantries.",
+    "temporal": "Actively configuring a local openclaw setup and troubleshooting a Moonshot/Kimi API authentication issue (testing endpoints and base URLs). Also analyzing Chinese commodities/mining stocks: evaluating 盐湖股份's potash supply obligations, 中矿资源's 2025 Zimbabwe lithium concentrate output and grade, and comparing valuation metrics (PE, forward earnings) between 藏格矿业 and an unnamed peer.",
+    "taste": null
+  },
+  "generated_at": "2026-04-14T03:48:40.671909",
+  "stm_hash": "f879bf0ef40dc1cfd010e04f8e9c4413"
+}

@@ -1,0 +1,12 @@
+__pycache__/
+memory_consolidation.env
+output/
+data/
+openclaw.json
+*.tgz
+*.png
+pi-extensions/
+extract_user_queries.py
+debug_cmd.txt
+deploy_cmd.txt
+*.tar.gz

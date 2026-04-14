@@ -1,0 +1,9 @@
+{
+  "name": "stock-assistant",
+  "version": "1.0.0",
+  "description": "股票智能助手 - 全自动股票监控与推送系统",
+  "config_file": "config.json",
+  "inject": {
+    "kimiCodeAPIKey": "api_key"
+  }
+}

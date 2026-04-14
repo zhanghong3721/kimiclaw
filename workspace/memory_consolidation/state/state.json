@@ -1,0 +1,27 @@
+{
+  "diary": {
+    "count": 1,
+    "last_ts": "2026-04-14T03:48:37.108161",
+    "last_day": 2,
+    "last_sessions": 1,
+    "last_messages": 63,
+    "last_filename": "day2-2026-04-14-the_key_was_never_broken.md",
+    "last_latency_s": 24.7
+  },
+  "compact": {
+    "count": 1,
+    "last_ts": "2026-04-14T03:48:40.671712",
+    "last_invoke": 1,
+    "last_sessions": 1,
+    "last_messages": 30,
+    "last_latency_s": 3.5,
+    "last_model": "k2p5"
+  },
+  "stm": {
+    "count": 1,
+    "last_ts": "2026-04-14T09:27:47.731671",
+    "last_sessions": 1,
+    "last_messages": 30,
+    "last_chars": 7120
+  }
+}

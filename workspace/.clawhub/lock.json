@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "skills": {
+    "amap-jsapi-skill": {
+      "version": "1.0.7",
+      "installedAt": 1776137766139
+    },
+    "gaode": {
+      "version": "1.0.0",
+      "installedAt": 1776137822305
+    }
+  }
+}

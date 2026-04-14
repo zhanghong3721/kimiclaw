@@ -1,0 +1,11 @@
+{
+    "cooldowns": {},
+    "trailing_peaks": {},
+    "prev_tech": {},
+    "last_tech_ts": 0,
+    "last_report_ts": 0,
+    "last_startup_date": "",
+    "last_run_ts": 0,
+    "run_count_today": 0,
+    "run_count_date": ""
+}

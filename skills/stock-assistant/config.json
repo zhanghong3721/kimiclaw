@@ -1,0 +1,27 @@
+{
+  "_comment": "股票智能助手配置文件",
+
+  "push": {
+    "_comment_channel": "推送渠道：feishu（飞书）| openclaw（OpenClaw 内置消息）| both（两路均推）",
+    "channel": "feishu"
+  },
+
+  "feishu": {
+    "user_id":    "",
+    "app_id":     "",
+    "app_secret": "",
+    "chat_id":    ""
+  },
+
+  "kimiCodeAPIKey": "YOUR_kimiCodeAPIKey",
+  "kimiCodeBaseUrl": "https://api.kimi.com/coding/v1/tools",
+  "kimiCodeTimeout": 30,
+
+  "settings": {
+    "cooldown_minutes": 5,
+    "trailing_cooldown_minutes": 30,
+    "request_interval": 1
+  },
+
+  "disclaimer": "*自动推送*"
+}

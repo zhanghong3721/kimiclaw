@@ -1,0 +1,11 @@
+{
+  "id": "kimi-memory-consolidation",
+  "name": "Kimi Memory Consolidation",
+  "version": "0.1.0",
+  "description": "Auto-refresh USER.md with STM + LTM on new sessions",
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}

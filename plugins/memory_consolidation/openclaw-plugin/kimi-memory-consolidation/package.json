@@ -1,0 +1,7 @@
+{
+  "name": "kimi-memory-consolidation",
+  "version": "0.1.0",
+  "openclaw": {
+    "extensions": ["./index.ts"]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "pendingEvents": [
+    {
+      "eventId": "19d8ac2f-bb12-83d5-8000-000089aaf7a6",
+      "chatId": "19d85ed7-2992-8056-8000-0981f9a7726c",
+      "messageId": "19d8ac2f-b812-845e-8000-0a81ef5239f0",
+      "receivedAt": 1776149527487,
+      "event": {
+        "id": "19d8ac2f-bb12-83d5-8000-000089aaf7a6",
+        "payload": {
+          "case": "chatMessage",
+          "value": {
+            "chatId": "19d85ed7-2992-8056-8000-0981f9a7726c",
+            "messageId": "19d8ac2f-b812-845e-8000-0a81ef5239f0",
+            "status": 2,
+            "senderId": "cnfgu303r07dj7p0ahgg"
+          }
+        }
+      }
+    }
+  ],
+  "committedCursor": {
+    "eventId": "19d8abfb-8472-8e8f-8000-000075d1aa03",
+    "committedAt": 1776149463800
+  }
+}

@@ -1,0 +1,214 @@
+{
+  "meta": {
+    "lastTouchedVersion": "2026.3.13",
+    "lastTouchedAt": "2026-04-07T16:06:12.640Z"
+  },
+  "browser": {
+    "defaultProfile": "openclaw"
+  },
+  "secrets": {
+    "providers": {
+      "lark-secrets": {
+        "source": "file",
+        "path": "~/.openclaw/credentials/lark.secrets.json"
+      }
+    }
+  },
+  "agents": {
+    "defaults": {
+      "compaction": {
+        "mode": "safeguard"
+      },
+      "heartbeat": {
+        "every": "60m"
+      }
+    }
+  },
+  "tools": {
+    "alsoAllow": [
+      "feishu_bitable_app",
+      "feishu_bitable_app_table",
+      "feishu_bitable_app_table_field",
+      "feishu_bitable_app_table_record",
+      "feishu_bitable_app_table_view",
+      "feishu_calendar_calendar",
+      "feishu_calendar_event",
+      "feishu_calendar_event_attendee",
+      "feishu_calendar_freebusy",
+      "feishu_chat",
+      "feishu_chat_members",
+      "feishu_create_doc",
+      "feishu_doc_comments",
+      "feishu_doc_media",
+      "feishu_drive_file",
+      "feishu_fetch_doc",
+      "feishu_get_user",
+      "feishu_im_bot_image",
+      "feishu_im_user_fetch_resource",
+      "feishu_im_user_get_messages",
+      "feishu_im_user_get_thread_messages",
+      "feishu_im_user_message",
+      "feishu_im_user_search_messages",
+      "feishu_oauth",
+      "feishu_oauth_batch_auth",
+      "feishu_search_doc_wiki",
+      "feishu_search_user",
+      "feishu_sheet",
+      "feishu_task_comment",
+      "feishu_task_subtask",
+      "feishu_task_task",
+      "feishu_task_tasklist",
+      "feishu_update_doc",
+      "feishu_wiki_space",
+      "feishu_wiki_space_node"
+    ]
+  },
+  "commands": {
+    "native": "auto",
+    "nativeSkills": "auto",
+    "restart": true,
+    "ownerDisplay": "raw"
+  },
+  "channels": {
+    "feishu": {
+      "enabled": true,
+      "appId": "cli_a930330bc438dbd7",
+      "appSecret": {
+        "source": "file",
+        "provider": "lark-secrets",
+        "id": "/lark/appSecret"
+      },
+      "domain": "feishu",
+      "connectionMode": "websocket",
+      "requireMention": true,
+      "dmPolicy": "pairing",
+      "allowFrom": [],
+      "groupAllowFrom": [],
+      "groupPolicy": "open"
+    }
+  },
+  "gateway": {
+    "port": 18789,
+    "mode": "local",
+    "bind": "loopback",
+    "auth": {
+      "mode": "token",
+      "token": "b3254017633e8fc4befa72d645c8429665aa5b84fb3c2d83"
+    }
+  },
+  "plugins": {
+    "allow": [
+      "openclaw-lark",
+      "dingtalk-connector",
+      "weibo-openclaw-plugin",
+      "wecom-openclaw-plugin",
+      "openclaw-weixin",
+      "kimi-claw",
+      "kimi-search"
+    ],
+    "load": {
+      "paths": []
+    },
+    "entries": {
+      "feishu": {
+        "enabled": false
+      },
+      "openclaw-lark": {
+        "enabled": true
+      },
+      "dingtalk-connector": {
+        "enabled": true
+      },
+      "weibo-openclaw-plugin": {
+        "enabled": true
+      },
+      "wecom-openclaw-plugin": {
+        "enabled": true
+      },
+      "openclaw-weixin": {
+        "enabled": true
+      },
+      "kimi-claw": {
+        "enabled": true,
+        "config": {
+          "log": {
+            "enabled": true
+          },
+          "bridge": {
+            "promptTimeoutMs": 1800000
+          }
+        }
+      },
+      "kimi-search": {
+        "enabled": true
+      }
+    },
+    "installs": {
+      "openclaw-lark": {
+        "source": "npm",
+        "spec": "@larksuite/openclaw-lark@2026.3.18",
+        "installPath": "/root/.openclaw/extensions/openclaw-lark",
+        "version": "2026.3.18",
+        "resolvedName": "@larksuite/openclaw-lark",
+        "resolvedVersion": "2026.3.18",
+        "resolvedSpec": "@larksuite/openclaw-lark@2026.3.18",
+        "integrity": "sha512-9qqO0a1HQ+2E9jvob/13jf1ZDfe39vzr7SgYFgtNc/ajv+jFaC7sweONyPZbiQ22CF+lIWb4FvSve74ev0Irnw==",
+        "shasum": "5358c445b0fcfc65e99462b2a15c755bf39919f8",
+        "resolvedAt": "2026-04-07T15:57:13.050Z",
+        "installedAt": "2026-04-07T15:57:31.226Z"
+      },
+      "dingtalk-connector": {
+        "source": "npm",
+        "spec": "@dingtalk-real-ai/dingtalk-connector@0.8.1",
+        "installPath": "/root/.openclaw/extensions/dingtalk-connector",
+        "version": "0.8.1",
+        "resolvedName": "@dingtalk-real-ai/dingtalk-connector",
+        "resolvedVersion": "0.8.1",
+        "resolvedSpec": "@dingtalk-real-ai/dingtalk-connector@0.8.1",
+        "integrity": "sha512-0cniz4qgEB6XwN6ffwvUctMUjGDRiaYvg3de4VwL0V7CQSZKwxxUZ10OH6VhAjMBEfE9ufE5Z8IfCHoqYabyiw==",
+        "shasum": "20b869c8b3f9fa476bd5a40f8c431829caa6938d",
+        "resolvedAt": "2026-04-07T15:58:14.621Z",
+        "installedAt": "2026-04-07T16:01:00.052Z"
+      },
+      "weibo-openclaw-plugin": {
+        "source": "npm",
+        "spec": "@wecode-ai/weibo-openclaw-plugin@2.0.0",
+        "installPath": "/root/.openclaw/extensions/weibo-openclaw-plugin",
+        "version": "2.0.0",
+        "resolvedName": "@wecode-ai/weibo-openclaw-plugin",
+        "resolvedVersion": "2.0.0",
+        "resolvedSpec": "@wecode-ai/weibo-openclaw-plugin@2.0.0",
+        "integrity": "sha512-G3fCf1h9vLVBJ/80z6tp4bvVb1qGQeNwLRvR0ls1qAkvEunAi23ppXvDHCj5gI+RpP9KInSyeVuoWP+3mtCIQA==",
+        "shasum": "c74ffbbb511ae81b6d57e5084714b303a1c5c12d",
+        "resolvedAt": "2026-04-07T16:01:08.990Z",
+        "installedAt": "2026-04-07T16:02:26.170Z"
+      },
+      "wecom-openclaw-plugin": {
+        "source": "npm",
+        "spec": "@wecom/wecom-openclaw-plugin@2026.3.20",
+        "installPath": "/root/.openclaw/extensions/wecom-openclaw-plugin",
+        "version": "2026.3.20",
+        "resolvedName": "@wecom/wecom-openclaw-plugin",
+        "resolvedVersion": "2026.3.20",
+        "resolvedSpec": "@wecom/wecom-openclaw-plugin@2026.3.20",
+        "integrity": "sha512-52lXXq7afwR12LdDVTY7vyZZCApXTcB88A9quuejHZm7eLm3NT/0rbowzyvaAsUVbx35vdk6reGl/5pOehYqrA==",
+        "shasum": "c775c283426b85d17b9b31e2b6498be731b7da03",
+        "resolvedAt": "2026-04-07T16:02:34.009Z",
+        "installedAt": "2026-04-07T16:02:43.219Z"
+      },
+      "openclaw-weixin": {
+        "source": "npm",
+        "spec": "@tencent-weixin/openclaw-weixin@1.0.3",
+        "installPath": "/root/.openclaw/extensions/openclaw-weixin",
+        "version": "1.0.3",
+        "resolvedName": "@tencent-weixin/openclaw-weixin",
+        "resolvedVersion": "1.0.3",
+        "resolvedSpec": "@tencent-weixin/openclaw-weixin@1.0.3",
+        "integrity": "sha512-TOo9rb5gt3ce3lJEulFT5Ta4/8ocWkR40wzM7lZ8OM3/fjTk3UHYeNjHmDcZlLeg93XYJKdVUFUEiujrf8zMYw==",
+        "shasum": "19f65f26d4af26a25f05cdd5f1dd3c687590f91c",
+        "resolvedAt": "2026-04-07T16:02:52.058Z",
+        "installedAt": "2026-04-07T16:03:00.504Z"
+      }
+    }
+  }
+}

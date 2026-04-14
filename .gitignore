@@ -1,0 +1,3 @@
+# OpenClaw Backup Exclusions
+# Extensions are not backed up (can be reinstalled)
+extensions/
