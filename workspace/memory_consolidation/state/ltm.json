@@ -1,12 +1,12 @@
 {
-  "invoke_time": 1,
+  "invoke_time": 2,
   "ltm": {
     "identity": null,
-    "work_method": "User works locally with a CLI environment (openclaw on macOS) and frequently pastes terminal output directly into chat, including curl commands and API responses. They expect direct, actionable help with debugging technical issues in real time, and often verify claims by asking for test commands or follow-up calculations. They share screenshots and PDF attachments to support financial or data-heavy questions.",
-    "communication": "Concise, task-driven, and technically fluent in Chinese. Messages are often fragmented—mixing terminal prompts, API keys, and brief questions without much framing. They push back or re-prompt when something doesn't work (e.g., \"这个key 没失效\"). Tone is pragmatic and slightly impatient, favoring getting to the answer over pleasantries.",
-    "temporal": "Actively configuring a local openclaw setup and troubleshooting a Moonshot/Kimi API authentication issue (testing endpoints and base URLs). Also analyzing Chinese commodities/mining stocks: evaluating 盐湖股份's potash supply obligations, 中矿资源's 2025 Zimbabwe lithium concentrate output and grade, and comparing valuation metrics (PE, forward earnings) between 藏格矿业 and an unnamed peer.",
+    "work_method": "User operates in a local CLI environment (openclaw on macOS) and pastes terminal output directly into chat for real-time debugging. They frequently request curl commands to verify API configurations and test endpoints themselves rather than trusting explanations. They share screenshots and PDF attachments for data-heavy financial analysis. When troubleshooting fails, they push for alternative approaches (switching base URLs, reconfiguring). They also inquire about multi-platform deployment (WeChat integration) and examine configuration files to understand system capabilities.",
+    "communication": "Technically fluent in Chinese with a task-driven, fragmented style—messages mix terminal prompts, API keys, and brief questions without framing. Pragmatic and slightly impatient tone; they re-prompt immediately when something fails (\"这个key 没失效\", \"为什么会出现这个报错\"). Favors direct answers over pleasantries. Uses minimal punctuation and often drops words (\"验证争取吗\"). When satisfied, acknowledgment is brief (\"好了吗\", \"继续\").",
+    "temporal": "Troubleshooting Kimi API authentication: initially testing Moonshot endpoints, then attempting to migrate to kimi.com/coding/ base URL, encountering 403 errors indicating Coding Agents-only access. Analyzing Chinese industrial stocks: 菲利华 (quartz fiber/electronic cloth capacity and pricing power), 盐湖股份 (potash supply obligations), 中矿资源 (2025 Zimbabwe lithium concentrate output and grade from PDF data), 藏格矿业 (PE valuation and forward earnings comparison). Also tracking Brent crude spot prices for commodity context.",
     "taste": null
   },
-  "generated_at": "2026-04-14T03:48:40.671909",
-  "stm_hash": "f879bf0ef40dc1cfd010e04f8e9c4413"
+  "generated_at": "2026-04-15T03:46:41.648144",
+  "stm_hash": "f9e273ad2e0fed2e02703ee46d68eb8e"
 }

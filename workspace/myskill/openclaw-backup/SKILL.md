@@ -1,101 +1,116 @@
 ---
 name: openclaw-backup
-description: Backup OpenClaw configuration directory to a GitHub repository, excluding the extensions folder. Use when the user needs to backup their .openclaw directory, migrate settings to another machine, or version control their OpenClaw configuration.
+description: Daily backup OpenClaw configuration to GitHub with dated branches. Runs at 9:00 AM daily, creating a new branch for each date (backup/YYYY-MM-DD).
 ---
 
-# OpenClaw Backup Skill
+# OpenClaw Daily Backup Skill
 
-This skill backs up the `~/.openclaw` directory to a GitHub repository, excluding the `extensions` folder which contains large plugin files that can be reinstalled.
+每日自动备份 OpenClaw 配置到 GitHub，每天创建一个以日期命名的分支（backup/YYYY-MM-DD）。
 
-## What Gets Backed Up
+## 备份策略
 
-All directories and files under `~/.openclaw` **except**:
-- `extensions/` - Plugin extensions (can be reinstalled via `openclaw plugins install`)
+- **频率**: 每天上午 9:00
+- **分支命名**: `backup/YYYY-MM-DD` (如 `backup/2026-04-14`)
+- **保留**: 所有历史分支永久保留
+- **Main 分支**: 始终指向最新备份
 
-## Prerequisites
+## 目录结构
 
-1. Git configured with user.name and user.email
-2. GitHub repository created (e.g., `https://github.com/username/repo-name`)
-3. Write access to the repository
+```
+~/.openclaw/workspace/myskill/openclaw-backup/
+├── SKILL.md           # 本说明文档
+├── scripts/
+│   └── backup.sh      # 备份脚本
+└── cron/              # 定时任务配置
+    └── openclaw-backup.cron
+```
 
-## Backup Process
+## 快速开始
 
-### Step 1: Configure Git (if not already done)
+### 1. 配置 Git
 
 ```bash
 git config --global user.name "your-username"
 git config --global user.email "your-email@example.com"
-git config --global init.defaultBranch main
 ```
 
-### Step 2: Run the Backup Script
+### 2. 测试备份脚本
 
-Use the provided script:
+```bash
+# 首次运行，创建第一个备份分支
+~/.openclaw/workspace/myskill/openclaw-backup/scripts/backup.sh https://github.com/username/repo-name
+```
+
+### 3. 设置定时任务 (每天 9:00)
+
+```bash
+# 编辑 crontab
+crontab -e
+
+# 添加以下行
+0 9 * * * /root/.openclaw/workspace/myskill/openclaw-backup/scripts/backup.sh git@github.com:zhanghong3721/kimiclaw.git >> /var/log/openclaw-backup.log 2>&1
+```
+
+或使用提供的配置：
+
+```bash
+# 安装 cron 任务
+sudo cp ~/.openclaw/workspace/myskill/openclaw-backup/cron/openclaw-backup.cron /etc/cron.d/
+sudo chmod 644 /etc/cron.d/openclaw-backup.cron
+```
+
+## 备份内容
+
+**包含**:
+- Agents 配置
+- Skills (包括 myskill/)
+- Workspace
+- Credentials
+- Plugins 配置
+
+**排除**:
+- `extensions/` - 可通过 `openclaw plugins install` 重新安装
+
+## 查看备份历史
+
+```bash
+# 克隆仓库
+git clone https://github.com/username/repo-name.git
+cd repo-name
+
+# 查看所有备份分支
+git branch -a | grep backup/
+
+# 查看某天的备份
+git checkout backup/2026-04-14
+```
+
+## 恢复备份
+
+```bash
+# 从特定日期恢复
+git clone --branch backup/2026-04-14 https://github.com/username/repo-name.git ~/.openclaw
+
+# 重装扩展
+openclaw plugins install
+```
+
+## 手动触发备份
 
 ```bash
 ~/.openclaw/workspace/myskill/openclaw-backup/scripts/backup.sh https://github.com/username/repo-name
 ```
 
-Or perform the backup manually:
+## 分支说明
 
-```bash
-# Create temporary directory
-mkdir -p /tmp/openclaw-backup
-cd /tmp/openclaw-backup
+| 分支 | 用途 |
+|------|------|
+| `main` | 最新备份，自动更新 |
+| `backup/YYYY-MM-DD` | 每日历史备份 |
 
-# Initialize git repo
-git init
+## 注意事项
 
-# Copy all files except extensions
-rsync -av --exclude=extensions ~/.openclaw/ .
-
-# Remove nested git repositories (if any)
-find . -mindepth 2 -name ".git" -type d -exec rm -rf {} + 2>/dev/null
-
-# Add and commit
-git add -A
-git commit -m "Backup of .openclaw - $(date '+%Y-%m-%d %H:%M:%S')"
-
-# Push to GitHub
-git branch -M main
-git remote add origin https://github.com/username/repo-name.git
-git push -u origin main
-```
-
-## Restore Process
-
-To restore on a new machine:
-
-```bash
-# Clone the backup repository
-git clone https://github.com/username/repo-name.git ~/.openclaw
-
-# Reinstall extensions (they are not backed up)
-openclaw plugins install
-```
-
-## Important Notes
-
-- **Credentials**: The `credentials/` folder is backed up. Review before pushing to a public repository.
-- **Extensions**: Must be reinstalled separately via `openclaw plugins install`.
-- **Large files**: The `openspace/.venv/` directory contains many Python packages and is quite large (~400MB).
-- **Nested git repos**: Any nested git repositories (like cloned tools) are flattened to regular directories.
-
-## Troubleshooting
-
-### Push fails with authentication error
-
-Ensure you have write access to the repository. You may need to:
-- Use HTTPS with a personal access token
-- Set up SSH keys for GitHub
-
-### Repository too large
-
-If the backup is too large for GitHub:
-1. Add more exclusions to the rsync command (e.g., `logs/`, large model files)
-2. Use Git LFS for large binary files
-3. Split into multiple repositories (config vs data)
-
-### Nested git repository warnings
-
-These are handled automatically by removing nested `.git` directories before committing.
+- **首次运行**: 需要手动执行一次，验证配置正确
+- **网络依赖**: 定时任务需要机器联网
+- **存储空间**: GitHub 免费版有 2GB 软限制
+- **认证方式**: 建议使用 SSH key 或 GitHub Token，避免密码输入

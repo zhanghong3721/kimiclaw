@@ -1,25 +1,25 @@
 {
   "agent:main:main": {
     "sessionId": "0483f37d-0ab1-4baa-95e8-f085fc9e80e1",
-    "updatedAt": 1776149527890,
+    "updatedAt": 1776169422103,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
     "deliveryContext": {
-      "channel": "kimi-claw",
-      "to": "main",
-      "accountId": "main"
+      "channel": "openclaw-weixin",
+      "to": "o9cq8065p6g1Gct4bE0LSj99U2go@im.wechat",
+      "accountId": "f38d10d6164f-im-bot"
     },
-    "lastChannel": "kimi-claw",
-    "lastTo": "main",
-    "lastAccountId": "main",
+    "lastChannel": "openclaw-weixin",
+    "lastTo": "o9cq8065p6g1Gct4bE0LSj99U2go@im.wechat",
+    "lastAccountId": "f38d10d6164f-im-bot",
     "origin": {
-      "label": "kimi-claw:main",
-      "provider": "kimi-claw",
+      "label": "o9cq8065p6g1Gct4bE0LSj99U2go@im.wechat",
+      "provider": "openclaw-weixin",
       "surface": "kimi-claw",
-      "from": "kimi-claw:main",
-      "to": "main",
-      "accountId": "main",
+      "from": "o9cq8065p6g1Gct4bE0LSj99U2go@im.wechat",
+      "to": "o9cq8065p6g1Gct4bE0LSj99U2go@im.wechat",
+      "accountId": "f38d10d6164f-im-bot",
       "chatType": "direct"
     },
     "sessionFile": "/root/.openclaw/agents/main/sessions/0483f37d-0ab1-4baa-95e8-f085fc9e80e1.jsonl",
@@ -666,7 +666,7 @@
     "model": "k2p5",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1776149314164,
+      "generatedAt": 1776169399267,
       "sessionId": "0483f37d-0ab1-4baa-95e8-f085fc9e80e1",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -686,9 +686,9 @@
         "sandboxed": false
       },
       "systemPrompt": {
-        "chars": 60371,
+        "chars": 61642,
         "projectContextChars": 20227,
-        "nonProjectContextChars": 40144
+        "nonProjectContextChars": 41415
       },
       "injectedWorkspaceFiles": [
         {
@@ -1276,15 +1276,15 @@
         ]
       }
     },
-    "cacheRead": 64256,
+    "cacheRead": 95232,
     "cacheWrite": 0,
     "totalTokensFresh": true,
     "contextTokens": 131072,
-    "inputTokens": 174,
-    "outputTokens": 838,
+    "inputTokens": 7520,
+    "outputTokens": 383,
     "reasoningLevel": "stream",
     "memoryFlushAt": 1776135989711,
     "memoryFlushCompactionCount": 0,
-    "totalTokens": 64430
+    "totalTokens": 102752
   }
 }

@@ -1,11 +1,17 @@
-# OpenClaw Backup
+# OpenClaw Backup - 2026-04-15
 
 Backup of `~/.openclaw` configuration directory.
+
+## Backup Info
+
+- **Date**: 2026-04-15
+- **Time**: 09:00:01
+- **Branch**: backup/2026-04-15
 
 ## Contents
 
 - Agents configuration
-- Skills
+- Skills (including myskill/)
 - Workspace
 - Credentials (review before sharing)
 - Plugins configuration
@@ -17,10 +23,19 @@ Backup of `~/.openclaw` configuration directory.
 ## Restore
 
 ```bash
+# Clone specific date
+git clone --branch backup/2026-04-15 git@github.com:zhanghong3721/kimiclaw.git ~/.openclaw
+
+# Or clone main branch for latest
 git clone git@github.com:zhanghong3721/kimiclaw.git ~/.openclaw
-openclaw plugins install  # Reinstall extensions
+
+# Reinstall extensions
+openclaw plugins install
 ```
 
-## Last Backup
+## View All Backups
 
-2026-04-14 14:55:38
+```bash
+git fetch --all
+git branch -r | grep backup/
+```

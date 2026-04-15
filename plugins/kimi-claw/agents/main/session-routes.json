@@ -5,7 +5,7 @@
     "accountId": "main",
     "replyProtocol": "im",
     "chatId": "19d85ed7-2992-8056-8000-0981f9a7726c",
-    "chatIdSource": "learned_event",
-    "updatedAt": 1776149527853
+    "chatIdSource": "header_default",
+    "updatedAt": 1776180087615
   }
 }

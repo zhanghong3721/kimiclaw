@@ -1,7 +1,10 @@
 #!/bin/bash
-# OpenClaw Backup Script
+# OpenClaw Daily Backup Script
 # Usage: backup.sh <github-repo-url>
 # Example: backup.sh https://github.com/zhanghong3721/kimiclaw
+#
+# This script creates a dated branch (backup/YYYY-MM-DD) and pushes the backup to it.
+# Designed to run daily at 9:00 AM via cron.
 
 set -e
 
@@ -15,6 +18,9 @@ fi
 REPO_URL="$1"
 BACKUP_DIR="/tmp/openclaw-backup-$(date +%Y%m%d-%H%M%S)"
 SOURCE_DIR="${HOME}/.openclaw"
+DATE_BRANCH="backup/$(date +%Y-%m-%d)"
+DATE_STR=$(date +%Y-%m-%d)
+TIME_STR=$(date +%H:%M:%S)
 
 # Check source directory exists
 if [ ! -d "$SOURCE_DIR" ]; then
@@ -35,18 +41,34 @@ if ! git config --global user.email > /dev/null 2>&1; then
     exit 1
 fi
 
-echo "Starting OpenClaw backup..."
+echo "Starting OpenClaw daily backup..."
 echo "Source: $SOURCE_DIR"
 echo "Target: $REPO_URL"
+echo "Branch: $DATE_BRANCH"
+echo "Date: $DATE_STR $TIME_STR"
 echo ""
 
 # Create backup directory
 mkdir -p "$BACKUP_DIR"
 cd "$BACKUP_DIR"
 
-# Initialize git repo
-git init
-git config init.defaultBranch main
+# Clone the existing repository (or initialize if empty)
+echo "Cloning repository..."
+if git clone "$REPO_URL" . 2>/dev/null; then
+    echo "Repository cloned successfully"
+else
+    echo "Initializing new repository..."
+    git init
+    git config init.defaultBranch main
+fi
+
+# Create and switch to date branch
+echo "Creating branch: $DATE_BRANCH"
+git checkout -b "$DATE_BRANCH" 2>/dev/null || git checkout "$DATE_BRANCH"
+
+# Clean existing files (keep .git)
+echo "Cleaning old files..."
+find . -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf {} + 2>/dev/null || true
 
 # Create .gitignore
 cat > .gitignore << 'EOF'
@@ -62,16 +84,22 @@ rsync -av --exclude=extensions "$SOURCE_DIR/" . 2>&1 | tail -5
 # Remove nested git repositories
 find . -mindepth 2 -name ".git" -type d -exec rm -rf {} + 2>/dev/null || true
 
-# Add README
+# Create README for this backup
 cat > README.md << EOF
-# OpenClaw Backup
+# OpenClaw Backup - $DATE_STR
 
 Backup of \`~/.openclaw\` configuration directory.
+
+## Backup Info
+
+- **Date**: $DATE_STR
+- **Time**: $TIME_STR
+- **Branch**: $DATE_BRANCH
 
 ## Contents
 
 - Agents configuration
-- Skills
+- Skills (including myskill/)
 - Workspace
 - Credentials (review before sharing)
 - Plugins configuration
@@ -83,31 +111,63 @@ Backup of \`~/.openclaw\` configuration directory.
 ## Restore
 
 \`\`\`bash
+# Clone specific date
+git clone --branch $DATE_BRANCH $REPO_URL ~/.openclaw
+
+# Or clone main branch for latest
 git clone $REPO_URL ~/.openclaw
-openclaw plugins install  # Reinstall extensions
+
+# Reinstall extensions
+openclaw plugins install
 \`\`\`
 
-## Last Backup
+## View All Backups
 
-$(date '+%Y-%m-%d %H:%M:%S')
+\`\`\`bash
+git fetch --all
+git branch -r | grep backup/
+\`\`\`
+EOF
+
+# Add date-branches index file
+cat > DATE_BRANCHES.md << EOF
+# Backup Date Branches
+
+This repository contains daily backups of the OpenClaw configuration.
+
+## Latest Backups
+
+| Date | Branch | Size |
+|------|--------|------|
+| $DATE_STR | $DATE_BRANCH | $(du -sh . | cut -f1) |
+
+## List All Backups
+
+\`\`\`bash
+git branch -a | grep backup/
+\`\`\`
+
+## Restore from Specific Date
+
+\`\`\`bash
+git checkout backup/YYYY-MM-DD
+\`\`\`
 EOF
 
 # Commit
 echo ""
 echo "Committing files..."
 git add -A
-git commit -m "Backup of .openclaw - $(date '+%Y-%m-%d %H:%M:%S')"
+git commit -m "Backup: $DATE_STR $TIME_STR" || echo "No changes to commit"
 
-# Push
+# Push to date branch
 echo ""
-echo "Pushing to GitHub..."
-git branch -M main
-git remote add origin "$REPO_URL"
-
-if git push -u origin main 2>&1; then
+echo "Pushing to branch: $DATE_BRANCH..."
+if git push -u origin "$DATE_BRANCH" 2>&1; then
     echo ""
-    echo "✅ Backup completed successfully!"
+    echo "✅ Daily backup completed successfully!"
     echo "Repository: $REPO_URL"
+    echo "Branch: $DATE_BRANCH"
     echo "Backup size: $(du -sh . | cut -f1)"
 else
     echo ""
@@ -115,6 +175,16 @@ else
     exit 1
 fi
 
+# Also update main branch with latest
+echo ""
+echo "Updating main branch with latest backup..."
+git checkout main 2>/dev/null || git checkout -b main
+git merge "$DATE_BRANCH" --strategy-option=theirs --no-edit 2>/dev/null || true
+git push origin main 2>/dev/null || echo "Main branch update skipped"
+
 # Cleanup
 cd /
 rm -rf "$BACKUP_DIR"
+
+echo ""
+echo "✅ Backup process completed!"

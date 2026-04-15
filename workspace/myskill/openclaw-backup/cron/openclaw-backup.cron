@@ -1,0 +1,9 @@
+# OpenClaw Daily Backup Cron Job
+# Runs at 9:00 AM every day
+
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Backup OpenClaw configuration to GitHub
+# Log output to /var/log/openclaw-backup.log
+0 9 * * * root /root/.openclaw/workspace/myskill/openclaw-backup/scripts/backup.sh git@github.com:zhanghong3721/kimiclaw.git >> /var/log/openclaw-backup.log 2>&1
