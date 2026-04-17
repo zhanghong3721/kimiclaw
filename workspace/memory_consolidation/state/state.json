@@ -1,29 +1,29 @@
 {
   "diary": {
-    "count": 8,
-    "last_ts": "2026-04-16T03:59:30.992146",
-    "last_day": 3,
+    "count": 9,
+    "last_ts": "2026-04-17T03:44:29.398937",
+    "last_day": 5,
     "last_sessions": 1,
-    "last_messages": 51,
-    "last_filename": "day3-2026-04-15-he_asked_who_i_am.md",
-    "last_latency_s": 26.2,
+    "last_messages": 16,
+    "last_filename": "day5-2026-04-17-always_so_slow.md",
+    "last_latency_s": 8.1,
     "last_skip": "no_sessions_today"
   },
   "compact": {
-    "count": 8,
-    "last_ts": "2026-04-16T03:59:31.089704",
+    "count": 9,
+    "last_ts": "2026-04-17T03:44:46.580648",
     "last_invoke": 3,
-    "last_sessions": 2,
-    "last_messages": 62,
-    "last_latency_s": 12.2,
+    "last_sessions": 3,
+    "last_messages": 70,
+    "last_latency_s": 17.1,
     "last_model": "k2p5",
     "last_skip": "stm_hash_unchanged"
   },
   "stm": {
-    "count": 1,
-    "last_ts": "2026-04-14T09:27:47.731671",
-    "last_sessions": 1,
-    "last_messages": 30,
-    "last_chars": 7120
+    "count": 2,
+    "last_ts": "2026-04-16T10:43:34.942425",
+    "last_sessions": 2,
+    "last_messages": 62,
+    "last_chars": 8433
   }
 }

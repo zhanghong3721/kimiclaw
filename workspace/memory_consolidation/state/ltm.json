@@ -1,12 +1,12 @@
 {
-  "invoke_time": 2,
+  "invoke_time": 3,
   "ltm": {
     "identity": null,
-    "work_method": "User operates in a local CLI environment (openclaw on macOS) and pastes terminal output directly into chat for real-time debugging. They frequently request curl commands to verify API configurations and test endpoints themselves rather than trusting explanations. They share screenshots and PDF attachments for data-heavy financial analysis. When troubleshooting fails, they push for alternative approaches (switching base URLs, reconfiguring). They also inquire about multi-platform deployment (WeChat integration) and examine configuration files to understand system capabilities.",
-    "communication": "Technically fluent in Chinese with a task-driven, fragmented style—messages mix terminal prompts, API keys, and brief questions without framing. Pragmatic and slightly impatient tone; they re-prompt immediately when something fails (\"这个key 没失效\", \"为什么会出现这个报错\"). Favors direct answers over pleasantries. Uses minimal punctuation and often drops words (\"验证争取吗\"). When satisfied, acknowledgment is brief (\"好了吗\", \"继续\").",
-    "temporal": "Troubleshooting Kimi API authentication: initially testing Moonshot endpoints, then attempting to migrate to kimi.com/coding/ base URL, encountering 403 errors indicating Coding Agents-only access. Analyzing Chinese industrial stocks: 菲利华 (quartz fiber/electronic cloth capacity and pricing power), 盐湖股份 (potash supply obligations), 中矿资源 (2025 Zimbabwe lithium concentrate output and grade from PDF data), 藏格矿业 (PE valuation and forward earnings comparison). Also tracking Brent crude spot prices for commodity context.",
+    "work_method": "User operates in a local CLI environment (openclaw on macOS) and pastes terminal output directly for real-time debugging. They demand curl commands to verify API configurations themselves rather than trusting explanations. When troubleshooting stalls, they escalate pressure with repeated prompts (\"你太慢了\", \"还没好吗\", \"为什么你总是这么慢\") and push for alternative approaches. Recently attempting to install and configure ai-hedge-fund repository, manually editing provider configs to route through Kimi Coding API. Examines configuration files to understand system capabilities and asks about multi-platform deployment (WeChat integration).",
+    "communication": "Technically fluent in Chinese with a fragmented, task-driven style—messages interleave terminal prompts, API keys, and brief demands without framing. Pragmatic to impatient tone; re-prompts aggressively when blocked (\"验证争取吗\", \"为什么会出现这个报错\" ×2). Favors direct answers over pleasantries, uses minimal punctuation, drops words (\"验证争取吗\"). Acknowledgment when satisfied remains brief (\"好了吗\", \"继续\"). Shows low tolerance for latency, explicitly criticizes speed.",
+    "temporal": "Installing and configuring ai-hedge-fund repository from GitHub, attempting to integrate Kimi Coding API (k2p5 model) via custom provider configuration with specific headers and baseUrl routing. Ongoing industrial stock analysis: 菲利华 (quartz fiber/electronic cloth capacity and pricing power, 2026 planned capacity ranking), 盐湖股份 (potash supply obligations), 中矿资源 (2025 Zimbabwe lithium concentrate output and grade from PDF data), 藏格矿业 (PE valuation and forward earnings comparison vs competitors). Tracking Brent crude spot prices for commodity context.",
     "taste": null
   },
-  "generated_at": "2026-04-15T03:46:41.648144",
-  "stm_hash": "f9e273ad2e0fed2e02703ee46d68eb8e"
+  "generated_at": "2026-04-17T03:44:46.580867",
+  "stm_hash": "b34cc930912838bc3edad1802f7b19a6"
 }
