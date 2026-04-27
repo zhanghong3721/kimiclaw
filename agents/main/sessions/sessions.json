@@ -1,7 +1,7 @@
 {
   "agent:main:main": {
     "sessionId": "e49dbedc-d330-4e51-9b47-8235ca41e547",
-    "updatedAt": 1776324631840,
+    "updatedAt": 1776696062529,
     "systemSent": true,
     "abortedLastRun": false,
     "chatType": "direct",
@@ -19,7 +19,8 @@
       "surface": "kimi-claw",
       "from": "kimi-claw:main",
       "to": "main",
-      "accountId": "main"
+      "accountId": "main",
+      "chatType": "direct"
     },
     "sessionFile": "/root/.openclaw/agents/main/sessions/e49dbedc-d330-4e51-9b47-8235ca41e547.jsonl",
     "compactionCount": 0,
@@ -688,7 +689,7 @@
     "model": "k2p5",
     "systemPromptReport": {
       "source": "run",
-      "generatedAt": 1776324620429,
+      "generatedAt": 1776696014182,
       "sessionId": "e49dbedc-d330-4e51-9b47-8235ca41e547",
       "sessionKey": "agent:main:main",
       "provider": "kimi-coding",
@@ -1306,12 +1307,13 @@
         ]
       }
     },
-    "cacheRead": 0,
+    "cacheRead": 35712,
     "cacheWrite": 0,
     "totalTokensFresh": true,
     "contextTokens": 131072,
-    "inputTokens": 54434,
-    "outputTokens": 0,
-    "totalTokens": 54434
+    "inputTokens": 68858,
+    "outputTokens": 422,
+    "totalTokens": 104570,
+    "channel": "kimi-claw"
   }
 }

@@ -1,7 +1,7 @@
 {
   "diary": {
-    "count": 18,
-    "last_ts": "2026-04-20T03:55:25.487931",
+    "count": 30,
+    "last_ts": "2026-04-27T03:56:24.874717",
     "last_day": 5,
     "last_sessions": 1,
     "last_messages": 16,
@@ -10,20 +10,21 @@
     "last_skip": "no_sessions_today"
   },
   "compact": {
-    "count": 18,
-    "last_ts": "2026-04-20T03:55:25.588795",
-    "last_invoke": 4,
+    "count": 30,
+    "last_ts": "2026-04-27T03:56:24.978820",
+    "last_invoke": 5,
     "last_sessions": 3,
-    "last_messages": 70,
-    "last_latency_s": 17.1,
+    "last_messages": 76,
+    "last_latency_s": 3.7,
     "last_model": "k2p5",
-    "last_skip": "stm_hash_unchanged"
+    "last_skip": "stm_hash_unchanged",
+    "last_error": "The read operation timed out"
   },
   "stm": {
-    "count": 2,
-    "last_ts": "2026-04-16T10:43:34.942425",
-    "last_sessions": 2,
-    "last_messages": 62,
-    "last_chars": 8433
+    "count": 4,
+    "last_ts": "2026-04-20T22:29:08.851474",
+    "last_sessions": 3,
+    "last_messages": 73,
+    "last_chars": 10157
   }
 }
