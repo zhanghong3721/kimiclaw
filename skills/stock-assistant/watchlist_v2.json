@@ -1,0 +1,122 @@
+[
+  {
+    "_comment": "平安银行 - A股银行板块-示例股票",
+    "code": "000001.SZ",
+    "name": "平安银行",
+    "market": "CN",
+    "currency": "CNY",
+    "_example": "true",
+    "hold_cost": 10.5,
+    "hold_quantity": 2000,
+    "alerts": {
+      "change_abs": [3, 5],
+      "cost_pct": {"enabled": false, "values": [-8, 12]},
+      "volume_ratio": 0,
+      "buy_sell_ratio": 0,
+      "trailing_stop": {"enabled": false, "profit_trigger": 8.0, "drawdown_warn": 4.0, "drawdown_exit": 8.0},
+      "tech": {"enabled": false, "macd_cross": true, "kdj_overbought": 80, "kdj_oversold": 20, "rsi_overbought": 75, "rsi_oversold": 25, "boll_break": true, "volume_surge": 2.5, "volume_breakout": 2.0},
+      "tech_report": {"enabled": true},
+      "price_alert": []
+    }
+  },
+  {
+    "_comment": "宁德时代 - 创业板新能源龙头-示例股票",
+    "code": "300750.SZ",
+    "name": "宁德时代",
+    "market": "CN",
+    "currency": "CNY",
+    "_example": "true",
+    "hold_cost": 380.0,
+    "hold_quantity": 500,
+    "alerts": {
+      "change_abs": [3, 5],
+      "cost_pct": {"enabled": false, "values": [-10, 15]},
+      "volume_ratio": 0,
+      "buy_sell_ratio": 0,
+      "trailing_stop": {"enabled": false, "profit_trigger": 10.0, "drawdown_warn": 5.0, "drawdown_exit": 10.0},
+      "tech": {"enabled": false, "macd_cross": true, "kdj_overbought": 80, "kdj_oversold": 20, "rsi_overbought": 75, "rsi_oversold": 25, "boll_break": true, "volume_surge": 2.5, "volume_breakout": 2.0},
+      "tech_report": {"enabled": true},
+      "price_alert": []
+    }
+  },
+  {
+    "_comment": "贵州茅台 - 沪市白马股-示例股票",
+    "code": "600519.SH",
+    "name": "贵州茅台",
+    "market": "CN",
+    "currency": "CNY",
+    "_example": "true",
+    "hold_cost": 1600.0,
+    "hold_quantity": 100,
+    "alerts": {
+      "change_abs": [2, 4],
+      "cost_pct": {"enabled": false, "values": [-5, 10]},
+      "volume_ratio": 0,
+      "buy_sell_ratio": 0,
+      "trailing_stop": {"enabled": false, "profit_trigger": 8.0, "drawdown_warn": 4.0, "drawdown_exit": 8.0},
+      "tech": {"enabled": false, "macd_cross": true, "kdj_overbought": 80, "kdj_oversold": 20, "rsi_overbought": 70, "rsi_oversold": 30, "boll_break": true, "volume_surge": 2.0, "volume_breakout": 1.8},
+      "tech_report": {"enabled": true},
+      "price_alert": []
+    }
+  },
+  {
+    "_comment": "恒生医疗ETF - A股ETF-示例股票",
+    "code": "159892.SZ",
+    "name": "恒生医疗ETF",
+    "market": "CN",
+    "currency": "CNY",
+    "_example": "true",
+    "hold_cost": 0.8,
+    "hold_quantity": 10000,
+    "alerts": {
+      "change_abs": [2, 3],
+      "cost_pct": {"enabled": false, "values": [-15, 15]},
+      "volume_ratio": 0,
+      "buy_sell_ratio": 0,
+      "trailing_stop": {"enabled": false},
+      "tech": {"enabled": false},
+      "tech_report": {"enabled": true},
+      "price_alert": []
+    }
+  },
+  {
+    "_comment": "腾讯控股 - 港股科技龙头-示例股票",
+    "code": "0700.HK",
+    "name": "腾讯控股",
+    "market": "HK",
+    "currency": "HKD",
+    "_example": "true",
+    "hold_cost": 480.0,
+    "hold_quantity": 400,
+    "alerts": {
+      "change_abs": [3, 5],
+      "cost_pct": {"enabled": false, "values": [-10, 15]},
+      "volume_ratio": 0,
+      "buy_sell_ratio": 0,
+      "trailing_stop": {"enabled": false, "profit_trigger": 10.0, "drawdown_warn": 5.0, "drawdown_exit": 10.0},
+      "tech": {"enabled": false},
+      "tech_report": {"enabled": false},
+      "price_alert": []
+    }
+  },
+  {
+    "_comment": "苹果 - 美股科技龙头-示例股票",
+    "code": "AAPL",
+    "name": "苹果",
+    "market": "US",
+    "currency": "USD",
+    "_example": "true",
+    "hold_cost": 200.0,
+    "hold_quantity": 10,
+    "alerts": {
+      "change_abs": [3, 5],
+      "cost_pct": {"enabled": false, "values": [-10, 20]},
+      "volume_ratio": 0,
+      "buy_sell_ratio": 0,
+      "trailing_stop": {"enabled": false, "profit_trigger": 10.0, "drawdown_warn": 5.0, "drawdown_exit": 10.0},
+      "tech": {"enabled": false},
+      "tech_report": {"enabled": false},
+      "price_alert": []
+    }
+  }
+]

@@ -1,0 +1,36 @@
+{
+  "_comment": "股票智能助手配置文件。留空的字段会自动从 ~/.openclaw/openclaw.json 读取。",
+
+  "push": {
+    "_comment": "推送渠道：kimiclaw（默认）| feishu",
+    "channel": "kimiclaw"
+  },
+
+  "feishu": {
+    "_comment": "app_id / app_secret 留空则自动从 openclaw.json 读取；user_id 留空则从 channels.feishu.allowFrom[0] 读取",
+    "app_id":     "",
+    "app_secret": "",
+    "user_id":    "",
+    "chat_id":    ""
+  },
+
+  "_comment_apikey": "kimiCodeAPIKey / kimiPluginBaseUrl 留空则自动从 openclaw.json 的 plugins.entries.kimi-claw.config.bridge 读取（baseUrl 会自动补 /v1/tools 后缀）",
+  "kimiCodeAPIKey":  "",
+  "kimiPluginBaseUrl": "https://agent-gw.kimi.com/coding/v1/tools",
+  "kimiCodeTimeout": 30,
+
+  "settings": {
+    "_comment": "cooldown_minutes: 涨跌幅/持仓盈亏告警冷却（分钟）；change_abs_hysteresis: 涨跌幅档位解锁门槛（%，默认0.5，需跌过档位+该值才重新解锁）；anomaly_cooldown_minutes: 量能/技术异动冷却；trailing_cooldown_minutes: 追踪止盈冷却；price_alert_cooldown_hours: 固定价位告警冷却（小时）；card_mode: 飞书推送卡片模式 chart=带分时图的交互卡片（默认）| text=纯文本兜底",
+    "cooldown_minutes":          10,
+    "change_abs_hysteresis":     0.5,
+    "anomaly_cooldown_minutes":  15,
+    "trailing_cooldown_minutes": 30,
+    "request_interval":          1,
+    "report_interval_minutes":   15,
+    "price_alert_cooldown_hours": 24,
+    "profit_alert_step":         10,
+    "card_mode":                 "chart"
+  },
+
+  "disclaimer": "*自动推送*"
+}
