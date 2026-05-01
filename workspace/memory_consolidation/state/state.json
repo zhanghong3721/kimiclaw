@@ -1,7 +1,7 @@
 {
   "diary": {
-    "count": 35,
-    "last_ts": "2026-04-30T03:41:07.732001",
+    "count": 37,
+    "last_ts": "2026-05-01T03:49:47.007226",
     "last_day": 5,
     "last_sessions": 1,
     "last_messages": 16,
@@ -10,8 +10,8 @@
     "last_skip": "no_sessions_today"
   },
   "compact": {
-    "count": 35,
-    "last_ts": "2026-04-30T03:41:07.851666",
+    "count": 37,
+    "last_ts": "2026-05-01T03:49:47.109158",
     "last_invoke": 5,
     "last_sessions": 3,
     "last_messages": 76,
