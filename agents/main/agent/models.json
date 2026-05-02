@@ -1,7 +1,7 @@
 {
   "providers": {
     "kimi-coding": {
-      "baseUrl": "https://api.kimi.com/coding",
+      "baseUrl": "https://agent-gw.kimi.com/coding",
       "api": "anthropic-messages",
       "headers": {
         "User-Agent": "Kimi Claw Plugin",

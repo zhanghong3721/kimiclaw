@@ -31,7 +31,7 @@
       "thinkingDefault": "high",
       "memorySearch": {
         "remote": {
-          "baseUrl": "https://api.kimi.com/coding/v1",
+          "baseUrl": "https://agent-gw.kimi.com/coding/v1",
           "apiKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
           "headers": {
             "x-canary-kfc": "always"
@@ -176,7 +176,7 @@
             "forwardToolCalls": false,
             "kimiCodeAPIKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
             "kimiPluginAPIKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
-            "kimiCodeBaseURL": "https://api.kimi.com/coding"
+            "kimiCodeBaseURL": "https://agent-gw.kimi.com/coding"
           },
           "gateway": {
             "url": "ws://127.0.0.1:18789",
@@ -192,7 +192,7 @@
             "provider": "kimi-coding",
             "modelId": "k2p5",
             "apiKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
-            "baseUrl": "https://api.kimi.com/coding"
+            "baseUrl": "https://agent-gw.kimi.com/coding"
           }
         }
       },
@@ -200,10 +200,10 @@
         "enabled": true,
         "config": {
           "search": {
-            "baseUrl": "https://api.kimi.com/coding/v1/search"
+            "baseUrl": "https://agent-gw.kimi.com/coding/v1/search"
           },
           "fetch": {
-            "baseUrl": "https://api.kimi.com/coding/v1/fetch"
+            "baseUrl": "https://agent-gw.kimi.com/coding/v1/fetch"
           }
         }
       }
@@ -297,7 +297,7 @@
     "mode": "merge",
     "providers": {
       "kimi-coding": {
-        "baseUrl": "https://api.kimi.com/coding",
+        "baseUrl": "https://agent-gw.kimi.com/coding",
         "apiKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
         "api": "anthropic-messages",
         "headers": {
