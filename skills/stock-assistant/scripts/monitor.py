@@ -200,7 +200,8 @@ from report import (parse_tech_items, format_alert, format_anomaly,
                     build_monitor_intraday_card,
                     build_multi_stock_summary_card,
                     pick_sub_chart)
-from data_fetch import TechnicalCalculator, get_intraday, fetch_hk_intraday, fetch_us_intraday
+from data_fetch import (_SKILL_NAME, TechnicalCalculator, fetch_hk_intraday,
+                        fetch_us_intraday, get_intraday)
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -759,7 +760,7 @@ def _fetch_kimi_price_batch(codes: list, kimi_cfg: dict, market: str) -> dict:
     timeout   = (kimi_cfg or {}).get("timeout", 30)
     safe_key  = ticker_str.replace(",", "_").replace(".", "_")[:40]
     headers   = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json",
-                 "User-Agent": "OpenClaw/1.0", "X-Kimi-Skill": "stock-assistant-v2"}
+                 "User-Agent": "OpenClaw/1.0", "X-Kimi-Skill": _SKILL_NAME}
     payload   = {
         "method": "get_stock_realtime_price",
         "params": {
@@ -873,7 +874,7 @@ def _fetch_kimi_price(code: str, kimi_cfg: dict, market: str = "") -> Optional[d
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json",
         "User-Agent": "OpenClaw/1.0",
-        "X-Kimi-Skill": "stock-assistant-v2",
+        "X-Kimi-Skill": _SKILL_NAME,
     }
     payload = {
         "method": "get_stock_realtime_price",

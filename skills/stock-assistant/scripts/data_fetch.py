@@ -47,45 +47,55 @@ def _find_versioned(name: str) -> Path:
 # KimiFinance 技术指标解析
 # ══════════════════════════════════════════════════════════════════════════════
 
-def _parse_ifind_tech_data(raw_data: list) -> dict:
-    """将 KimiFinance 原始3行技术数据解析为结构化字典"""
-    if not raw_data or len(raw_data) < 3:
-        return {"error": "数据不足，期望3行数据"}
+def _parse_tech_csv_row(row: dict) -> dict:
+    """将 realtime_tech CSV 行（新接口）映射为结构化字典，保持内部字段名不变。"""
+    def _f(key):
+        v = row.get(key)
+        try:
+            return float(v) if v not in (None, "", "None") else None
+        except (ValueError, TypeError):
+            return None
 
     result = {
-        "thscode": raw_data[0].get("thscode"),
-        "time":    raw_data[0].get("time", [None])[0],
-        "interval": "5min",
+        "thscode":    row.get("code"),
+        "time":       row.get("time"),
+        "interval":   row.get("interval", "5min"),
+        "MA5":        _f("ma5"),
+        "MA10":       _f("ma10"),
+        "MA20":       _f("ma20"),
+        "MA60":       _f("ma60"),
+        "EXPMA12":    _f("expma12"),
+        "EXPMA50":    _f("expma50"),
+        "SAR":        _f("sar"),
+        "BOLL_MID":   _f("bollmb"),
+        "BOLL_UPPER": _f("bollup"),
+        "BOLL_LOWER": _f("bolldn"),
+        "BBI":        _f("bbi"),
+        "RSI6":       _f("rsi6"),
+        "RSI12":      _f("rsi12"),
+        "RSI24":      _f("rsi24"),
+        "KDJ_K":      _f("k"),
+        "KDJ_D":      _f("d"),
+        "KDJ_J":      _f("j"),
+        "MACD_DIFF":  _f("dif"),
+        "MACD_DEA":   _f("dea"),
+        "PDI":        _f("pdi"),
+        "MDI":        _f("mdi"),
+        "ADX":        _f("adx"),
+        "ADXR":       _f("adxr"),
+        "BIAS6":      _f("bias6"),
+        "BIAS12":     _f("bias12"),
+        "BIAS24":     _f("bias24"),
+        "WR6":        _f("wr6"),
+        "WR10":       _f("wr10"),
+        "CCI14":      _f("cci"),
+        "ROC":        _f("roc"),
+        "MAROC":      _f("maroc"),
+        "LB5":        _f("lb"),
+        "ATR14":      _f("atr14"),
     }
-
-    row1 = raw_data[0].get("table", {})
-    result["MA5"]       = row1.get("MA",   [None])[0]
-    result["MACD_DIFF"] = row1.get("MACD", [None])[0]
-    result["EXPMA5"]    = row1.get("EXPMA",[None])[0]
-    result["BBI"]       = row1.get("BBI",  [None])[0]
-    result["KDJ_K"]     = row1.get("KDJ",  [None])[0]
-    result["RSI6"]      = row1.get("RSI",  [None])[0]
-    result["CCI14"]     = row1.get("CCI",  [None])[0]
-    result["ROC"]       = row1.get("ROC",  [None])[0]
-    result["LB5"]       = row1.get("LB",   [None])[0]
-    result["OBV"]       = row1.get("OBV",  [None])[0]
-    result["BOLL_MID"]  = row1.get("BOLL", [None])[0]
-    result["ATR14"]     = row1.get("ATR",  [None])[0]
-
-    row2 = raw_data[1].get("table", {})
-    result["MA10"]       = row2.get("MA",   [None])[0]
-    result["MACD_DEA"]   = row2.get("MACD", [None])[0]
-    result["KDJ_D"]      = row2.get("KDJ",  [None])[0]
-    result["BOLL_UPPER"] = row2.get("BOLL", [None])[0]
-
-    row3 = raw_data[2].get("table", {})
-    result["MA20"]       = row3.get("MA",   [None])[0]
-    result["KDJ_J"]      = row3.get("KDJ",  [None])[0]
-    result["BOLL_LOWER"] = row3.get("BOLL", [None])[0]
-
-    if result["MACD_DIFF"] is not None and result["MACD_DEA"] is not None:
-        result["MACD_BAR"] = result["MACD_DIFF"] - result["MACD_DEA"]
-
+    dif, dea = result["MACD_DIFF"], result["MACD_DEA"]
+    result["MACD_BAR"] = (dif - dea) if dif is not None and dea is not None else None
     return result
 
 
@@ -93,19 +103,79 @@ def _parse_ifind_tech_data(raw_data: list) -> dict:
 # KimiFinance 技术指标拉取
 # ══════════════════════════════════════════════════════════════════════════════
 
+def _get_oc(oc: dict, *path: str, default=""):
+    """安全取 openclaw.json 嵌套值，取不到返回 default。"""
+    node = oc
+    for key in path:
+        if not isinstance(node, dict):
+            return default
+        node = node.get(key, default)
+    return node if isinstance(node, str) else default
+
+
+def _load_openclaw_defaults() -> dict:
+    """从 ~/.openclaw/openclaw.json 按硬编码映射表提取默认值。"""
+    oc_path = Path.home() / ".openclaw" / "openclaw.json"
+    if not oc_path.exists():
+        return {}
+    try:
+        oc = json.loads(oc_path.read_text(encoding="utf-8"))
+    except Exception:
+        return {}
+
+    env  = oc.get("env", {})
+    br_p = _get_oc(oc, "plugins", "entries", "kimi-claw", "config", "bridge") or {}
+    br_c = _get_oc(oc, "channels", "kimi-claw", "config", "bridge") or {}
+    if not isinstance(br_p, dict):
+        br_p = {}
+    if not isinstance(br_c, dict):
+        br_c = {}
+
+    def first(*vals):
+        for v in vals:
+            if isinstance(v, str) and v.strip():
+                return v.strip()
+        return ""
+
+    defaults = {}
+    defaults["kimiCodeAPIKey"] = first(
+        env.get("KIMI_CODE_API_KEY"),
+        env.get("KIMI_API_KEY"),
+        br_p.get("kimiCodeAPIKey"), br_p.get("kimiPluginAPIKey"),
+        br_c.get("kimiCodeAPIKey"), br_c.get("kimiPluginAPIKey"),
+    )
+    raw_url = first(
+        br_p.get("kimiCodeBaseURL"), br_p.get("kimiCodeBaseUrl"),
+        br_c.get("kimiCodeBaseURL"), br_c.get("kimiCodeBaseUrl"),
+    )
+    if raw_url:
+        defaults["kimiPluginBaseUrl"] = raw_url.rstrip("/") + "/v1/tools"
+    return defaults
+
+
 def _load_kimi_cfg() -> dict:
+    # 1. 从 ~/.openclaw/openclaw.json 读取默认值（与 monitor.py 一致）
+    oc_defaults = _load_openclaw_defaults()
+    cfg = {
+        "api_key":  oc_defaults.get("kimiCodeAPIKey", ""),
+        "base_url": oc_defaults.get("kimiPluginBaseUrl", ""),
+        "timeout":  30,
+    }
+
+    # 2. config.json 覆盖 openclaw 默认值
     cfg_file = _find_versioned("config")
-    cfg = {}
     if cfg_file.exists():
         try:
             data = json.loads(cfg_file.read_text(encoding="utf-8"))
-            cfg = {
-                "api_key":  data.get("kimiCodeAPIKey") or "",
-                "base_url": data.get("kimiPluginBaseUrl") or "",
-                "timeout":  data.get("kimiCodeTimeout", 30),
-            }
+            if data.get("kimiCodeAPIKey"):
+                cfg["api_key"] = data.get("kimiCodeAPIKey")
+            if data.get("kimiPluginBaseUrl"):
+                cfg["base_url"] = data.get("kimiPluginBaseUrl")
+            cfg["timeout"] = data.get("kimiCodeTimeout", cfg["timeout"])
         except Exception:
             pass
+
+    # 3. 环境变量最高优先级
     api_key = os.environ.get("kimiCodeAPIKey") or os.environ.get("KIMI_CODE_API_KEY")
     if api_key:
         cfg["api_key"] = api_key
@@ -159,34 +229,18 @@ class TechnicalCalculator:
 
             result_text = data.get("result", {}).get("user", [{}])[0].get("text", "")
             result_json = json.loads(result_text)
-            is_success  = result_json.get("is_success", "")
 
-            if isinstance(is_success, str) and is_success.startswith("ifind"):
-                if is_success.startswith("ifind, {"):
-                    inner    = ast.literal_eval(is_success[7:])
-                    data_str = inner.get("data_str", "")
-                    raw_data = ast.literal_eval(data_str) if data_str else []
-                else:
-                    data_str = result_json.get("data_str", "")
-                    if not data_str:
-                        print("⚠️ iFind 返回数据为空")
-                        return None
-                    try:
-                        raw_data = ast.literal_eval(data_str)
-                    except Exception:
-                        raw_data = json.loads(data_str)
-            else:
-                if isinstance(is_success, str) and "Response data is empty" in is_success:
-                    print("⚠️ iFind 返回空数据（非交易日或非交易时间）")
-                else:
-                    print(f"⚠️ iFind 返回: {is_success}")
+            # 新接口：result_json 直接含 data_preview（无 is_success 字段）
+            import csv as _csv, io as _io
+            data_preview = result_json.get("data_preview", "")
+            if not data_preview:
+                print("⚠️ iFind 返回数据为空")
                 return None
-
-            if not raw_data or len(raw_data) < 3:
-                print(f"⚠️ iFind 数据不足，期望3行，实际{len(raw_data)}行")
+            rows = list(_csv.DictReader(_io.StringIO(data_preview)))
+            if not rows:
+                print("⚠️ iFind CSV 无数据行")
                 return None
-
-            result = _parse_ifind_tech_data(raw_data)
+            result = _parse_tech_csv_row(rows[0])
 
             tech_fields = ["MA5", "MACD_DIFF", "KDJ_K", "RSI6"]
             if not any(result.get(f) is not None for f in tech_fields):
@@ -297,12 +351,17 @@ class TechnicalCalculator:
             return {
                 "code": code, "time": time_str, "interval": "5min",
                 "error": "无法获取数据（已重试3次）",
-                "MA5": None, "MA10": None, "MA20": None,
-                "MACD_DIFF": None, "MACD_DEA": None, "MACD_BAR": None,
+                "MA5": None, "MA10": None, "MA20": None, "MA60": None,
+                "EXPMA12": None, "EXPMA50": None, "SAR": None,
+                "BOLL_MID": None, "BOLL_UPPER": None, "BOLL_LOWER": None,
+                "BBI": None, "RSI6": None, "RSI12": None, "RSI24": None,
                 "KDJ_K": None, "KDJ_D": None, "KDJ_J": None,
-                "RSI6": None, "CCI14": None, "ROC": None,
-                "LB5": None, "OBV": None, "BBI": None, "ATR14": None,
-                "EXPMA5": None, "BOLL_UPPER": None, "BOLL_MID": None, "BOLL_LOWER": None,
+                "MACD_DIFF": None, "MACD_DEA": None, "MACD_BAR": None,
+                "PDI": None, "MDI": None, "ADX": None, "ADXR": None,
+                "BIAS6": None, "BIAS12": None, "BIAS24": None,
+                "WR6": None, "WR10": None,
+                "CCI14": None, "ROC": None, "MAROC": None,
+                "LB5": None, "ATR14": None,
             }
 
         result["code"] = code
