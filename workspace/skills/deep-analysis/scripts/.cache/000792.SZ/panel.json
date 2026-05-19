@@ -1,0 +1,1847 @@
+{
+  "ticker": "000792.SZ",
+  "panel_consensus": 55.6,
+  "vote_distribution": {
+    "strongly_buy": 7,
+    "buy": 5,
+    "watch": 2,
+    "wait": 10,
+    "avoid": 4,
+    "n_a": 0,
+    "skip": 23
+  },
+  "signal_distribution": {
+    "bullish": 12,
+    "neutral": 6,
+    "bearish": 10,
+    "skip": 23
+  },
+  "investors": [
+    {
+      "investor_id": "buffett",
+      "name": "巴菲特",
+      "group": "A",
+      "avatar": "avatars/buffett.svg",
+      "signal": "bullish",
+      "confidence": 100,
+      "score": 66,
+      "verdict": "买入",
+      "reasoning": "✅ 符合标准：\n  • [权5] ROE 连续 5 年 > 15% (最低 13.6%)\n  • [权3] 净利率 54.7% 高质量\n  • [权3] 资产负债率 16% 保守\n  • [权3] PE 17.11 在 5 年 5 分位\n❌ 未达标准：\n  • [权4] 自由现金流不达标\n  • [权4] 护城河总分 0/40 不够明确",
+      "comment": "在我们能力圈里的生意，ROE 22.3% 长期稳得住，就值得持有十年。\n看多核心：ROE 连续 5 年 > 15% (最低 13.6%)",
+      "headline": "看多核心：ROE 连续 5 年 > 15% (最低 13.6%)",
+      "pass": [
+        {
+          "name": "ROE 连续 5 年 > 15%",
+          "msg": "ROE 连续 5 年 > 15% (最低 13.6%)",
+          "weight": 5
+        },
+        {
+          "name": "净利率 > 15%",
+          "msg": "净利率 54.7% 高质量",
+          "weight": 3
+        },
+        {
+          "name": "资产负债率 < 50%",
+          "msg": "资产负债率 16% 保守",
+          "weight": 3
+        },
+        {
+          "name": "PE 在 5 年中位数以下",
+          "msg": "PE 17.11 在 5 年 5 分位",
+          "weight": 3
+        }
+      ],
+      "fail": [
+        {
+          "name": "自由现金流为正",
+          "msg": "自由现金流不达标",
+          "weight": 4
+        },
+        {
+          "name": "护城河清晰 (总分 ≥ 24/40)",
+          "msg": "护城河总分 0/40 不够明确",
+          "weight": 4
+        }
+      ],
+      "weight_pass": 16,
+      "weight_total": 24,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "10 年以上 / 永远；如果你不愿意持有十年，就不要持有十分钟",
+      "position_sizing": "集中持仓，前 5 大通常占 70%+；好机会稀有，要重仓",
+      "what_would_change_my_mind": "ROE 连续 2 年跌破 12% · CEO 离职且战略转向 · 发现管理层诚信问题 · 商业模式被颠覆（例如纺织、报纸）"
+    },
+    {
+      "investor_id": "graham",
+      "name": "格雷厄姆",
+      "group": "A",
+      "avatar": "avatars/graham.svg",
+      "signal": "neutral",
+      "confidence": 100,
+      "score": 43,
+      "verdict": "观望",
+      "reasoning": "✅ 符合标准：\n  • [权3] 连续 6 年盈利\n  • [权2] 流动比率 5.6\n  • [权2] 连续 5 年分红\n❌ 未达标准：\n  • [权3] PE 17.11 高于 15\n  • [权3] PB 3.95 高于 1.5\n  • [权3] PE×PB = 67.6 超 22.5 红线",
+      "comment": "数据不齐，严守不达标不买入的纪律。\n观望：连续 6 年盈利；但 PE 17.11 高于 15",
+      "headline": "观望：连续 6 年盈利；但 PE 17.11 高于 15",
+      "pass": [
+        {
+          "name": "连续 10 年盈利",
+          "msg": "连续 6 年盈利",
+          "weight": 3
+        },
+        {
+          "name": "流动比率 > 2",
+          "msg": "流动比率 5.6",
+          "weight": 2
+        },
+        {
+          "name": "连续分红",
+          "msg": "连续 5 年分红",
+          "weight": 2
+        }
+      ],
+      "fail": [
+        {
+          "name": "PE < 15",
+          "msg": "PE 17.11 高于 15",
+          "weight": 3
+        },
+        {
+          "name": "PB < 1.5",
+          "msg": "PB 3.95 高于 1.5",
+          "weight": 3
+        },
+        {
+          "name": "PE × PB < 22.5 (格雷厄姆 22.5 定律)",
+          "msg": "PE×PB = 67.6 超 22.5 红线",
+          "weight": 3
+        }
+      ],
+      "weight_pass": 7,
+      "weight_total": 16,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "2-3 年；达到内在价值或持有 2 年仍跑输市场则卖出",
+      "position_sizing": "分散至少 30 只，单票上限 5%，防御型投资者的铁律",
+      "what_would_change_my_mind": "PE × PB > 22.5 · 流动比率跌破 2 · 连续两年无盈利 · 股息中断"
+    },
+    {
+      "investor_id": "fisher",
+      "name": "费雪",
+      "group": "A",
+      "avatar": "avatars/fisher.svg",
+      "signal": "bearish",
+      "confidence": 100,
+      "score": 21,
+      "verdict": "观望",
+      "reasoning": "✅ 符合标准：\n  • [权3] 净利率 54.7% 优秀\n❌ 未达标准：\n  • [权3] 行业不在成长期\n  • [权3] 护城河不足\n  • [权3] 营收 3Y CAGR 仅 -20.4%\n  • [权2] 研报买入率仅 0%",
+      "comment": "管理层对投资者的坦诚度让我怀疑，暂时观望。\n看空核心：行业不在成长期",
+      "headline": "看空核心：行业不在成长期",
+      "pass": [
+        {
+          "name": "盈利能力优秀",
+          "msg": "净利率 54.7% 优秀",
+          "weight": 3
+        }
+      ],
+      "fail": [
+        {
+          "name": "行业有市场潜力",
+          "msg": "行业不在成长期",
+          "weight": 3
+        },
+        {
+          "name": "质量壁垒 (护城河 ≥ 6 avg)",
+          "msg": "护城河不足",
+          "weight": 3
+        },
+        {
+          "name": "营收 3 年 CAGR > 15%",
+          "msg": "营收 3Y CAGR 仅 -20.4%",
+          "weight": 3
+        },
+        {
+          "name": "卖方研报多数推荐",
+          "msg": "研报买入率仅 0%",
+          "weight": 2
+        }
+      ],
+      "weight_pass": 3,
+      "weight_total": 14,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "长期持有 5-15 年，让伟大的公司给你长期复利",
+      "position_sizing": "集中 10-20 只，深入了解后重仓；不懂的不碰",
+      "what_would_change_my_mind": "15 要点中出现 3 项以上恶化 · 管理层对投资者不坦诚 · 研发投入比突降 · 利润率持续侵蚀"
+    },
+    {
+      "investor_id": "munger",
+      "name": "芒格",
+      "group": "A",
+      "avatar": "avatars/munger.svg",
+      "signal": "neutral",
+      "confidence": 95,
+      "score": 47,
+      "verdict": "观望",
+      "reasoning": "✅ 符合标准：\n  • [权4] PE 分位 5 够便宜\n  • [权2] 商业模式相对清晰\n  • [权2] 市场情绪理性\n❌ 未达标准：\n  • [权5] 护城河 0/40 不够宽\n  • [权4] 财务质量可疑",
+      "comment": "宁可错过，不可做错。\n观望：PE 分位 5 够便宜；但 护城河 0/40 不够宽",
+      "headline": "观望：PE 分位 5 够便宜；但 护城河 0/40 不够宽",
+      "pass": [
+        {
+          "name": "估值有安全边际 (PE 分位 < 40)",
+          "msg": "PE 分位 5 够便宜",
+          "weight": 4
+        },
+        {
+          "name": "商业模式简单可懂 (主营 ≤ 3 类)",
+          "msg": "商业模式相对清晰",
+          "weight": 2
+        },
+        {
+          "name": "情绪未过热 (trap 安全)",
+          "msg": "市场情绪理性",
+          "weight": 2
+        }
+      ],
+      "fail": [
+        {
+          "name": "护城河强 (总分 ≥ 28)",
+          "msg": "护城河 0/40 不够宽",
+          "weight": 5
+        },
+        {
+          "name": "财务稳健 (低负债+正现金流)",
+          "msg": "财务质量可疑",
+          "weight": 4
+        }
+      ],
+      "weight_pass": 8,
+      "weight_total": 17,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "终身持有好生意，除非基本面永久性恶化",
+      "position_sizing": "极度集中，3-5 只占组合 80%+；反过来想，分散是能力不足的承认",
+      "what_would_change_my_mind": "反过来想——'这家最可能怎么死？' 看到 2 个以上答案时就要警觉 · 管理层 incentive 跑偏"
+    },
+    {
+      "investor_id": "templeton",
+      "name": "邓普顿",
+      "group": "A",
+      "avatar": "avatars/templeton.svg",
+      "signal": "bullish",
+      "confidence": 90,
+      "score": 72,
+      "verdict": "买入",
+      "reasoning": "✅ 符合标准：\n  • [权5] PE 在 5 年 5 分位 (历史低位)\n  • [权3] 热度 0 低位\n❌ 未达标准：\n  • [权3] PE 高于同行均值",
+      "comment": "和全球同类比这 PE 已经便宜，值得下手。\n看多核心：PE 在 5 年 5 分位 (历史低位)",
+      "headline": "看多核心：PE 在 5 年 5 分位 (历史低位)",
+      "pass": [
+        {
+          "name": "PE 在 5 年低位 (分位 < 25)",
+          "msg": "PE 在 5 年 5 分位 (历史低位)",
+          "weight": 5
+        },
+        {
+          "name": "市场情绪未亢奋",
+          "msg": "热度 0 低位",
+          "weight": 3
+        }
+      ],
+      "fail": [
+        {
+          "name": "相对同行便宜",
+          "msg": "PE 高于同行均值",
+          "weight": 3
+        }
+      ],
+      "weight_pass": 8,
+      "weight_total": 11,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "3-10 年，等公司兑现内在价值",
+      "position_sizing": "集中 10-20 只，重仓高确定性机会",
+      "what_would_change_my_mind": "基本面永久性恶化 · 管理层诚信受损 · 安全边际被市场吃掉"
+    },
+    {
+      "investor_id": "klarman",
+      "name": "卡拉曼",
+      "group": "A",
+      "avatar": "avatars/klarman.svg",
+      "signal": "bearish",
+      "confidence": 90,
+      "score": 25,
+      "verdict": "观望",
+      "reasoning": "✅ 符合标准：\n  • [权3] 近期催化剂 7 个\n❌ 未达标准：\n  • [权5] 无 30% 安全边际\n  • [权4] 下行保护不足",
+      "comment": "没看到明确催化剂，安全边际也不够。\n看空核心：无 30% 安全边际",
+      "headline": "看空核心：无 30% 安全边际",
+      "pass": [
+        {
+          "name": "有明确催化剂",
+          "msg": "近期催化剂 7 个",
+          "weight": 3
+        }
+      ],
+      "fail": [
+        {
+          "name": "内在价值折扣 > 30%",
+          "msg": "无 30% 安全边际",
+          "weight": 5
+        },
+        {
+          "name": "负债率低 + 现金流正",
+          "msg": "下行保护不足",
+          "weight": 4
+        }
+      ],
+      "weight_pass": 3,
+      "weight_total": 12,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "灵活，有机会就出手，没机会就拿现金；特殊事件驱动为主",
+      "position_sizing": "可以 30-50% 现金等机会；单票 5-10%，特殊情形可更高",
+      "what_would_change_my_mind": "安全边际消失（市值接近 NAV）· 催化剂被推迟或取消 · 出现更好的错杀机会"
+    },
+    {
+      "investor_id": "lynch",
+      "name": "彼得·林奇",
+      "group": "B",
+      "avatar": "avatars/lynch.svg",
+      "signal": "bearish",
+      "confidence": 100,
+      "score": 27,
+      "verdict": "观望",
+      "reasoning": "✅ 符合标准：\n  • [权3] PE 17 在舒适区\n  • [权2] 行业易理解\n❌ 未达标准：\n  • [权5] PEG 未进入林奇理想区间 (< 1)\n  • [权3] PEG 不在 1-1.5 临界区\n  • [权3] 增速 2% 超出 20-50% 区间\n  • [权2] 研报支持不够",
+      "comment": "PEG 已经超过 2，成长故事不便宜。\n看空核心：PEG 未进入林奇理想区间 (< 1)",
+      "headline": "看空核心：PEG 未进入林奇理想区间 (< 1)",
+      "pass": [
+        {
+          "name": "PE < 40 (林奇警戒线)",
+          "msg": "PE 17 在舒适区",
+          "weight": 3
+        },
+        {
+          "name": "行业好懂",
+          "msg": "行业易理解",
+          "weight": 2
+        }
+      ],
+      "fail": [
+        {
+          "name": "PEG < 1 (林奇理想值)",
+          "msg": "PEG 未进入林奇理想区间 (< 1)",
+          "weight": 5
+        },
+        {
+          "name": "PEG 1-1.5 (临界接受)",
+          "msg": "PEG 不在 1-1.5 临界区",
+          "weight": 3
+        },
+        {
+          "name": "营收增速 20-50% (林奇 fast grower sweet spot)",
+          "msg": "增速 2% 超出 20-50% 区间",
+          "weight": 3
+        },
+        {
+          "name": "研报覆盖中性偏上",
+          "msg": "研报支持不够",
+          "weight": 2
+        }
+      ],
+      "weight_pass": 5,
+      "weight_total": 18,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "公司故事讲完为止，典型 3-5 年；小盘 fast-grower 可以短些",
+      "position_sizing": "30-50 只多样化，按 6 类（稳定/周期/fast/慢/困境/资产）配比",
+      "what_would_change_my_mind": "PEG > 2（成长不配估值）· 库存/应收增速超过营收 · 故事不再兑现 · 个人能接触的场景里热度消退"
+    },
+    {
+      "investor_id": "oneill",
+      "name": "欧奈尔",
+      "group": "B",
+      "avatar": "avatars/oneill.svg",
+      "signal": "neutral",
+      "confidence": 100,
+      "score": 53,
+      "verdict": "关注",
+      "reasoning": "✅ 符合标准：\n  • [权3] 净利增速 82%\n  • [权3] Stage 2 上升\n  • [权2] 798 位基金经理持仓\n❌ 未达标准：\n  • [权3] 年化增速不够\n  • [权2] 距 60 日高点 -18.5%\n  • [权2] 行业非成长期",
+      "comment": "N 项缺一不可，目前只达标 4 项。\n观望：净利增速 82%；但 年化增速不够",
+      "headline": "观望：净利增速 82%；但 年化增速不够",
+      "pass": [
+        {
+          "name": "C: 季度 EPS 同比 > 25%",
+          "msg": "净利增速 82%",
+          "weight": 3
+        },
+        {
+          "name": "M: 个股趋势向上 (Stage 2)",
+          "msg": "Stage 2 上升",
+          "weight": 3
+        },
+        {
+          "name": "I: 机构持股增加 (有基金经理持仓)",
+          "msg": "798 位基金经理持仓",
+          "weight": 2
+        }
+      ],
+      "fail": [
+        {
+          "name": "A: 年度 EPS 增长 > 20%",
+          "msg": "年化增速不够",
+          "weight": 3
+        },
+        {
+          "name": "N: 接近 52 周新高",
+          "msg": "距 60 日高点 -18.5%",
+          "weight": 2
+        },
+        {
+          "name": "L: 行业领先 (industry 成长期)",
+          "msg": "行业非成长期",
+          "weight": 2
+        }
+      ],
+      "weight_pass": 8,
+      "weight_total": 15,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "握到 cup-and-handle 失败或 50 日均线破位；典型 3-12 个月",
+      "position_sizing": "初仓 25%，突破加仓至 100%；CANSLIM 7 维不达标不开仓",
+      "what_would_change_my_mind": "M 大盘转熊 · 跌破买入价 7-8% 无条件止损 · RS 强度跌出前 20% · 季度 EPS 减速"
+    },
+    {
+      "investor_id": "thiel",
+      "name": "彼得·蒂尔",
+      "group": "B",
+      "avatar": "avatars/thiel.svg",
+      "signal": "bearish",
+      "confidence": 96,
+      "score": 0,
+      "verdict": "回避",
+      "reasoning": "❌ 未达标准：\n  • [权5] 垄断度不够\n  • [权3] 网络效应 0/10 弱\n  • [权3] 规模优势不足",
+      "comment": "竞争激烈意味着这是失败者的游戏。\n看空核心：垄断度不够",
+      "headline": "看空核心：垄断度不够",
+      "pass": [],
+      "fail": [
+        {
+          "name": "行业垄断地位 (护城河 ≥ 28)",
+          "msg": "垄断度不够",
+          "weight": 5
+        },
+        {
+          "name": "网络效应 ≥ 7",
+          "msg": "网络效应 0/10 弱",
+          "weight": 3
+        },
+        {
+          "name": "规模优势 ≥ 7",
+          "msg": "规模优势不足",
+          "weight": 3
+        }
+      ],
+      "weight_pass": 0,
+      "weight_total": 11,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "Power law 回报，一笔对的能 cover 所有错的；持有至 IPO/被收购",
+      "position_sizing": "极度不分散，单笔可 30%+；先找垄断再谈估值",
+      "what_would_change_my_mind": "竞争进入（垄断破） · 网络效应被新技术绕过 · 管理层卖股转向"
+    },
+    {
+      "investor_id": "wood",
+      "name": "木头姐",
+      "group": "B",
+      "avatar": "avatars/wood.svg",
+      "signal": "bearish",
+      "confidence": 98,
+      "score": 13,
+      "verdict": "回避",
+      "reasoning": "✅ 符合标准：\n  • [权2] 短期波动可承受，长期逻辑不变\n❌ 未达标准：\n  • [权5] 行业增速 0% < 20%，增长太慢\n  • [权5] 不在 ARK 五大创新平台范畴\n  • [权3] 营收增速 {rev_growth_3y:.0f}% 不够颠覆",
+      "comment": "不在我们五大平台里（AI、机器人、储能、量子、多组学），不看。\n看空核心：行业增速 0% < 20%，增长太慢",
+      "headline": "看空核心：行业增速 0% < 20%，增长太慢",
+      "pass": [
+        {
+          "name": "长期视角 (5 年改变游戏规则)",
+          "msg": "短期波动可承受，长期逻辑不变",
+          "weight": 2
+        }
+      ],
+      "fail": [
+        {
+          "name": "行业处于 S 曲线拐点 (TAM > 20%/年)",
+          "msg": "行业增速 0% < 20%，增长太慢",
+          "weight": 5
+        },
+        {
+          "name": "属于 ARK 颠覆式创新平台",
+          "msg": "不在 ARK 五大创新平台范畴",
+          "weight": 5
+        },
+        {
+          "name": "营收加速或高增长",
+          "msg": "营收增速 {rev_growth_3y:.0f}% 不够颠覆",
+          "weight": 3
+        }
+      ],
+      "weight_pass": 2,
+      "weight_total": 15,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "5 年视角看颠覆性技术拐点；短期波动不是卖出理由",
+      "position_sizing": "高 β 组合单票可 10%+，接受 50% 回撤换 10x 上行",
+      "what_would_change_my_mind": "S-curve 采用率斜率走平 · 监管禁令 · 核心技术被更新范式替代"
+    },
+    {
+      "investor_id": "soros",
+      "name": "索罗斯",
+      "group": "C",
+      "avatar": "avatars/soros.svg",
+      "signal": "neutral",
+      "confidence": 89,
+      "score": 50,
+      "verdict": "关注",
+      "reasoning": "✅ 符合标准：\n  • [权4] 研报目标涨幅 0% · 未到狂热\n  • [权3] Stage 2 趋势确认\n❌ 未达标准：\n  • [权4] 价格不低于基本面共识 · 无做多反身性空间\n  • [权3] 宏观中性",
+      "comment": "反身性信号还不够强。\n观望：研报目标涨幅 0% · 未到狂热；但 价格不低于基本面共识 · 无做多反身性空间",
+      "headline": "观望：研报目标涨幅 0% · 未到狂热；但 价格不低于基本面共识 · 无做多反身性空间",
+      "pass": [
+        {
+          "name": "研报目标价低于现价 > 15% (做空反身性 · 做多方减分)",
+          "msg": "研报目标涨幅 0% · 未到狂热",
+          "weight": 4
+        },
+        {
+          "name": "Stage 2 有趋势",
+          "msg": "Stage 2 趋势确认",
+          "weight": 3
+        }
+      ],
+      "fail": [
+        {
+          "name": "研报目标价显著高于现价 > 10% (做多反身性机会)",
+          "msg": "价格不低于基本面共识 · 无做多反身性空间",
+          "weight": 4
+        },
+        {
+          "name": "宏观环境配合",
+          "msg": "宏观中性",
+          "weight": 3
+        }
+      ],
+      "weight_pass": 7,
+      "weight_total": 14,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "反身性循环一轮，通常数周到数月，随时可翻转",
+      "position_sizing": "重仓押一次（sterling 1992 那种），但任何时候都可反向",
+      "what_would_change_my_mind": "市场停止验证我的叙事（反身性反转）· 基本面超出错误区间 · 更好的非对称机会出现"
+    },
+    {
+      "investor_id": "dalio",
+      "name": "达里奥",
+      "group": "C",
+      "avatar": "avatars/dalio.svg",
+      "signal": "bearish",
+      "confidence": 88,
+      "score": 33,
+      "verdict": "观望",
+      "reasoning": "✅ 符合标准：\n  • [权3] 负债率 16%\n❌ 未达标准：\n  • [权4] 非降息周期\n  • [权2] 股息率 0.0% 低",
+      "comment": "全天候配置里这种资产的权重该降。\n看空核心：非降息周期",
+      "headline": "看空核心：非降息周期",
+      "pass": [
+        {
+          "name": "公司负债率低",
+          "msg": "负债率 16%",
+          "weight": 3
+        }
+      ],
+      "fail": [
+        {
+          "name": "利率周期友好 (降息期)",
+          "msg": "非降息周期",
+          "weight": 4
+        },
+        {
+          "name": "有股息 (全天候配置)",
+          "msg": "股息率 0.0% 低",
+          "weight": 2
+        }
+      ],
+      "weight_pass": 3,
+      "weight_total": 9,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "All Weather 全天候配置，再平衡周期约 1 年；单次押注几天到几月",
+      "position_sizing": "风险平价：每类资产的波动率贡献相等，不看单票",
+      "what_would_change_my_mind": "经济周期象限切换（增长↑↓ × 通胀↑↓ 四宫格）· 央行政策拐点 · 长债利率结构破位"
+    },
+    {
+      "investor_id": "marks",
+      "name": "霍华德·马克斯",
+      "group": "C",
+      "avatar": "avatars/marks.svg",
+      "signal": "bullish",
+      "confidence": 96,
+      "score": 100,
+      "verdict": "强烈买入",
+      "reasoning": "✅ 符合标准：\n  • [权4] 情绪温度 0\n  • [权4] PE 5 分位\n  • [权2] 最大回撤 -16%",
+      "comment": "你不能预测但可以准备——现在是准备好的时机。\n看多核心：情绪温度 0",
+      "headline": "看多核心：情绪温度 0",
+      "pass": [
+        {
+          "name": "市场未贪婪 (情绪 < 60)",
+          "msg": "情绪温度 0",
+          "weight": 4
+        },
+        {
+          "name": "历史估值便宜",
+          "msg": "PE 5 分位",
+          "weight": 4
+        },
+        {
+          "name": "风险已定价 (回撤过)",
+          "msg": "最大回撤 -16%",
+          "weight": 2
+        }
+      ],
+      "fail": [],
+      "weight_pass": 10,
+      "weight_total": 10,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "完整的市场周期（通常 5-7 年），周期位置决定进出",
+      "position_sizing": "逆向：别人抢时不买，别人弃时买；单票仓位按风险定价调",
+      "what_would_change_my_mind": "二阶思维反转（我对多数人的判断变了）· 风险溢价收敛到极值 · 周期钟摆触顶"
+    },
+    {
+      "investor_id": "druck",
+      "name": "德鲁肯米勒",
+      "group": "C",
+      "avatar": "avatars/druck.svg",
+      "signal": "bearish",
+      "confidence": 96,
+      "score": 0,
+      "verdict": "回避",
+      "reasoning": "❌ 未达标准：\n  • [权4] 未来增长不明确\n  • [权3] 流动性不利\n  • [权3] 无明确主题",
+      "comment": "我只投资 12-18 个月后的世界，现在这题材已经过气了。\n看空核心：未来增长不明确",
+      "headline": "看空核心：未来增长不明确",
+      "pass": [],
+      "fail": [
+        {
+          "name": "12-18 月后盈利可见 (研报共识)",
+          "msg": "未来增长不明确",
+          "weight": 4
+        },
+        {
+          "name": "流动性拐点",
+          "msg": "流动性不利",
+          "weight": 3
+        },
+        {
+          "name": "宏观主题明确",
+          "msg": "无明确主题",
+          "weight": 3
+        }
+      ],
+      "weight_pass": 0,
+      "weight_total": 10,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "灵活，从几周到 2 年；对错都要快速反应",
+      "position_sizing": "不对的时候只下小注，极度对的时候 all-in；集中非常高",
+      "what_would_change_my_mind": "央行立场转向 · 自己的赔率判断被市场证伪 · 发现更大赔率的品种"
+    },
+    {
+      "investor_id": "robertson",
+      "name": "罗伯逊",
+      "group": "C",
+      "avatar": "avatars/robertson.svg",
+      "signal": "neutral",
+      "confidence": 81,
+      "score": 42,
+      "verdict": "观望",
+      "reasoning": "✅ 符合标准：\n  • [权3] ROE 22.3% 净利率 54.7%\n❌ 未达标准：\n  • [权4] 非行业领先",
+      "comment": "排名中位，不做。\n观望：ROE 22.3% 净利率 54.7%；但 非行业领先",
+      "headline": "观望：ROE 22.3% 净利率 54.7%；但 非行业领先",
+      "pass": [
+        {
+          "name": "基本面强",
+          "msg": "ROE 22.3% 净利率 54.7%",
+          "weight": 3
+        }
+      ],
+      "fail": [
+        {
+          "name": "同行业最强 (排名前 2)",
+          "msg": "非行业领先",
+          "weight": 4
+        }
+      ],
+      "weight_pass": 3,
+      "weight_total": 7,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "数周到数月，跟随宏观节奏与流动性窗口",
+      "position_sizing": "按赔率分配，对的时候敢重仓，错的时候立即认错",
+      "what_would_change_my_mind": "宏观叙事被证伪 · 央行/政策转向 · 赔率变得不利"
+    },
+    {
+      "investor_id": "livermore",
+      "name": "利弗莫尔",
+      "group": "D",
+      "avatar": "avatars/livermore.svg",
+      "signal": "bullish",
+      "confidence": 90,
+      "score": 72,
+      "verdict": "买入",
+      "reasoning": "✅ 符合标准：\n  • [权5] Stage 2 上升\n  • [权3] 均线多头\n❌ 未达标准：\n  • [权3] 位置不利",
+      "comment": "钱不在买卖中赚，而在等待中赚——这次等到了。\n看多核心：Stage 2 上升",
+      "headline": "看多核心：Stage 2 上升",
+      "pass": [
+        {
+          "name": "处于 Stage 2 上升期",
+          "msg": "Stage 2 上升",
+          "weight": 5
+        },
+        {
+          "name": "均线多头排列",
+          "msg": "均线多头",
+          "weight": 3
+        }
+      ],
+      "fail": [
+        {
+          "name": "接近高点但未超买",
+          "msg": "位置不利",
+          "weight": 3
+        }
+      ],
+      "weight_pass": 8,
+      "weight_total": 11,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "吃完主升浪，通常数周到数月，坐住比交易难",
+      "position_sizing": "试仓-验证-加仓-重仓 pyramid；错了立刻止损走人",
+      "what_would_change_my_mind": "关键支撑破位 · 领涨股走弱 · 整体市场 tone 改变 · 任何反向信号 '立即 get out'"
+    },
+    {
+      "investor_id": "minervini",
+      "name": "米内尔维尼",
+      "group": "D",
+      "avatar": "avatars/minervini.svg",
+      "signal": "bullish",
+      "confidence": 100,
+      "score": 100,
+      "verdict": "强烈买入",
+      "reasoning": "✅ 符合标准：\n  • [权5] Stage 2 ✓\n  • [权4] MA 堆叠\n  • [权3] 距高点 -19%\n  • [权2] YTD +111%",
+      "comment": "相对强度 >70，距高点 <25%，完美入场条件。\n看多核心：Stage 2 ✓",
+      "headline": "看多核心：Stage 2 ✓",
+      "pass": [
+        {
+          "name": "严格 Stage 2 (SEPA 核心)",
+          "msg": "Stage 2 ✓",
+          "weight": 5
+        },
+        {
+          "name": "MA 多头堆叠",
+          "msg": "MA 堆叠",
+          "weight": 4
+        },
+        {
+          "name": "距 52 周高点 < 25%",
+          "msg": "距高点 -19%",
+          "weight": 3
+        },
+        {
+          "name": "YTD 相对强度 > 0",
+          "msg": "YTD +111%",
+          "weight": 2
+        }
+      ],
+      "fail": [],
+      "weight_pass": 16,
+      "weight_total": 16,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "VCP 突破后 3-6 个月吃主升浪；跌破 20 日立即减仓",
+      "position_sizing": "初始 25% 仓位，确认追加至 100%；亏损不超过整仓 2%",
+      "what_would_change_my_mind": "跌破 10/20 日均线 · 放量下跌 · 趋势模板 8 条件中 3 项以上失效"
+    },
+    {
+      "investor_id": "darvas",
+      "name": "达瓦斯",
+      "group": "D",
+      "avatar": "avatars/darvas.svg",
+      "signal": "bullish",
+      "confidence": 92,
+      "score": 100,
+      "verdict": "强烈买入",
+      "reasoning": "✅ 符合标准：\n  • [权5] Stage 2 突破\n  • [权3] MA 支撑",
+      "comment": "箱体上沿被放量突破，这是 Darvas Box 的典型买点。\n看多核心：Stage 2 突破",
+      "headline": "看多核心：Stage 2 突破",
+      "pass": [
+        {
+          "name": "处于趋势向上 (Stage 2)",
+          "msg": "Stage 2 突破",
+          "weight": 5
+        },
+        {
+          "name": "均线支撑",
+          "msg": "MA 支撑",
+          "weight": 3
+        }
+      ],
+      "fail": [],
+      "weight_pass": 8,
+      "weight_total": 8,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "数周到 3 个月，跟趋势做，破位就走",
+      "position_sizing": "Pyramid 加仓，亏损严格控制在单笔 2% 以内",
+      "what_would_change_my_mind": "关键均线破位 · 量能背离 · 相对强度掉出前列"
+    },
+    {
+      "investor_id": "gann",
+      "name": "江恩",
+      "group": "D",
+      "avatar": "avatars/gann.svg",
+      "signal": "bullish",
+      "confidence": 92,
+      "score": 100,
+      "verdict": "强烈买入",
+      "reasoning": "✅ 符合标准：\n  • [权4] 趋势向上\n  • [权2] 年化波动 41%",
+      "comment": "时间周期到位，价格运动遵循自然法则。\n看多核心：趋势向上",
+      "headline": "看多核心：趋势向上",
+      "pass": [
+        {
+          "name": "趋势向上",
+          "msg": "趋势向上",
+          "weight": 4
+        },
+        {
+          "name": "波动率正常 (< 60%)",
+          "msg": "年化波动 41%",
+          "weight": 2
+        }
+      ],
+      "fail": [],
+      "weight_pass": 6,
+      "weight_total": 6,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "数周到 3 个月，跟趋势做，破位就走",
+      "position_sizing": "Pyramid 加仓，亏损严格控制在单笔 2% 以内",
+      "what_would_change_my_mind": "关键均线破位 · 量能背离 · 相对强度掉出前列"
+    },
+    {
+      "investor_id": "duan",
+      "name": "段永平",
+      "group": "E",
+      "avatar": "avatars/duan.svg",
+      "signal": "bullish",
+      "confidence": 100,
+      "score": 84,
+      "verdict": "强烈买入",
+      "reasoning": "✅ 符合标准：\n  • [权5] 净利率 54.7% · ROE 22.3%\n  • [权4] 治理干净\n  • [权4] PE 5 分位\n  • [权3] PE 17 在段永平舒适区\n❌ 未达标准：\n  • [权3] 10 年后看不清",
+      "comment": "做对的事情，把事情做对。这家两件都沾边。\n看多核心：净利率 54.7% · ROE 22.3%",
+      "headline": "看多核心：净利率 54.7% · ROE 22.3%",
+      "pass": [
+        {
+          "name": "生意对 (净利率 > 15% + ROE > 10%)",
+          "msg": "净利率 54.7% · ROE 22.3%",
+          "weight": 5
+        },
+        {
+          "name": "人对 (无质押 + 无违规)",
+          "msg": "治理干净",
+          "weight": 4
+        },
+        {
+          "name": "价格对 (PE 分位 < 50)",
+          "msg": "PE 5 分位",
+          "weight": 4
+        },
+        {
+          "name": "PE 不超过 40 (段永平价格红线)",
+          "msg": "PE 17 在段永平舒适区",
+          "weight": 3
+        }
+      ],
+      "fail": [
+        {
+          "name": "10 年看得懂 (护城河 + 成熟业务)",
+          "msg": "10 年后看不清",
+          "weight": 3
+        }
+      ],
+      "weight_pass": 16,
+      "weight_total": 19,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "10-20 年，好的公司尽可能长；搞懂了就敢重仓",
+      "position_sizing": "极度集中：Apple 占他组合大半；敢 all-in 到自己真的懂的",
+      "what_would_change_my_mind": "生意的本质变了（不是季度波动）· 管理层 incentive 偏移 · 自己真的不懂了就卖"
+    },
+    {
+      "investor_id": "zhangkun",
+      "name": "张坤",
+      "group": "E",
+      "avatar": "avatars/zhangkun.svg",
+      "signal": "bullish",
+      "confidence": 96,
+      "score": 78,
+      "verdict": "买入",
+      "reasoning": "✅ 符合标准：\n  • [权5] ROE 5 年 4/5 次 > 15%\n  • [权3] 净利率 54.7% 有定价权\n  • [权3] PE 17 符合张坤估值纪律\n❌ 未达标准：\n  • [权3] 品牌壁垒不强",
+      "comment": "ROE 持续性强 + 品牌壁垒 + 消费属性——可以进集中持仓。\n看多核心：ROE 5 年 4/5 次 > 15%",
+      "headline": "看多核心：ROE 5 年 4/5 次 > 15%",
+      "pass": [
+        {
+          "name": "ROE 持续 > 15% (5 年 ≥ 3 次)",
+          "msg": "ROE 5 年 4/5 次 > 15%",
+          "weight": 5
+        },
+        {
+          "name": "定价权 (净利率 > 18%)",
+          "msg": "净利率 54.7% 有定价权",
+          "weight": 3
+        },
+        {
+          "name": "PE 不超过 40 (张坤估值纪律)",
+          "msg": "PE 17 符合张坤估值纪律",
+          "weight": 3
+        }
+      ],
+      "fail": [
+        {
+          "name": "品牌/无形资产壁垒",
+          "msg": "品牌壁垒不强",
+          "weight": 3
+        }
+      ],
+      "weight_pass": 11,
+      "weight_total": 14,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "3-5 年中期；白酒、医药、大消费要看够一个周期",
+      "position_sizing": "易方达蓝筹前十大长期占 70%+，低换手；好公司等回调",
+      "what_would_change_my_mind": "ROE 连续 2 年掉队行业平均 · 估值分位超 90% · 管理层大规模变动"
+    },
+    {
+      "investor_id": "zhushaoxing",
+      "name": "朱少醒",
+      "group": "E",
+      "avatar": "avatars/zhushaoxing.svg",
+      "signal": "bearish",
+      "confidence": 91,
+      "score": 22,
+      "verdict": "观望",
+      "reasoning": "✅ 符合标准：\n  • [权2] 波动 41% 适合长持\n❌ 未达标准：\n  • [权4] 长期成长不足\n  • [权3] 行业非成长期",
+      "comment": "行业景气度下行，等更好时点。\n看空核心：长期成长不足",
+      "headline": "看空核心：长期成长不足",
+      "pass": [
+        {
+          "name": "低换手适配 (波动 < 50%)",
+          "msg": "波动 41% 适合长持",
+          "weight": 2
+        }
+      ],
+      "fail": [
+        {
+          "name": "长期成长 (3Y CAGR > 15%)",
+          "msg": "长期成长不足",
+          "weight": 4
+        },
+        {
+          "name": "行业处于成长期",
+          "msg": "行业非成长期",
+          "weight": 3
+        }
+      ],
+      "weight_pass": 2,
+      "weight_total": 9,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "3-5 年，等好公司给好价格",
+      "position_sizing": "偏集中，单票 5-15%；深度研究后重仓",
+      "what_would_change_my_mind": "ROE / 净利率掉队行业 · 管理层或核心业务大变 · 估值分位过高"
+    },
+    {
+      "investor_id": "xiezhiyu",
+      "name": "谢治宇",
+      "group": "E",
+      "avatar": "avatars/xiezhiyu.svg",
+      "signal": "bearish",
+      "confidence": 92,
+      "score": 0,
+      "verdict": "回避",
+      "reasoning": "❌ 未达标准：\n  • [权4] PEG 失衡\n  • [权2] 增速不够",
+      "comment": "成长质量一般，估值又不便宜，没想法。\n看空核心：PEG 失衡",
+      "headline": "看空核心：PEG 失衡",
+      "pass": [],
+      "fail": [
+        {
+          "name": "PEG 在 1-2 之间 (成长和估值平衡)",
+          "msg": "PEG 失衡",
+          "weight": 4
+        },
+        {
+          "name": "增速 > 10%",
+          "msg": "增速不够",
+          "weight": 2
+        }
+      ],
+      "weight_pass": 0,
+      "weight_total": 6,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "3-5 年，等好公司给好价格",
+      "position_sizing": "偏集中，单票 5-15%；深度研究后重仓",
+      "what_would_change_my_mind": "ROE / 净利率掉队行业 · 管理层或核心业务大变 · 估值分位过高"
+    },
+    {
+      "investor_id": "fengliu",
+      "name": "冯柳",
+      "group": "E",
+      "avatar": "avatars/fengliu.svg",
+      "signal": "neutral",
+      "confidence": 86,
+      "score": 44,
+      "verdict": "观望",
+      "reasoning": "✅ 符合标准：\n  • [权4] PE 分位 5 · 回撤 -16%\n❌ 未达标准：\n  • [权3] 预期差不大\n  • [权2] 常识有疑问",
+      "comment": "寻找共识，依靠常识，等赔率更好。\n观望：PE 分位 5 · 回撤 -16%；但 预期差不大",
+      "headline": "观望：PE 分位 5 · 回撤 -16%；但 预期差不大",
+      "pass": [
+        {
+          "name": "赔率好 (PE 分位 < 40 或大回撤过)",
+          "msg": "PE 分位 5 · 回撤 -16%",
+          "weight": 4
+        }
+      ],
+      "fail": [
+        {
+          "name": "预期差 (研报目标价与现价差 > 15%)",
+          "msg": "预期差不大",
+          "weight": 3
+        },
+        {
+          "name": "符合常识 (安全 + 正现金流)",
+          "msg": "常识有疑问",
+          "weight": 2
+        }
+      ],
+      "weight_pass": 4,
+      "weight_total": 9,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "3-6 个月等错杀修复，弱者体系不预测只应对",
+      "position_sizing": "偏均衡，单票不超 10%；用足够差价换取错了也能扛",
+      "what_would_change_my_mind": "基本面证伪（订单/产能/客户反馈）· 价格修复完毕 · 发现更大错杀"
+    },
+    {
+      "investor_id": "dengxiaofeng",
+      "name": "邓晓峰",
+      "group": "E",
+      "avatar": "avatars/dengxiaofeng.svg",
+      "signal": "bullish",
+      "confidence": 100,
+      "score": 100,
+      "verdict": "强烈买入",
+      "reasoning": "✅ 符合标准：\n  • [权4] 价值创造 ROIC/ROE 达标\n  • [权3] 产能周期 —\n  • [权3] PE 17 偏左侧符合邓晓峰风格\n  • [权3] PE 分位 5",
+      "comment": "产能周期位置不错 + 行业供需拐点到位。\n看多核心：价值创造 ROIC/ROE 达标",
+      "headline": "看多核心：价值创造 ROIC/ROE 达标",
+      "pass": [
+        {
+          "name": "企业价值创造 (ROIC > 10%)",
+          "msg": "价值创造 ROIC/ROE 达标",
+          "weight": 4
+        },
+        {
+          "name": "产能周期位置好",
+          "msg": "产能周期 —",
+          "weight": 3
+        },
+        {
+          "name": "PE 不超过 35 (邓晓峰偏左侧)",
+          "msg": "PE 17 偏左侧符合邓晓峰风格",
+          "weight": 3
+        },
+        {
+          "name": "恰当价格 (PE 分位 < 60)",
+          "msg": "PE 分位 5",
+          "weight": 3
+        }
+      ],
+      "fail": [],
+      "weight_pass": 13,
+      "weight_total": 13,
+      "ideal_price": null,
+      "period": "中长线",
+      "time_horizon": "2-4 年跨周期，深度研究周期行业与产业链",
+      "position_sizing": "集中产业链龙头，单票 10-20%；周期底部布局、顶部卖",
+      "what_would_change_my_mind": "产能周期见顶信号 · 价格下行兑现 · 下游需求证伪"
+    },
+    {
+      "investor_id": "zhang_mz",
+      "name": "章盟主",
+      "group": "F",
+      "avatar": "avatars/zhang_mz.svg",
+      "signal": "bearish",
+      "confidence": 94,
+      "score": 30,
+      "verdict": "观望",
+      "reasoning": "✅ 符合标准：\n  • [权3] Stage 2 上升中\n❌ 未达标准：\n  • [权3] 近 30 天未上榜\n  • [权2] 非行业龙头\n  • [权2] 热度 0 不够",
+      "comment": "下降通道里赚钱是偶然的，亏钱是必然的。\n看空核心：近 30 天未上榜",
+      "headline": "看空核心：近 30 天未上榜",
+      "pass": [
+        {
+          "name": "Stage 2 上升",
+          "msg": "Stage 2 上升中",
+          "weight": 3
+        }
+      ],
+      "fail": [
+        {
+          "name": "近 30 天龙虎榜有热度",
+          "msg": "近 30 天未上榜",
+          "weight": 3
+        },
+        {
+          "name": "行业领先 (排名前 3)",
+          "msg": "非行业龙头",
+          "weight": 2
+        },
+        {
+          "name": "舆情热度 > 50",
+          "msg": "热度 0 不够",
+          "weight": 2
+        }
+      ],
+      "weight_pass": 3,
+      "weight_total": 10,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "核心大龙 7-15 天，吃到主升末期",
+      "position_sizing": "打最强龙头，重仓敢拿；接力中军分仓",
+      "what_would_change_my_mind": "题材逻辑证伪 · 大盘系统性风险 · 自己席位被跟风破坏节奏"
+    },
+    {
+      "investor_id": "sun_ge",
+      "name": "孙哥",
+      "group": "F",
+      "avatar": "avatars/sun_ge.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 孙哥 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 孙哥 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 孙哥 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "zhao_lg",
+      "name": "赵老哥",
+      "group": "F",
+      "avatar": "avatars/zhao_lg.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 赵老哥 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 赵老哥 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 赵老哥 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+2 到 T+5，吃打板主升；强度退化立即走",
+      "position_sizing": "龙头板仓位 10-20%，T+1 根据分歧加减；绝不过周末的不隔夜",
+      "what_would_change_my_mind": "板上砸盘 · 龙头断板 · 龙虎榜出现对手方机构 · 量能跟不上"
+    },
+    {
+      "investor_id": "fs_wyj",
+      "name": "佛山无影脚",
+      "group": "F",
+      "avatar": "avatars/fs_wyj.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 佛山无影脚 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 佛山无影脚 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 佛山无影脚 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "yangjia",
+      "name": "炒股养家",
+      "group": "F",
+      "avatar": "avatars/yangjia.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 炒股养家 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 炒股养家 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 炒股养家 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "chen_xq",
+      "name": "陈小群",
+      "group": "F",
+      "avatar": "avatars/chen_xq.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 陈小群 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 陈小群 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 陈小群 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "hu_jl",
+      "name": "呼家楼",
+      "group": "F",
+      "avatar": "avatars/hu_jl.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 呼家楼 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 呼家楼 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 呼家楼 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "fang_xx",
+      "name": "方新侠",
+      "group": "F",
+      "avatar": "avatars/fang_xx.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 方新侠 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 方新侠 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 方新侠 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "zuoshou",
+      "name": "作手新一",
+      "group": "F",
+      "avatar": "avatars/zuoshou.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 作手新一 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 作手新一 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 作手新一 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "xiao_ey",
+      "name": "小鳄鱼",
+      "group": "F",
+      "avatar": "avatars/xiao_ey.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 小鳄鱼 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 小鳄鱼 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 小鳄鱼 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "jiao_yy",
+      "name": "交易猿",
+      "group": "F",
+      "avatar": "avatars/jiao_yy.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 交易猿 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 交易猿 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 交易猿 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "mao_lb",
+      "name": "毛老板",
+      "group": "F",
+      "avatar": "avatars/mao_lb.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 毛老板 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 毛老板 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 毛老板 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "xiao_xian",
+      "name": "消闲派",
+      "group": "F",
+      "avatar": "avatars/xiao_xian.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 消闲派 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 消闲派 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 消闲派 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "lasa",
+      "name": "拉萨天团",
+      "group": "F",
+      "avatar": "avatars/lasa.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 拉萨天团 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 拉萨天团 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 拉萨天团 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "1-2 天，打首板 / 二板为主",
+      "position_sizing": "单票 5-15%，封板率高时加仓；封板力度弱就跑",
+      "what_would_change_my_mind": "封板时间推后 · 开板即砸 · 情绪周期从亢奋转分歧"
+    },
+    {
+      "investor_id": "chengdu",
+      "name": "成都帮",
+      "group": "F",
+      "avatar": "avatars/chengdu.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 成都帮 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 成都帮 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 成都帮 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "sunan",
+      "name": "苏南帮",
+      "group": "F",
+      "avatar": "avatars/sunan.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 苏南帮 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 苏南帮 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 苏南帮 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "ningbo_st",
+      "name": "宁波桑田路",
+      "group": "F",
+      "avatar": "avatars/ningbo_st.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 宁波桑田路 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 宁波桑田路 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 宁波桑田路 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "liuyi_zl",
+      "name": "六一中路",
+      "group": "F",
+      "avatar": "avatars/liuyi_zl.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 六一中路 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 六一中路 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 六一中路 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "liu_sh",
+      "name": "流沙河",
+      "group": "F",
+      "avatar": "avatars/liu_sh.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 流沙河 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 流沙河 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 流沙河 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "gu_bl",
+      "name": "古北路",
+      "group": "F",
+      "avatar": "avatars/gu_bl.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 古北路 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 古北路 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 古北路 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "bj_cj",
+      "name": "北京炒家",
+      "group": "F",
+      "avatar": "avatars/bj_cj.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 北京炒家 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 北京炒家 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 北京炒家 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "wang_zr",
+      "name": "瑞鹤仙",
+      "group": "F",
+      "avatar": "avatars/wang_zr.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 瑞鹤仙 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 瑞鹤仙 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 瑞鹤仙 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "xin_dd",
+      "name": "鑫多多",
+      "group": "F",
+      "avatar": "avatars/xin_dd.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者市值 176526859968 亿不在 鑫多多 射程，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 市值 176526859968 亿不在 鑫多多 射程",
+      "headline": "不适合 — 市值 176526859968 亿不在 鑫多多 射程",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "T+1 到 T+5 超短线，视盘面决定",
+      "position_sizing": "单票 5-20%，强度强时加仓、弱时立即走",
+      "what_would_change_my_mind": "板上砸盘 / 断板 · 量能不配合 · 龙虎榜对手方压过自己席位"
+    },
+    {
+      "investor_id": "simons",
+      "name": "西蒙斯",
+      "group": "G",
+      "avatar": "avatars/simons.svg",
+      "signal": "bullish",
+      "confidence": 92,
+      "score": 100,
+      "verdict": "强烈买入",
+      "reasoning": "✅ 符合标准：\n  • [权3] YTD +111%\n  • [权2] 波动 41% 适合",
+      "comment": "价格统计异常出现买入信号，模型说买就买。\n看多核心：YTD +111%",
+      "headline": "看多核心：YTD +111%",
+      "pass": [
+        {
+          "name": "统计信号 (近 1 年正收益)",
+          "msg": "YTD +111%",
+          "weight": 3
+        },
+        {
+          "name": "波动率可交易",
+          "msg": "波动 41% 适合",
+          "weight": 2
+        }
+      ],
+      "fail": [],
+      "weight_pass": 5,
+      "weight_total": 5,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "平均持仓 < 2 天；数秒到数月组合，完全由模型决定",
+      "position_sizing": "等权数千只，单票仓位 < 0.5%；风险预算由协方差决定",
+      "what_would_change_my_mind": "模型信号 Sharpe 跌破 0.5 · 因子衰减 · 市场结构变化（如交易制度改变）"
+    },
+    {
+      "investor_id": "thorp",
+      "name": "索普",
+      "group": "G",
+      "avatar": "avatars/thorp.svg",
+      "signal": "skip",
+      "confidence": 0,
+      "score": 0,
+      "verdict": "不适合",
+      "reasoning": "该投资者不看A市场，不对此股票发表意见。",
+      "comment": "不在能力圈范围内，不做评价。\n不适合 — 不看A市场",
+      "headline": "不适合 — 不看A市场",
+      "pass": [],
+      "fail": [],
+      "weight_pass": 0,
+      "weight_total": 0,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "由模型决定，通常数天到数周",
+      "position_sizing": "等权或风险平价分散，单票权重由模型算",
+      "what_would_change_my_mind": "因子 IC 衰减 · Sharpe 下降 · 市场微观结构改变"
+    },
+    {
+      "investor_id": "shaw",
+      "name": "大卫·肖",
+      "group": "G",
+      "avatar": "avatars/shaw.svg",
+      "signal": "bullish",
+      "confidence": 96,
+      "score": 77,
+      "verdict": "买入",
+      "reasoning": "✅ 符合标准：\n  • [权3] ROE 22.3% 质量好\n  • [权2] PE 分位 5\n  • [权2] Stage 2 动量\n❌ 未达标准：\n  • [权2] 成长因子弱",
+      "comment": "多因子评分位于 top 20%，质量动量都强。\n看多核心：ROE 22.3% 质量好",
+      "headline": "看多核心：ROE 22.3% 质量好",
+      "pass": [
+        {
+          "name": "质量因子 (ROE > 12%)",
+          "msg": "ROE 22.3% 质量好",
+          "weight": 3
+        },
+        {
+          "name": "价值因子 (PE 分位 < 60)",
+          "msg": "PE 分位 5",
+          "weight": 2
+        },
+        {
+          "name": "动量因子 (Stage 2)",
+          "msg": "Stage 2 动量",
+          "weight": 2
+        }
+      ],
+      "fail": [
+        {
+          "name": "成长因子 (3Y CAGR > 15%)",
+          "msg": "成长因子弱",
+          "weight": 2
+        }
+      ],
+      "weight_pass": 7,
+      "weight_total": 9,
+      "ideal_price": null,
+      "period": "短线",
+      "time_horizon": "由模型决定，通常数天到数周",
+      "position_sizing": "等权或风险平价分散，单票权重由模型算",
+      "what_would_change_my_mind": "因子 IC 衰减 · Sharpe 下降 · 市场微观结构改变"
+    }
+  ],
+  "school_scores": {
+    "A": {
+      "group": "A",
+      "label": "经典价值派",
+      "desc": "巴菲特 / 格雷厄姆 / 费雪 / 芒格 一脉",
+      "n_members": 6,
+      "n_active": 6,
+      "consensus": 47.9,
+      "avg_score": 45.7,
+      "vote_consensus": 53.3,
+      "score_mean": 45.7,
+      "verdict": "谨慎",
+      "bullish": 2,
+      "neutral": 2,
+      "bearish": 2,
+      "skip": 0,
+      "dominant_signal": "bullish"
+    },
+    "B": {
+      "group": "B",
+      "label": "成长派",
+      "desc": "彼得·林奇 / 欧奈尔 / 蒂尔 / 伍德 一脉",
+      "n_members": 4,
+      "n_active": 4,
+      "consensus": 11.5,
+      "avg_score": 23.2,
+      "vote_consensus": 15.0,
+      "score_mean": 23.2,
+      "verdict": "回避",
+      "bullish": 0,
+      "neutral": 1,
+      "bearish": 3,
+      "skip": 0,
+      "dominant_signal": "bearish"
+    },
+    "C": {
+      "group": "C",
+      "label": "宏观派",
+      "desc": "索罗斯 / 达利欧 / 马克斯 一脉",
+      "n_members": 5,
+      "n_active": 5,
+      "consensus": 43.0,
+      "avg_score": 45.0,
+      "vote_consensus": 44.0,
+      "score_mean": 45.0,
+      "verdict": "谨慎",
+      "bullish": 1,
+      "neutral": 2,
+      "bearish": 2,
+      "skip": 0,
+      "dominant_signal": "neutral"
+    },
+    "D": {
+      "group": "D",
+      "label": "技术派",
+      "desc": "利弗莫尔 / Minervini / 达瓦斯 一脉",
+      "n_members": 4,
+      "n_active": 4,
+      "consensus": 100.0,
+      "avg_score": 93.0,
+      "vote_consensus": 100.0,
+      "score_mean": 93.0,
+      "verdict": "重仓",
+      "bullish": 4,
+      "neutral": 0,
+      "bearish": 0,
+      "skip": 0,
+      "dominant_signal": "bullish"
+    },
+    "E": {
+      "group": "E",
+      "label": "中式价投",
+      "desc": "段永平 / 张坤 / 朱少醒 / 冯柳 一脉",
+      "n_members": 6,
+      "n_active": 6,
+      "consensus": 58.5,
+      "avg_score": 54.7,
+      "vote_consensus": 60.0,
+      "score_mean": 54.7,
+      "verdict": "关注",
+      "bullish": 3,
+      "neutral": 1,
+      "bearish": 2,
+      "skip": 0,
+      "dominant_signal": "bullish"
+    },
+    "F": {
+      "group": "F",
+      "label": "A 股游资",
+      "desc": "龙虎榜顶流 23 位·章盟主/孙哥/赵老哥为代表",
+      "n_members": 23,
+      "n_active": 1,
+      "consensus": 10.4,
+      "avg_score": 30.0,
+      "vote_consensus": 0.0,
+      "score_mean": 30.0,
+      "verdict": "回避",
+      "bullish": 0,
+      "neutral": 0,
+      "bearish": 1,
+      "skip": 22,
+      "dominant_signal": "bearish"
+    },
+    "G": {
+      "group": "G",
+      "label": "量化派",
+      "desc": "Simons / Thorp / Shaw 一脉",
+      "n_members": 3,
+      "n_active": 2,
+      "consensus": 100.0,
+      "avg_score": 88.5,
+      "vote_consensus": 100.0,
+      "score_mean": 88.5,
+      "verdict": "重仓",
+      "bullish": 2,
+      "neutral": 0,
+      "bearish": 0,
+      "skip": 1,
+      "dominant_signal": "bullish"
+    }
+  },
+  "consensus_formula": {
+    "version": "v2.15.5 · polarize(0.65*score_mean + 0.35*vote_weighted, k=1.3)",
+    "score_weight": 0.65,
+    "vote_weight": 0.35,
+    "neutral_weight": 0.6,
+    "polarize_k": 1.3,
+    "score_mean": 53.54,
+    "vote_weighted": 55.71,
+    "consensus_raw": 54.3,
+    "consensus_final": 55.59,
+    "bullish": 12,
+    "neutral_weighted": 3.6,
+    "bearish": 10,
+    "skip": 23,
+    "active": 28
+  }
+}

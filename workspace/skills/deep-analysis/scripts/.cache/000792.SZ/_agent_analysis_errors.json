@@ -1,0 +1,14 @@
+[
+  {
+    "severity": "warning",
+    "field": "panel_insights",
+    "message": "panel_insights 应是 30+ 字字符串，实际 dict / 长度 279",
+    "suggestion": "用一段话概括 51 评委的投票结构和主要分歧"
+  },
+  {
+    "severity": "error",
+    "field": "data_gap_acknowledged",
+    "message": "必须是 dict（key 是 dim 或 dim.field），实际 list",
+    "suggestion": "改为 {\"4_peers\": \"已尝试 X 但失败\", ...}"
+  }
+]

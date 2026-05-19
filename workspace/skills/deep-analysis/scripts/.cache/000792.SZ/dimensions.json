@@ -1,0 +1,128 @@
+{
+  "ticker": "000792.SZ",
+  "fundamental_score": 63.8,
+  "dimensions": {
+    "1_financials": {
+      "score": 8,
+      "weight": 5,
+      "label": "ROE 22.3% · 营收增速 +2.4% · 负债率 16%",
+      "reasons_pass": [
+        "ROE 最新 22.3%",
+        "资产负债率 16% 健康"
+      ],
+      "reasons_fail": [
+        "营收增速 2.4% 停滞"
+      ]
+    },
+    "2_kline": {
+      "score": 8,
+      "weight": 4,
+      "label": "Stage 2 上升 · 均线非多头 · YTD +110.6%",
+      "reasons_pass": [
+        "Stage 2 上升"
+      ],
+      "reasons_fail": []
+    },
+    "3_macro": {
+      "score": 6,
+      "weight": 3,
+      "label": "宏观环境中性（需 web search 补充）"
+    },
+    "4_peers": {
+      "score": 5,
+      "weight": 4,
+      "label": "无同行数据",
+      "reasons_pass": [],
+      "reasons_fail": []
+    },
+    "5_chain": {
+      "score": 5,
+      "weight": 4,
+      "label": "产业链数据不完整",
+      "reasons_pass": [],
+      "reasons_fail": []
+    },
+    "6_research": {
+      "score": 5,
+      "weight": 3,
+      "label": "研报数据稀少",
+      "reasons_pass": [],
+      "reasons_fail": [
+        "缺乏覆盖"
+      ]
+    },
+    "7_industry": {
+      "score": 7,
+      "weight": 4,
+      "label": "行业处于成长期（需 web search 确认）"
+    },
+    "8_materials": {
+      "score": 6,
+      "weight": 3,
+      "label": "原材料成本数据需 web search"
+    },
+    "9_futures": {
+      "score": 5,
+      "weight": 2,
+      "label": "无强关联期货品种"
+    },
+    "10_valuation": {
+      "score": 9,
+      "weight": 5,
+      "label": "PE 17.11 · 5 年 5 分位 · 行业均值 31.65",
+      "reasons_pass": [
+        "PE 在 5 年中位数以下"
+      ],
+      "reasons_fail": []
+    },
+    "11_governance": {
+      "score": 6,
+      "weight": 4,
+      "label": "质押记录 1 · 内部交易 无"
+    },
+    "12_capital_flow": {
+      "score": 6,
+      "weight": 4,
+      "label": "主力 5日 — · 12 个月解禁 0 次",
+      "reasons_pass": [],
+      "reasons_fail": []
+    },
+    "13_policy": {
+      "score": 6,
+      "weight": 3,
+      "label": "政策环境中性"
+    },
+    "14_moat": {
+      "score": 6,
+      "weight": 3,
+      "label": "护城河需定性评估"
+    },
+    "15_events": {
+      "score": 5,
+      "weight": 4,
+      "label": "近期新闻 0 条 · 公告 1 份"
+    },
+    "16_lhb": {
+      "score": 5,
+      "weight": 4,
+      "label": "近 30 天上榜 0 次 · 识别游资 0 位",
+      "reasons_pass": []
+    },
+    "17_sentiment": {
+      "score": 6,
+      "weight": 3,
+      "label": "雪球热度上榜 0 次"
+    },
+    "18_trap": {
+      "score": 9,
+      "weight": 5,
+      "label": "🟢 未发现推广痕迹（需 web search 8 信号确认）"
+    },
+    "19_contests": {
+      "score": 5,
+      "weight": 4,
+      "label": "雪球 0 个组合持有 · 0 个收益 >50%",
+      "reasons_pass": []
+    }
+  }
+}

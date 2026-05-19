@@ -1,0 +1,94 @@
+{
+  "domestic_ok": true,
+  "overseas_ok": true,
+  "search_ok": true,
+  "has_proxy": false,
+  "proxy_url": "",
+  "domestic_count": 3,
+  "overseas_count": 2,
+  "search_count": 2,
+  "avg_latency_ms": 106,
+  "recommendation": "✓ 全网通畅 · Playwright 可抓境内+境外所有源",
+  "severity": "ok",
+  "probed_at": 1779087403.065446,
+  "checks": [
+    {
+      "domain": "push2.eastmoney.com",
+      "group": "domestic",
+      "reachable": true,
+      "latency_ms": 31,
+      "error": "",
+      "purpose": "东财 push2 · A 股行情主源"
+    },
+    {
+      "domain": "www.cninfo.com.cn",
+      "group": "domestic",
+      "reachable": true,
+      "latency_ms": 65,
+      "error": "",
+      "purpose": "巨潮 cninfo · 公告/行业 PE"
+    },
+    {
+      "domain": "stock.xueqiu.com",
+      "group": "domestic",
+      "reachable": true,
+      "latency_ms": 17,
+      "error": "",
+      "purpose": "雪球数据"
+    },
+    {
+      "domain": "query1.finance.yahoo.com",
+      "group": "overseas",
+      "reachable": true,
+      "latency_ms": 480,
+      "error": "",
+      "purpose": "Yahoo Finance · 美股数据"
+    },
+    {
+      "domain": "api.coingecko.com",
+      "group": "overseas",
+      "reachable": false,
+      "latency_ms": 3158,
+      "error": "OSError: [Errno 101] Network is unreachable",
+      "purpose": "CoinGecko · 加密市场流动性"
+    },
+    {
+      "domain": "baike.baidu.com",
+      "group": "overseas",
+      "reachable": true,
+      "latency_ms": 7,
+      "error": "",
+      "purpose": "百度百科 · 公司词条（国内直连但海外代理可能反被拦）"
+    },
+    {
+      "domain": "duckduckgo.com",
+      "group": "search",
+      "reachable": false,
+      "latency_ms": 3011,
+      "error": "OSError: [Errno 101] Network is unreachable",
+      "purpose": "DuckDuckGo · ddgs"
+    },
+    {
+      "domain": "www.baidu.com",
+      "group": "search",
+      "reachable": true,
+      "latency_ms": 18,
+      "error": "",
+      "purpose": "百度搜索"
+    },
+    {
+      "domain": "api.github.com",
+      "group": "search",
+      "reachable": true,
+      "latency_ms": 124,
+      "error": "",
+      "purpose": "GitHub API · 通用网络健康度"
+    }
+  ],
+  "local_proxy": {
+    "has_local_proxy": false,
+    "detected": [],
+    "hint": ""
+  },
+  "diagnostics": []
+}

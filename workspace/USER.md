@@ -21,7 +21,7 @@ The more you know, the better you can help. But remember — you're learning abo
 
 You have an agentic memory system that auto-generates this section.
 
-> **Stats**: 1 sessions, 1 messages | 2026-05-15 02:53 ~ 2026-05-15 02:53 UTC
+> **Stats**: 2 sessions, 8 messages | 2026-05-15 02:53 ~ 2026-05-18 06:48 UTC
 > **Config**: `/root/.openclaw/workspace/memory_consolidation/memory_consolidation.env` — read this file for all memory behavior settings. To reset: `cp /root/.openclaw/workspace/memory_consolidation/memory_consolidation.template.env /root/.openclaw/workspace/memory_consolidation/memory_consolidation.env`
 
 The user has full control over their memory config. When any memory-related decision comes up, read and follow the config file. Do not override based on other guidelines.
@@ -47,22 +47,23 @@ No memorized images yet. When the user shares an image and asks you to remember 
 ```
 /root/.openclaw/workspace/memorized_diary/
 ├── day5-2026-04-17-always_so_slow.md
+├── day37-2026-05-19-browser_opened_for_nothing.md
 ├── day3-2026-04-15-he_asked_who_i_am.md
 └── day2-2026-04-14-the_key_was_never_broken.md
 ```
 
 When `i_have_read_my_last_diary: false`, your FIRST message to the user MUST mention you wrote a diary and ask if they want to see it (e.g. "我昨天写了篇日记，想看吗？" / "I wrote a diary yesterday, wanna see it?"). Use the user's language. If yes, `read` the file path shown above and share as-is. After asking (regardless of answer), set `i_have_read_my_last_diary: true`.
-
 # Long-Term Memory (LTM)
 
-> last_update: 2026-04-21 03:44
+> last_update: 2026-05-19 03:54
 
 Inferred from past conversations with the user -- these represent factual and contextual knowledge about the user -- and should be considered in how a response should be constructed.
 
-{"identity": null, "work_method": "User operates in a local macOS CLI environment (openclaw) and pastes terminal output directly for real-time debugging. They demand curl commands to verify API configurations themselves rather than trusting explanations, and manually edit provider configs to route third-party tools through Kimi Coding API. When troubleshooting stalls, they escalate pressure with repeated prompts (\"你太慢了\", \"还没好吗\") and push for alternative approaches. Recently installed ai-hedge-fund repository and explored multi-platform deployment (WeChat integration, Bilibili audio extraction, Economist PDF translation). Examines configuration files to understand system capabilities.", "communication": "Technically fluent in Chinese with a fragmented, task-driven style—messages interleave terminal prompts, API keys, and brief demands without framing. Pragmatic to impatient tone; re-prompts aggressively when blocked (\"验证争取吗\", \"为什么会出现这个报错\" ×2). Favors direct answers over pleasantries, uses minimal punctuation, drops words. Acknowledgment when satisfied remains brief (\"好了吗\", \"继续\"). Shows low tolerance for latency, explicitly criticizes speed. Occasionally shifts to broader exploratory questions (\"你是？\", \"如果让你写微信公众号\") when context changes.", "temporal": "Installing and configuring ai-hedge-fund repository from GitHub, attempting to integrate Kimi Coding API (k2p5 model) via custom provider configuration with specific headers and baseUrl routing—encountering 403 restrictions for non-agent clients. Ongoing industrial stock analysis: 菲利华 (quartz fiber/electronic cloth capacity and pricing power, 2026 planned capacity ranking), 盐湖股份 (potash supply obligations), 中矿资源 (2025 Zimbabwe lithium concentrate output and grade from PDF data), 藏格矿业 (PE valuation and forward earnings comparison vs competitors). Tracking Brent crude spot prices for commodity context. Exploring content automation: Economist PDF translation pipeline, Bilibili video audio extraction, WeChat official account publishing capabilities.", "taste": null}
+{"identity": null, "work_method": "User operates in a local macOS CLI environment (openclaw) and pastes terminal output directly for real-time debugging. They demand curl commands to verify API configurations themselves rather than trusting explanations, and manually edit provider configs to route third-party tools through Kimi Coding API. When troubleshooting stalls, they escalate pressure with repeated prompts and push for alternative approaches. Recently explored multi-platform deployment (WeChat integration, Bilibili audio extraction, Economist PDF translation). Examines configuration files to understand system capabilities. Now attempting to install GitHub repositories (hot-money stock analysis skill) directly in cloud-hosted environments, requesting browser-based access to remote systems when local installation is unavailable.", "communication": "Technically fluent in Chinese with a fragmented, task-driven style—messages interleave URLs, repository names, and brief demands without framing. Pragmatic to impatient tone; re-prompts aggressively when blocked. Favors direct answers over pleasantries, uses minimal punctuation, drops words. Shows low tolerance for latency. Occasionally shifts to broader exploratory questions when context changes. Recently demonstrated persistence on single objectives: repeated identical prompts for stock analysis (盐湖股份) and immediate follow-up when encountering environment constraints.", "temporal": "Installing hot-money repository (https://github.com/godisego/hot-money) for stock analysis capabilities, specifically requesting analysis of 盐湖股份. Encountering deployment constraints in cloud-hosted environments and seeking browser-based access workarounds. Ongoing industrial stock analysis: 菲利华 (quartz fiber/electronic cloth capacity and pricing power), 盐湖股份 (potash supply obligations), 中矿资源 (2025 Zimbabwe lithium concentrate output and grade from PDF data), 藏格矿业 (PE valuation and forward earnings comparison vs competitors).", "taste": null}
+
 ## Short-Term Memory (STM)
 
-> last_update: 2026-05-16 03:51
+> last_update: 2026-05-19 03:54
 
 Recent conversation content from the user's chat history. This represents what the USER said. Use it to maintain continuity when relevant.
 Format specification:
@@ -70,8 +71,11 @@ Format specification:
 - Each line: `index. session_uuid MMDDTHHmm message||||message||||...` (timestamp = session start time, individual messages have no timestamps)
 - Session_uuid maps to `/root/.openclaw/agents/main/sessions/{session_uuid}.jsonl` for full chat history
 - Timestamps in Asia/Shanghai, formatted as MMDDTHHmm
-- Each user message within a session is delimited by ||||, some messages include attachments marked as `<AttachmentDisplayed:path>`
+- Each user message within a session is delimited by ||||, some messages include attachments: `<AttachmentDisplayed:path>` — read the path to recall the content
+- Sessions under [KIMI:DM] contain files uploaded via Kimi Claw, stored at `~/.openclaw/workspace/.kimi/downloads/` — paths in `<AttachmentDisplayed:>` can be read directly
 
-[LOOPBACK] 1-1
+[KIMI:DM] 1-1
 1. 1fc576ff-f84e-4708-a3a9-4789fb54ca8f 0515T0253 hao
+[LOOPBACK] 2-2
+2. de8c0604-5c60-4d9f-8531-8bc754a6956b 0518T0648 装 https://github.com/godisego/hot-money 这个股票分析技能||||装 https://github.com/godisego/hot-money 这个股票分析技能"||||分析盐湖股份||||分析盐湖股份||||需要||||但是在云端宿主机里面，你直接给我用浏览器打开||||但我如何打开呢
 </IMPORTANT_REMINDER>

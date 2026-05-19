@@ -1,0 +1,117 @@
+{
+  "ticker": "000792.SZ",
+  "market": "A",
+  "reviewed_at": "2026-05-18T15:08:00",
+  "critical_count": 8,
+  "warning_count": 2,
+  "info_count": 1,
+  "passed": false,
+  "issues": [
+    {
+      "severity": "critical",
+      "category": "data",
+      "dim": "4_",
+      "issue": "应跑的维度 4 完全缺失（fetcher 从未运行或崩溃）",
+      "evidence": "dims 里没有 key 以 4_ 开头",
+      "suggested_fix": "重跑 run.py <ticker> --no-resume 或手动 fetch_X"
+    },
+    {
+      "severity": "critical",
+      "category": "data",
+      "dim": "5_",
+      "issue": "应跑的维度 5 完全缺失（fetcher 从未运行或崩溃）",
+      "evidence": "dims 里没有 key 以 5_ 开头",
+      "suggested_fix": "重跑 run.py <ticker> --no-resume 或手动 fetch_X"
+    },
+    {
+      "severity": "critical",
+      "category": "data",
+      "dim": "6_",
+      "issue": "应跑的维度 6 完全缺失（fetcher 从未运行或崩溃）",
+      "evidence": "dims 里没有 key 以 6_ 开头",
+      "suggested_fix": "重跑 run.py <ticker> --no-resume 或手动 fetch_X"
+    },
+    {
+      "severity": "critical",
+      "category": "data",
+      "dim": "12_",
+      "issue": "应跑的维度 12 完全缺失（fetcher 从未运行或崩溃）",
+      "evidence": "dims 里没有 key 以 12_ 开头",
+      "suggested_fix": "重跑 run.py <ticker> --no-resume 或手动 fetch_X"
+    },
+    {
+      "severity": "critical",
+      "category": "data",
+      "dim": "14_",
+      "issue": "应跑的维度 14 完全缺失（fetcher 从未运行或崩溃）",
+      "evidence": "dims 里没有 key 以 14_ 开头",
+      "suggested_fix": "重跑 run.py <ticker> --no-resume 或手动 fetch_X"
+    },
+    {
+      "severity": "critical",
+      "category": "data",
+      "dim": "17_",
+      "issue": "应跑的维度 17 完全缺失（fetcher 从未运行或崩溃）",
+      "evidence": "dims 里没有 key 以 17_ 开头",
+      "suggested_fix": "重跑 run.py <ticker> --no-resume 或手动 fetch_X"
+    },
+    {
+      "severity": "critical",
+      "category": "data",
+      "dim": "18_",
+      "issue": "应跑的维度 18 完全缺失（fetcher 从未运行或崩溃）",
+      "evidence": "dims 里没有 key 以 18_ 开头",
+      "suggested_fix": "重跑 run.py <ticker> --no-resume 或手动 fetch_X"
+    },
+    {
+      "severity": "critical",
+      "category": "data",
+      "dim": "19_",
+      "issue": "应跑的维度 19 完全缺失（fetcher 从未运行或崩溃）",
+      "evidence": "dims 里没有 key 以 19_ 开头",
+      "suggested_fix": "重跑 run.py <ticker> --no-resume 或手动 fetch_X"
+    },
+    {
+      "severity": "warning",
+      "category": "valuation",
+      "dim": "20_valuation_models",
+      "issue": "DCF 内在价值为 0/None（可能负 FCF 或假设异常）",
+      "evidence": "intrinsic_value_per_share=0",
+      "suggested_fix": "检查 fetch_financials.net_profit_history 最新值是否 > 0"
+    },
+    {
+      "severity": "info",
+      "category": "valuation",
+      "dim": "20_valuation_models",
+      "issue": "Comps 隐含目标价缺失",
+      "evidence": "target_price_implied=None",
+      "suggested_fix": "检查 fetch_peers 是否返回足够同行样本"
+    },
+    {
+      "severity": "warning",
+      "category": "self-check",
+      "dim": "agent_analysis",
+      "issue": "agent 仅覆盖 9/22 维 dim_commentary（建议 ≥ 15）",
+      "evidence": "covered_dims=['0_basic', '1_financials', '2_kline', '7_industry', '10_valuation', '11_governance', '14_moat', '15_events', '16_lhb']",
+      "suggested_fix": "agent 补写更多维度的 dim_commentary，尤其是 14_moat / 13_policy / 7_industry 定性维度"
+    }
+  ],
+  "checks_run": [
+    "check_industry_mapping_sanity",
+    "check_all_dims_exist",
+    "check_empty_dims",
+    "check_hk_kline_populated",
+    "check_hk_financials_populated",
+    "check_panel_non_empty",
+    "check_coverage_threshold",
+    "check_placeholder_strings",
+    "check_valuation_sanity",
+    "check_industry_data_coverage",
+    "check_metals_materials_populated",
+    "check_agent_analysis_exists",
+    "check_factcheck_redflags",
+    "check_consensus_formula_sanity",
+    "check_panel_insights_rendered",
+    "check_debate_bull_bear_populated"
+  ]
+}

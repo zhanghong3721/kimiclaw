@@ -1,0 +1,164 @@
+{
+  "ticker": "000792.SZ",
+  "coverage_pct": 89.0,
+  "critical_missing": false,
+  "tasks": [
+    {
+      "dim": "7_industry",
+      "field": "growth",
+      "label": "行业增速",
+      "severity": "optional",
+      "suggested_actions": [
+        "mx: '农化制品 行业增速 2026'",
+        "ws: '农化制品 行业规模 增速 2026'"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "14_moat",
+      "field": "scores",
+      "label": "护城河评分",
+      "severity": "optional",
+      "suggested_actions": [
+        "agent: Porter 5 Forces + web search 护城河评分"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "3_macro",
+      "field": "_entire_dim",
+      "label": "宏观周期",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "ws: '中国 农化制品 宏观环境 利率 2026'"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "4_peers",
+      "field": "_entire_dim",
+      "label": "同业对标",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "mx: '农化制品 同行业公司 市值排名'",
+        "ws: '盐湖股份 同行业竞争者 对比'"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "5_chain",
+      "field": "_entire_dim",
+      "label": "上下游",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "browser: https://xueqiu.com/S/000792/F10",
+        "ws: '盐湖股份 上下游产业链'"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "6_research",
+      "field": "_entire_dim",
+      "label": "券商研报",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "mx: '000792.SZ 券商研报 目标价'",
+        "ws: '盐湖股份 最新研报 2026'"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "7_industry",
+      "field": "_entire_dim",
+      "label": "行业景气",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "mx: '农化制品 行业规模 TAM'",
+        "ws: '农化制品 行业景气 2026'"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "8_materials",
+      "field": "_entire_dim",
+      "label": "原材料",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "ws: '盐湖股份 原材料 成本构成'"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "9_futures",
+      "field": "_entire_dim",
+      "label": "期货关联",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "ws: '农化制品 期货 相关品种'"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "12_capital_flow",
+      "field": "_entire_dim",
+      "label": "北向/两融",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "mx: '000792.SZ 北向持仓 融资融券'",
+        "browser: https://data.eastmoney.com/zlsj/000792.html"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "13_policy",
+      "field": "_entire_dim",
+      "label": "政策环境",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "ws: '农化制品 最新政策 2026'"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "14_moat",
+      "field": "_entire_dim",
+      "label": "护城河",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "ws: '盐湖股份 核心竞争力 技术壁垒 市场份额'"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "17_sentiment",
+      "field": "_entire_dim",
+      "label": "大V舆情",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "browser: https://xueqiu.com/S/000792",
+        "ws: 'site:xueqiu.com 000792.SZ'"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "18_trap",
+      "field": "_entire_dim",
+      "label": "杀猪盘",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "infer: 从龙虎榜+换手率+涨跌幅综合判断"
+      ],
+      "status": "pending"
+    },
+    {
+      "dim": "19_contests",
+      "field": "_entire_dim",
+      "label": "实盘比赛",
+      "severity": "enrichment",
+      "suggested_actions": [
+        "ws: '000792.SZ 实盘比赛 持仓'"
+      ],
+      "status": "pending"
+    }
+  ]
+}
