@@ -1,18 +1,18 @@
 {
   "diary": {
-    "count": 40,
-    "last_ts": "2026-05-19T03:54:30.119503",
+    "count": 41,
+    "last_ts": "2026-05-20T03:52:05.254108",
     "last_day": 37,
     "last_sessions": 1,
     "last_messages": 13,
     "last_filename": "day37-2026-05-19-browser_opened_for_nothing.md",
     "last_latency_s": 8.6,
-    "last_skip": "messages<3"
+    "last_skip": "no_sessions_today"
   },
   "compact": {
-    "count": 38,
-    "last_ts": "2026-05-19T03:54:33.979045",
-    "last_invoke": 5,
+    "count": 39,
+    "last_ts": "2026-05-20T03:52:05.342788",
+    "last_invoke": 6,
     "last_sessions": 2,
     "last_messages": 8,
     "last_latency_s": 3.8,
