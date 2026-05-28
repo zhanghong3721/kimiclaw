@@ -1,0 +1,10 @@
+{
+  "lockVersion": 2,
+  "pid": 2050404,
+  "acquiredAt": "2026-05-27T08:37:27.858Z",
+  "heartbeatAt": "2026-05-28T01:02:43.377Z",
+  "key": "f1636bea4119b87d4ea93ae7",
+  "bridgeUrl": "wss://www.kimi.com/api-claw/bots/agent-ws",
+  "instanceId": "connector-2050404-1ba55131-679b-45f4-b08e-d72d4e37cac8",
+  "deviceId": "unknown-device"
+}

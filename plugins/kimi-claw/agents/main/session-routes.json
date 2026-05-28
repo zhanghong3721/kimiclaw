@@ -4,8 +4,10 @@
     "to": "main",
     "accountId": "main",
     "replyProtocol": "im",
+    "sessionClass": "main",
     "chatId": "19d85ed7-2992-8056-8000-0981f9a7726c",
+    "roomId": "",
     "chatIdSource": "header_default",
-    "updatedAt": 1779809197731
+    "updatedAt": 1779896943284
   }
 }

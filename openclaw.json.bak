@@ -1,7 +1,14 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.3.13",
-    "lastTouchedAt": "2026-04-07T16:06:56.815Z"
+    "lastTouchedAt": "2026-05-27T08:36:49.663Z"
+  },
+  "env": {
+    "KIMI_API_KEY": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
+    "KIMI_PLUGIN_API_KEY": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy"
+  },
+  "diagnostics": {
+    "enabled": true
   },
   "logging": {
     "file": "/root/.openclaw/logs/openclaw.log"
@@ -20,38 +27,72 @@
       }
     }
   },
+  "models": {
+    "mode": "merge",
+    "providers": {
+      "kimi-coding": {
+        "baseUrl": "https://agent-gw.kimi.com/coding",
+        "apiKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
+        "api": "anthropic-messages",
+        "headers": {
+          "User-Agent": "Kimi Claw Plugin",
+          "X-Kimi-Claw-ID": "19d85ed7-2992-8056-8000-0000f9a7726c"
+        },
+        "models": [
+          {
+            "id": "k2p6",
+            "name": "k2p6",
+            "reasoning": true,
+            "input": [
+              "text",
+              "image"
+            ],
+            "contextWindow": 131072,
+            "maxTokens": 32768,
+            "headers": {
+              "User-Agent": "Kimi Claw Plugin",
+              "X-Kimi-Claw-ID": "19d85ed7-2992-8056-8000-0000f9a7726c"
+            }
+          }
+        ]
+      }
+    }
+  },
   "agents": {
     "defaults": {
-      "compaction": {
-        "mode": "safeguard"
+      "model": {
+        "primary": "kimi-coding/k2p6"
       },
-      "heartbeat": {
-        "every": "60m"
+      "models": {
+        "kimi-coding/k2p6": {
+          "alias": "kimi-k2p6"
+        }
       },
-      "thinkingDefault": "high",
       "memorySearch": {
+        "enabled": true,
+        "provider": "openai",
         "remote": {
           "baseUrl": "https://agent-gw.kimi.com/coding/v1",
           "apiKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
           "headers": {
-            "x-canary-kfc": "always"
+            "x-canary-kfc": "always",
+            "User-Agent": "Kimi Claw Plugin",
+            "X-Msh-Device-Name": "openclaw-kimi-embedding"
           }
         },
-        "enabled": true,
-        "provider": "openai",
         "model": "bge_m3_embed"
       },
-      "model": {
-        "primary": "kimi-coding/k2p5"
+      "compaction": {
+        "mode": "safeguard"
       },
-      "models": {
-        "kimi-coding/k2p5": {
-          "alias": "kimi-k2p5"
-        }
+      "thinkingDefault": "high",
+      "heartbeat": {
+        "every": "60m"
       }
     }
   },
   "tools": {
+    "profile": "full",
     "alsoAllow": [
       "feishu_bitable_app",
       "feishu_bitable_app_table",
@@ -88,14 +129,26 @@
       "feishu_update_doc",
       "feishu_wiki_space",
       "feishu_wiki_space_node"
-    ],
-    "profile": "full"
+    ]
   },
   "commands": {
     "native": "auto",
     "nativeSkills": "auto",
     "restart": true,
     "ownerDisplay": "raw"
+  },
+  "session": {
+    "dmScope": "main"
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "memory-stm-refresh": {
+          "enabled": true
+        }
+      }
+    }
   },
   "channels": {},
   "gateway": {
@@ -133,7 +186,9 @@
       "imessage",
       "bluebubbles",
       "zalo",
-      "zalouser"
+      "zalouser",
+      "openclaw-diagnostics-metrics-cls",
+      "diagnostics-otel"
     ],
     "load": {
       "paths": []
@@ -165,18 +220,21 @@
             "verbose": false
           },
           "bridge": {
-            "promptTimeoutMs": 300000,
+            "promptTimeoutMs": 1800000,
             "bot_type": "remote",
             "url": "wss://www.kimi.com/api-claw/bots/agent-ws",
             "token": "km_b_prod_7Ak9kPKUpq8CiLaThhUwqU2KvX9MZHo6",
             "kimiapiHost": "https://www.kimi.com/api-claw",
             "kimiFileDownloadDir": "./openclaw/kimi/downloads",
             "mode": "acp",
-            "forwardThinking": false,
-            "forwardToolCalls": false,
+            "forwardThinking": true,
+            "forwardToolCalls": true,
             "kimiCodeAPIKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
             "kimiPluginAPIKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
-            "kimiCodeBaseURL": "https://agent-gw.kimi.com/coding"
+            "kimiCodeBaseURL": "https://agent-gw.kimi.com/coding",
+            "shell": {
+              "enabled": true
+            }
           },
           "gateway": {
             "url": "ws://127.0.0.1:18789",
@@ -190,14 +248,14 @@
           "defaultModel": {
             "enabled": true,
             "provider": "kimi-coding",
-            "modelId": "k2p5",
+            "modelId": "k2p6",
             "apiKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
             "baseUrl": "https://agent-gw.kimi.com/coding"
           }
         }
       },
       "kimi-search": {
-        "enabled": true,
+        "enabled": false,
         "config": {
           "search": {
             "baseUrl": "https://agent-gw.kimi.com/coding/v1/search"
@@ -206,6 +264,44 @@
             "baseUrl": "https://agent-gw.kimi.com/coding/v1/fetch"
           }
         }
+      },
+      "openclaw-diagnostics-metrics-cls": {
+        "enabled": true,
+        "config": {
+          "cls": {
+            "metricTopicId": "openclaw-metric-topic-ap-beijing-1318789485",
+            "endpoint": "ap-beijing.cls.tencentyun.com",
+            "credentialMode": "static",
+            "enableReport": true,
+            "secretId": "ENC:PwJSMSclGkDzErL+wt92i+r2rKZJvjm2NV4YUOCjywtEQPd7YJM8ElJNBhcEnQz3050HUZ4+aBG/6XHwOwc7bA==",
+            "secretKey": "ENC:9bo/M/xOkkDeZ2JJxqkC/9s5m3KwENbVbmuu6x25Zp+16rXs9+ma7U7l2rsQIUjYSmskdINvm7Lc5EBkB+NmTw=="
+          },
+          "prometheus": {
+            "enabled": true,
+            "push_interval_ms": 30000,
+            "remote_write": [
+              {
+                "url": "https://ap-beijing.cls.tencentyun.com/prometheus/openclaw-metric-topic-ap-beijing-1318789485/api/v1/write"
+              }
+            ]
+          },
+          "trace": {
+            "enabled": true,
+            "traceTopicId": "openclaw-trace-topic-ap-beijing-1318789485"
+          },
+          "log": {
+            "enableLogReport": false,
+            "logTopicId": ""
+          },
+          "instance_metadata": {
+            "instance_id": "ins-699hmpxr",
+            "instance_name": "openclaw-19d85ed7-2992-8056-8000-0000f9a7726c",
+            "local_ipv4": "10.210.15.78"
+          }
+        }
+      },
+      "diagnostics-otel": {
+        "enabled": true
       }
     },
     "installs": {
@@ -273,50 +369,19 @@
         "shasum": "19f65f26d4af26a25f05cdd5f1dd3c687590f91c",
         "resolvedAt": "2026-04-07T16:02:52.058Z",
         "installedAt": "2026-04-07T16:03:00.504Z"
-      }
-    }
-  },
-  "hooks": {
-    "internal": {
-      "enabled": true,
-      "entries": {
-        "memory-stm-refresh": {
-          "enabled": true
-        }
-      }
-    }
-  },
-  "session": {
-    "dmScope": "main"
-  },
-  "env": {
-    "KIMI_API_KEY": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
-    "KIMI_PLUGIN_API_KEY": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy"
-  },
-  "models": {
-    "mode": "merge",
-    "providers": {
-      "kimi-coding": {
-        "baseUrl": "https://agent-gw.kimi.com/coding",
-        "apiKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
-        "api": "anthropic-messages",
-        "headers": {
-          "User-Agent": "Kimi Claw Plugin",
-          "X-Kimi-Claw-ID": "19d85ed7-2992-8056-8000-0000f9a7726c"
-        },
-        "models": [
-          {
-            "id": "k2p5",
-            "name": "k2p5",
-            "reasoning": true,
-            "headers": {
-              "User-Agent": "Kimi Claw Plugin",
-              "X-Kimi-Claw-ID": "19d85ed7-2992-8056-8000-0000f9a7726c"
-            },
-            "contextWindow": 131072,
-            "maxTokens": 32768
-          }
-        ]
+      },
+      "openclaw-diagnostics-metrics-cls": {
+        "source": "npm",
+        "spec": "openclaw-diagnostics-metrics-cls",
+        "installPath": "/root/.openclaw/extensions/openclaw-diagnostics-metrics-cls",
+        "version": "3.0.0",
+        "resolvedName": "openclaw-diagnostics-metrics-cls",
+        "resolvedVersion": "3.0.0",
+        "resolvedSpec": "openclaw-diagnostics-metrics-cls@3.0.0",
+        "integrity": "sha512-vb5I+K65wDdXKuGStLwQI48oZXpry5ThmqscfBNdPdJ6KT0a/0bWIHVLNq9Y3b5bHfvW1dUvMNgyl84d9FxDVw==",
+        "shasum": "009c02a4fdc5091905cd03a3515f45ec787e035d",
+        "resolvedAt": "2026-05-16T04:20:37.060Z",
+        "installedAt": "2026-05-16T04:20:51.598Z"
       }
     }
   }

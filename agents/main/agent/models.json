@@ -9,15 +9,31 @@
       },
       "models": [
         {
-          "id": "k2p5",
-          "name": "k2p5",
+          "id": "k2p6",
+          "name": "k2p6",
           "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
           "contextWindow": 131072,
           "maxTokens": 32768,
           "headers": {
             "User-Agent": "Kimi Claw Plugin",
             "X-Kimi-Claw-ID": "19d85ed7-2992-8056-8000-0000f9a7726c"
           },
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "api": "anthropic-messages"
+        },
+        {
+          "id": "k2p5",
+          "name": "Kimi for Coding",
+          "reasoning": true,
           "input": [
             "text",
             "image"
@@ -28,7 +44,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
-          "api": "anthropic-messages"
+          "contextWindow": 262144,
+          "maxTokens": 32768
         }
       ],
       "apiKey": "KIMI_API_KEY"
