@@ -20,6 +20,7 @@ import time
 import fcntl
 import logging
 import logging.handlers
+from contextlib import contextmanager
 from datetime import datetime, timezone, timedelta
 from pathlib import Path
 from typing import Optional
@@ -170,25 +171,72 @@ _CONFIG_FILE    = _find_versioned("config")
 _WATCHLIST_FILE = _find_versioned("watchlist")
 _STATE_FILE        = _DATA_DIR / "state.json"
 _INTRADAY_CACHE_FILE = _DATA_DIR / "tick_cache.json"
+_RUN_LOCK_FILE       = _DATA_DIR / "monitor.run.lock"
+_RUN_LOCK_HANDLE     = None
+
+
+@contextmanager
+def _json_file_lock(path: Path, exclusive: bool):
+    lock_path = path.with_name(f".{path.name}.lock")
+    lock_path.parent.mkdir(exist_ok=True)
+    with open(lock_path, "a+", encoding="utf-8") as lock_f:
+        fcntl.flock(lock_f, fcntl.LOCK_EX if exclusive else fcntl.LOCK_SH)
+        try:
+            yield
+        finally:
+            fcntl.flock(lock_f, fcntl.LOCK_UN)
+
+
+def _atomic_write_json(path: Path, data, *, indent=None):
+    path.parent.mkdir(exist_ok=True)
+    tmp = path.with_name(f".{path.name}.{os.getpid()}.{time.time_ns()}.tmp")
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=indent)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, path)
+    finally:
+        tmp.unlink(missing_ok=True)
+
+
+def _acquire_run_lock() -> bool:
+    """防止调度器/cron 在上一次 tick 未结束时再次启动同一监控进程。"""
+    global _RUN_LOCK_HANDLE
+    if _REPLAY_MODE:
+        return True
+    _RUN_LOCK_FILE.parent.mkdir(exist_ok=True)
+    _RUN_LOCK_HANDLE = open(_RUN_LOCK_FILE, "a+", encoding="utf-8")
+    try:
+        fcntl.flock(_RUN_LOCK_HANDLE, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        _RUN_LOCK_HANDLE.seek(0)
+        _RUN_LOCK_HANDLE.truncate()
+        _RUN_LOCK_HANDLE.write(f"pid={os.getpid()} ts={datetime.now().isoformat()}\n")
+        _RUN_LOCK_HANDLE.flush()
+        return True
+    except BlockingIOError:
+        print("⏳ 上一次监控仍在运行，本次跳过")
+        _RUN_LOCK_HANDLE.close()
+        _RUN_LOCK_HANDLE = None
+        return False
 
 
 def load_intraday_cache() -> dict:
-    if _INTRADAY_CACHE_FILE.exists():
-        try:
-            return json.loads(_INTRADAY_CACHE_FILE.read_text(encoding="utf-8"))
-        except Exception:
-            pass
+    with _json_file_lock(_INTRADAY_CACHE_FILE, exclusive=False):
+        if _INTRADAY_CACHE_FILE.exists():
+            try:
+                return json.loads(_INTRADAY_CACHE_FILE.read_text(encoding="utf-8"))
+            except Exception:
+                pass
     return {}
 
 
 def save_intraday_cache(cache: dict):
-    tmp = _INTRADAY_CACHE_FILE.with_suffix(".tmp")
     try:
-        tmp.write_text(json.dumps(cache, ensure_ascii=False), encoding="utf-8")
-        os.replace(tmp, _INTRADAY_CACHE_FILE)
+        with _json_file_lock(_INTRADAY_CACHE_FILE, exclusive=True):
+            _atomic_write_json(_INTRADAY_CACHE_FILE, cache)
     except Exception as e:
         logger.warning(f"保存 intraday_cache 失败: {e}")
-        tmp.unlink(missing_ok=True)
 
 # --- 本地模块 ---
 sys.path.insert(0, str(_SCRIPT_DIR))
@@ -332,17 +380,13 @@ _DEFAULT_STATE = {
 def load_state() -> dict:
     """加载状态文件（带文件锁）。用默认值补齐旧文件缺失的字段。"""
     state = dict(_DEFAULT_STATE)
-    if _STATE_FILE.exists():
-        try:
-            with open(_STATE_FILE, "r", encoding="utf-8") as f:
-                fcntl.flock(f, fcntl.LOCK_SH)
-                try:
-                    saved = json.load(f)
-                finally:
-                    fcntl.flock(f, fcntl.LOCK_UN)
-            state.update(saved)   # 已有字段以文件为准，缺失字段用默认值
-        except Exception as e:
-            logger.error(f"加载状态文件失败: {e}")
+    with _json_file_lock(_STATE_FILE, exclusive=False):
+        if _STATE_FILE.exists():
+            try:
+                saved = json.loads(_STATE_FILE.read_text(encoding="utf-8"))
+                state.update(saved)   # 已有字段以文件为准，缺失字段用默认值
+            except Exception as e:
+                logger.error(f"加载状态文件失败: {e}")
     return state
 
 
@@ -372,20 +416,11 @@ def _prune_state(state: dict):
 def save_state(state: dict):
     """保存状态文件：写临时文件 + os.replace 原子替换，避免并发截断。"""
     _prune_state(state)
-    tmp = _STATE_FILE.with_suffix(".tmp")
     try:
-        with open(tmp, "w", encoding="utf-8") as f:
-            fcntl.flock(f, fcntl.LOCK_EX)
-            try:
-                json.dump(state, f, ensure_ascii=False, indent=2)
-                f.flush()
-                os.fsync(f.fileno())
-            finally:
-                fcntl.flock(f, fcntl.LOCK_UN)
-        os.replace(tmp, _STATE_FILE)
+        with _json_file_lock(_STATE_FILE, exclusive=True):
+            _atomic_write_json(_STATE_FILE, state, indent=2)
     except Exception as e:
         logger.error(f"保存状态文件失败: {e}")
-        tmp.unlink(missing_ok=True)
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -1278,10 +1313,15 @@ def _push(card: dict, text: str, cfg: dict, urgent: bool = True,
                 _intra = fetch_us_intraday(stock["code"])
                 if _intra and _intra.get("rows"):
                     _pts = []
+                    _trade_date = str(_intra.get("date") or "")
                     for r in _intra["rows"]:
                         try:
                             _et_str = str(r["time"]).zfill(4)
-                            _et_dt = datetime.strptime(_et_str, "%H%M")
+                            if len(_trade_date) == 8 and _trade_date.isdigit():
+                                _et_dt = datetime.strptime(_trade_date + _et_str, "%Y%m%d%H%M")
+                            else:
+                                _et_time = datetime.strptime(_et_str, "%H%M").time()
+                                _et_dt = datetime.combine(_et_now().date(), _et_time)
                             if _ET_ZONE:
                                 from zoneinfo import ZoneInfo
                                 _et_dt = _et_dt.replace(tzinfo=_ET_ZONE)
@@ -1309,26 +1349,16 @@ def _push(card: dict, text: str, cfg: dict, urgent: bool = True,
                     ]
             except Exception as e:
                 logger.debug(f"{stock.get('code')} 按需补分时失败: {e}")
-            # CN/HK 分时 API 失败时 tick_cache 兜底
-            if not tick.get("intraday_points"):
-                try:
-                    _icache_data = load_intraday_cache()
-                    _today_str = _now().strftime("%Y-%m-%d")
-                    _cached = _icache_data.get(code, {})
-                    if _cached.get("date") == _today_str and len(_cached.get("ticks", [])) >= 3:
-                        tick["intraday_points"] = [
-                            {"label": t["t"].replace(":", ""), "close": t["p"]}
-                            for t in _cached["ticks"] if t.get("p")
-                        ]
-                except Exception as e:
-                    logger.debug(f"{code} tick_cache 兜底失败: {e}")
 
     feishu_card = card
+    _trend_points = tick.get("intraday_points") if tick else []
+    if stock and len(_trend_points or []) < 5:
+        _trend_points = []
     if (card_mode == "chart"
             and "feishu" in channels
             and stock is not None
             and tick
-            and tick.get("intraday_points")
+            and _trend_points
             and not trend_already_sent):
         try:
             sub = None
@@ -1453,6 +1483,8 @@ def main():
             print(f"⏸️  非交易时间，跳过 ({_now_check.strftime('%H:%M')})")
             return
 
+    if not _acquire_run_lock():
+        return
 
     # 初始化日志
     setup_logging()
@@ -1477,6 +1509,10 @@ def main():
     if _NOW_OVERRIDE is not None:
         replay_date = _NOW_OVERRIDE.strftime('%m-%d')
         disclaimer = f"[非实时行情·历史回放·{replay_date}] {disclaimer}"
+    if _REPLAY_MODE:
+        cfg["_no_persist"] = True
+        if isinstance(cfg.get("feishu"), dict):
+            cfg["feishu"]["_no_persist"] = True
     kimi_cfg   = {
         "api_key": cfg.get("kimiCodeAPIKey"),
         "base_url": cfg.get("kimiPluginBaseUrl"),
@@ -1488,8 +1524,9 @@ def main():
     profit_alert_step     = cfg.get("settings", {}).get("profit_alert_step", 10)
     req_interval          = cfg.get("settings", {}).get("request_interval", 1)
 
-    # 重试上次失败的飞书消息
-    flush_failed(cfg)
+    # 重试上次失败的飞书消息；回放模式不修改失败队列
+    if not _REPLAY_MODE:
+        flush_failed(cfg)
 
     watchlist = cfg.get("watchlist", [])
     if not watchlist:
@@ -1592,43 +1629,92 @@ def main():
             _tech_needed.append(_s["code"])
 
         if _tech_needed:
-            tech_attempted = True
             # 等5s再开始：iFind 数据在整点后需要几秒写入
             time.sleep(5)
-            _tech_deadline = time.time() + 40  # 总预算40s，避免阻塞主循环超过60s
-            # 第一轮：全部尝试一次
+            _tech_deadline = time.time() + 40  # 新请求启动预算；已启动请求仍使用配置 timeout
+            _tech_base_timeout = float(kimi_cfg.get("timeout", 30) or 30)
+            _tech_min_request_window = 1.0
+
+            def _tech_budget_left() -> float:
+                return _tech_deadline - time.time()
+
+            def _tech_request_cfg():
+                remaining = _tech_budget_left()
+                if remaining < _tech_min_request_window:
+                    return None
+                cfg_with_budget = dict(kimi_cfg)
+                cfg_with_budget["timeout"] = _tech_base_timeout
+                return cfg_with_budget
+
+            # 第一轮：全部尝试一次；预算真正耗尽后不再启动新的请求
             _failed = []
-            for _code in _tech_needed:
+            _not_ready = set()
+            _budget_skipped = set()
+            _tech_requested = False
+            for _idx, _code in enumerate(_tech_needed):
+                _tech_call_cfg = _tech_request_cfg()
+                if not _tech_call_cfg:
+                    _budget_skipped.update(_tech_needed[_idx:])
+                    logger.warning(f"技术指标拉取预算耗尽，跳过剩余 {len(_tech_needed) - _idx} 只")
+                    break
                 _td = TechnicalCalculator.calculate_all(
-                    _code, kimi_cfg=kimi_cfg, mock_now=_NOW_OVERRIDE)
-                if _td and not _td.get("error"):
+                    _code, kimi_cfg=_tech_call_cfg, mock_now=_NOW_OVERRIDE,
+                    read_cache=not _REPLAY_MODE,
+                    write_cache=not _REPLAY_MODE)
+                if _td and _td.get("_not_ready"):
+                    _not_ready.add(_code)
+                elif _td and not _td.get("error"):
+                    _tech_requested = True
                     tech_cache[_code] = {"stock": stock_by_code[_code], "data": _td}
                 else:
+                    _tech_requested = True
                     _failed.append(_code)
 
             # 失败了：统一等一次，最多重试3轮，超时直接跳出
             for _round in range(3):
                 if not _failed:
                     break
-                if time.time() > _tech_deadline:
+                if not _tech_request_cfg():
+                    _budget_skipped.update(_failed)
                     logger.warning(f"技术指标拉取超时，跳过剩余 {len(_failed)} 只")
                     break
-                print(f"  ⏳ {len(_failed)} 只技术指标未就绪，等待5s后重试（第{_round+1}轮）...")
-                time.sleep(5)
+                _wait = min(5, max(0, _tech_budget_left() - _tech_min_request_window))
+                if _wait <= 0:
+                    print(f"  ⏳ {len(_failed)} 只技术指标未就绪，立即重试（第{_round+1}轮）...")
+                else:
+                    print(f"  ⏳ {len(_failed)} 只技术指标未就绪，等待{_wait:.1f}s后重试（第{_round+1}轮）...")
+                    time.sleep(_wait)
                 _still_failed = []
-                for _code in _failed:
+                for _idx, _code in enumerate(_failed):
+                    _tech_call_cfg = _tech_request_cfg()
+                    if not _tech_call_cfg:
+                        _budget_skipped.update(_failed[_idx:])
+                        logger.warning(f"技术指标重试预算耗尽，跳过剩余 {len(_failed) - _idx} 只")
+                        break
                     _td = TechnicalCalculator.calculate_all(
-                        _code, kimi_cfg=kimi_cfg, mock_now=_NOW_OVERRIDE)
-                    if _td and not _td.get("error"):
+                        _code, kimi_cfg=_tech_call_cfg, mock_now=_NOW_OVERRIDE,
+                        read_cache=not _REPLAY_MODE,
+                        write_cache=not _REPLAY_MODE)
+                    if _td and _td.get("_not_ready"):
+                        _not_ready.add(_code)
+                    elif _td and not _td.get("error"):
+                        _tech_requested = True
                         tech_cache[_code] = {"stock": stock_by_code[_code], "data": _td}
                     else:
+                        _tech_requested = True
                         _still_failed.append(_code)
                 _failed = _still_failed
+
+            tech_attempted = _tech_requested
 
             # 更新失败计数
             for _code in _tech_needed:
                 if _code in tech_cache:
                     state["tech_fail_counts"][_code] = {"n": 0, "ts": 0}
+                elif _code in _not_ready:
+                    continue
+                elif _code in _budget_skipped:
+                    continue
                 else:
                     _fi = state["tech_fail_counts"].get(_code, {"n": 0, "ts": 0})
                     _new_n = _fi["n"] + 1
@@ -1908,7 +1994,10 @@ def main():
 
         time.sleep(req_interval)
 
-    save_intraday_cache(_icache)
+    if not _REPLAY_MODE:
+        save_intraday_cache(_icache)
+    else:
+        print("  (回放模式：跳过日内价格缓存保存)")
 
     # ── 更新 prev_tech & last_tech_ts ────────────────────────
     if tech_cache:

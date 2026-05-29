@@ -21,10 +21,10 @@
     "last_error": "The read operation timed out"
   },
   "stm": {
-    "count": 10,
-    "last_ts": "2026-05-27T14:33:57.468542",
-    "last_sessions": 3,
-    "last_messages": 10,
-    "last_chars": 6575
+    "count": 11,
+    "last_ts": "2026-05-28T11:57:19.460236",
+    "last_sessions": 4,
+    "last_messages": 16,
+    "last_chars": 7021
   }
 }

@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.3.13",
-    "lastTouchedAt": "2026-05-27T08:37:04.513Z"
+    "lastTouchedAt": "2026-05-28T06:38:08.342Z"
   },
   "env": {
     "KIMI_API_KEY": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
@@ -186,9 +186,7 @@
       "imessage",
       "bluebubbles",
       "zalo",
-      "zalouser",
-      "openclaw-diagnostics-metrics-cls",
-      "diagnostics-otel"
+      "zalouser"
     ],
     "load": {
       "paths": []
@@ -264,44 +262,6 @@
             "baseUrl": "https://agent-gw.kimi.com/coding/v1/fetch"
           }
         }
-      },
-      "openclaw-diagnostics-metrics-cls": {
-        "enabled": true,
-        "config": {
-          "cls": {
-            "metricTopicId": "openclaw-metric-topic-ap-beijing-1318789485",
-            "endpoint": "ap-beijing.cls.tencentyun.com",
-            "credentialMode": "static",
-            "enableReport": true,
-            "secretId": "ENC:PwJSMSclGkDzErL+wt92i+r2rKZJvjm2NV4YUOCjywtEQPd7YJM8ElJNBhcEnQz3050HUZ4+aBG/6XHwOwc7bA==",
-            "secretKey": "ENC:9bo/M/xOkkDeZ2JJxqkC/9s5m3KwENbVbmuu6x25Zp+16rXs9+ma7U7l2rsQIUjYSmskdINvm7Lc5EBkB+NmTw=="
-          },
-          "prometheus": {
-            "enabled": true,
-            "push_interval_ms": 30000,
-            "remote_write": [
-              {
-                "url": "https://ap-beijing.cls.tencentyun.com/prometheus/openclaw-metric-topic-ap-beijing-1318789485/api/v1/write"
-              }
-            ]
-          },
-          "trace": {
-            "enabled": true,
-            "traceTopicId": "openclaw-trace-topic-ap-beijing-1318789485"
-          },
-          "log": {
-            "enableLogReport": false,
-            "logTopicId": ""
-          },
-          "instance_metadata": {
-            "instance_id": "ins-699hmpxr",
-            "instance_name": "openclaw-19d85ed7-2992-8056-8000-0000f9a7726c",
-            "local_ipv4": "10.210.15.78"
-          }
-        }
-      },
-      "diagnostics-otel": {
-        "enabled": true
       }
     },
     "installs": {
@@ -369,19 +329,6 @@
         "shasum": "19f65f26d4af26a25f05cdd5f1dd3c687590f91c",
         "resolvedAt": "2026-04-07T16:02:52.058Z",
         "installedAt": "2026-04-07T16:03:00.504Z"
-      },
-      "openclaw-diagnostics-metrics-cls": {
-        "source": "npm",
-        "spec": "openclaw-diagnostics-metrics-cls",
-        "installPath": "/root/.openclaw/extensions/openclaw-diagnostics-metrics-cls",
-        "version": "3.0.0",
-        "resolvedName": "openclaw-diagnostics-metrics-cls",
-        "resolvedVersion": "3.0.0",
-        "resolvedSpec": "openclaw-diagnostics-metrics-cls@3.0.0",
-        "integrity": "sha512-vb5I+K65wDdXKuGStLwQI48oZXpry5ThmqscfBNdPdJ6KT0a/0bWIHVLNq9Y3b5bHfvW1dUvMNgyl84d9FxDVw==",
-        "shasum": "009c02a4fdc5091905cd03a3515f45ec787e035d",
-        "resolvedAt": "2026-05-16T04:20:37.060Z",
-        "installedAt": "2026-05-16T04:20:51.598Z"
       }
     }
   }

@@ -5,8 +5,11 @@
 """
 
 import json
+import os
 import time
+import fcntl
 import requests
+from contextlib import contextmanager
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
@@ -20,26 +23,76 @@ _FAILED_MSG_FILE = _DATA_DIR / "failed_messages.json"
 _DATA_DIR.mkdir(exist_ok=True)
 
 
+@contextmanager
+def _json_file_lock(path: Path, exclusive: bool):
+    lock_path = path.with_name(f".{path.name}.lock")
+    lock_path.parent.mkdir(exist_ok=True)
+    with open(lock_path, "a+", encoding="utf-8") as lock_f:
+        fcntl.flock(lock_f, fcntl.LOCK_EX if exclusive else fcntl.LOCK_SH)
+        try:
+            yield
+        finally:
+            fcntl.flock(lock_f, fcntl.LOCK_UN)
+
+
+def _read_json_unlocked(path: Path, default):
+    if path.exists():
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(default, dict) and not isinstance(data, dict):
+                return default
+            if isinstance(default, list) and not isinstance(data, list):
+                return default
+            return data
+        except Exception:
+            pass
+    return default
+
+
+def _atomic_write_json(path: Path, data, *, indent=None):
+    path.parent.mkdir(exist_ok=True)
+    tmp = path.with_name(f".{path.name}.{os.getpid()}.{time.time_ns()}.tmp")
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=indent)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, path)
+    finally:
+        tmp.unlink(missing_ok=True)
+
+
 # ══════════════════════════════════════════════════════════════════════════════
 # 飞书：失败队列
 # ══════════════════════════════════════════════════════════════════════════════
 
 class FailedMessageQueue:
+    @staticmethod
+    def _key(msg: dict):
+        return (
+            msg.get("id", ""),
+            msg.get("receive_id") or msg.get("user_id", ""),
+            msg.get("receive_id_type", "open_id"),
+            msg.get("failed_at", ""),
+            msg.get("content", ""),
+        )
 
     @classmethod
     def add(cls, receive_id: str, receive_id_type: str,
             content: str, reason: str):
-        msgs = cls._load()
-        msgs.append({
-            "receive_id":      receive_id,
-            "receive_id_type": receive_id_type,
-            "user_id":         receive_id if receive_id_type == "open_id" else "",
-            "content":         content,
-            "reason":          str(reason),
-            "failed_at":       datetime.now().isoformat(),
-            "retry_count":     0,
-        })
-        cls._save(msgs)
+        with _json_file_lock(_FAILED_MSG_FILE, exclusive=True):
+            msgs = cls._load_unlocked()
+            msgs.append({
+                "id":              f"{os.getpid()}-{time.time_ns()}",
+                "receive_id":      receive_id,
+                "receive_id_type": receive_id_type,
+                "user_id":         receive_id if receive_id_type == "open_id" else "",
+                "content":         content,
+                "reason":          str(reason),
+                "failed_at":       datetime.now().isoformat(),
+                "retry_count":     0,
+            })
+            cls._save_unlocked(msgs)
         print(f"  ⚠️  消息入队（原因: {reason}），队列长度: {len(msgs)}")
 
     @classmethod
@@ -48,26 +101,30 @@ class FailedMessageQueue:
 
     @classmethod
     def remove_indices(cls, indices: list):
-        msgs = cls._load()
-        for i in sorted(indices, reverse=True):
-            if 0 <= i < len(msgs):
-                msgs.pop(i)
-        cls._save(msgs)
+        with _json_file_lock(_FAILED_MSG_FILE, exclusive=True):
+            msgs = cls._load_unlocked()
+            for i in sorted(indices, reverse=True):
+                if 0 <= i < len(msgs):
+                    msgs.pop(i)
+            cls._save_unlocked(msgs)
 
     @classmethod
     def _load(cls):
-        if _FAILED_MSG_FILE.exists():
-            try:
-                return json.loads(_FAILED_MSG_FILE.read_text(encoding="utf-8"))
-            except Exception:
-                pass
-        return []
+        with _json_file_lock(_FAILED_MSG_FILE, exclusive=False):
+            return cls._load_unlocked()
 
     @classmethod
     def _save(cls, msgs: list):
-        _FAILED_MSG_FILE.write_text(
-            json.dumps(msgs, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
+        with _json_file_lock(_FAILED_MSG_FILE, exclusive=True):
+            cls._save_unlocked(msgs)
+
+    @classmethod
+    def _load_unlocked(cls):
+        return _read_json_unlocked(_FAILED_MSG_FILE, [])
+
+    @classmethod
+    def _save_unlocked(cls, msgs: list):
+        _atomic_write_json(_FAILED_MSG_FILE, msgs, indent=2)
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -84,21 +141,21 @@ class _TokenManager:
         self._load_cache()
 
     def _load_cache(self):
-        if _TOKEN_CACHE.exists():
-            try:
-                cache = json.loads(_TOKEN_CACHE.read_text())
-                self._token  = cache.get("token")
-                self._expire = cache.get("expire", 0)
-            except Exception:
-                pass
+        with _json_file_lock(_TOKEN_CACHE, exclusive=False):
+            cache = _read_json_unlocked(_TOKEN_CACHE, {})
+        self._token  = cache.get("token")
+        try:
+            self._expire = float(cache.get("expire") or 0)
+        except (TypeError, ValueError):
+            self._expire = 0
 
     def _save_cache(self):
-        _TOKEN_CACHE.write_text(
-            json.dumps({"token": self._token, "expire": self._expire}),
-            encoding="utf-8",
-        )
+        with _json_file_lock(_TOKEN_CACHE, exclusive=True):
+            _atomic_write_json(
+                _TOKEN_CACHE, {"token": self._token, "expire": self._expire}
+            )
 
-    def get(self, force_refresh=False) -> Optional[str]:
+    def get(self, force_refresh=False, write_cache=True) -> Optional[str]:
         now = time.time()
         if not force_refresh and self._token and self._expire > now + 300:
             return self._token
@@ -113,7 +170,8 @@ class _TokenManager:
             if result.get("code") == 0:
                 self._token  = result["tenant_access_token"]
                 self._expire = now + result.get("expire", 7200)
-                self._save_cache()
+                if write_cache:
+                    self._save_cache()
                 print("  ✅ 飞书 Token 已刷新")
                 return self._token
             print(f"  ❌ 获取飞书 Token 失败: {result}")
@@ -129,6 +187,10 @@ def _get_token_manager(app_id: str, app_secret: str) -> _TokenManager:
     if key not in _token_managers:
         _token_managers[key] = _TokenManager(app_id, app_secret)
     return _token_managers[key]
+
+
+def _no_persist_enabled(cfg: dict, feishu_cfg: dict = None) -> bool:
+    return bool(cfg.get("_no_persist") or (feishu_cfg or {}).get("_no_persist"))
 
 
 # ══════════════════════════════════════════════════════════════════════════════
@@ -179,7 +241,8 @@ def _feishu_send_one(receive_id: str, content: str, cfg: dict,
         return False
 
     tm    = _get_token_manager(app_id, app_secret)
-    token = tm.get()
+    write_cache = not cfg.get("_no_persist")
+    token = tm.get(write_cache=write_cache)
     if not token:
         return False
 
@@ -199,7 +262,7 @@ def _feishu_send_one(receive_id: str, content: str, cfg: dict,
                 return True
             if result.get("code") in (99991663, 99991661):
                 print(f"  ⏳ Token 过期，刷新后重试 ({attempt+1}/{retry_count})")
-                token = tm.get(force_refresh=True)
+                token = tm.get(force_refresh=True, write_cache=write_cache)
                 if token:
                     headers["Authorization"] = f"Bearer {token}"
                 continue
@@ -271,7 +334,10 @@ def push_message(content: str, cfg: dict, urgent: bool = False):
     """
     推送消息到指定渠道：kimiclaw（默认）| feishu
     """
-    feishu_cfg  = cfg.get("feishu", {})
+    feishu_cfg  = dict(cfg.get("feishu", {}))
+    no_persist = _no_persist_enabled(cfg, feishu_cfg)
+    if no_persist:
+        feishu_cfg["_no_persist"] = True
     channel_raw = cfg.get("push", {}).get("channel", "kimiclaw")
     channels    = {c.strip() for c in channel_raw.split(",")}
 
@@ -283,7 +349,7 @@ def push_message(content: str, cfg: dict, urgent: bool = False):
             retry_count = 5 if urgent else 3
             ok = _feishu_send_one(receive_id, content, feishu_cfg,
                                   receive_id_type=id_type, retry_count=retry_count)
-            if not ok:
+            if not ok and not no_persist:
                 FailedMessageQueue.add(receive_id, id_type, content, "发送失败")
 
     if "kimiclaw" in channels:
@@ -300,7 +366,8 @@ def _feishu_send_card(receive_id: str, card_dict: dict, cfg: dict,
         return False
 
     tm    = _get_token_manager(app_id, app_secret)
-    token = tm.get()
+    write_cache = not cfg.get("_no_persist")
+    token = tm.get(write_cache=write_cache)
     if not token:
         return False
 
@@ -323,7 +390,7 @@ def _feishu_send_card(receive_id: str, card_dict: dict, cfg: dict,
                 return True
             if result.get("code") in (99991663, 99991661):
                 print(f"  ⏳ Token 过期，刷新后重试 ({attempt+1}/{retry_count})")
-                token = tm.get(force_refresh=True)
+                token = tm.get(force_refresh=True, write_cache=write_cache)
                 if token:
                     headers["Authorization"] = f"Bearer {token}"
                 continue
@@ -343,7 +410,9 @@ def _feishu_send_card(receive_id: str, card_dict: dict, cfg: dict,
 
 def push_card(card_dict: dict, cfg: dict) -> bool:
     """推送飞书 schema 2.0 交互卡片。返回是否成功。"""
-    feishu_cfg  = cfg.get("feishu", {})
+    feishu_cfg  = dict(cfg.get("feishu", {}))
+    if _no_persist_enabled(cfg, feishu_cfg):
+        feishu_cfg["_no_persist"] = True
     channel_raw = cfg.get("push", {}).get("channel", "kimiclaw")
     channels    = {c.strip() for c in channel_raw.split(",")}
 
@@ -359,21 +428,30 @@ def push_card(card_dict: dict, cfg: dict) -> bool:
 
 def flush_failed(cfg: dict):
     """重试历史失败的飞书消息（每次 monitor 启动时调用）。"""
+    feishu_cfg = dict(cfg.get("feishu", {}))
+    if _no_persist_enabled(cfg, feishu_cfg):
+        return
+
     msgs = FailedMessageQueue.get_all()
     if not msgs:
         return
 
     print(f"\n📬 发现 {len(msgs)} 条历史失败消息，尝试重发...")
-    feishu_cfg = cfg.get("feishu", {})
-    to_remove  = []
+    remove_keys = set()
+    retry_counts = {}
 
-    for i, msg in enumerate(msgs):
+    for msg in msgs:
+        msg_key = FailedMessageQueue._key(msg)
         if msg.get("retry_count", 0) >= 5:
-            to_remove.append(i)
+            remove_keys.add(msg_key)
             continue
-        failed_at = datetime.fromisoformat(msg["failed_at"])
+        try:
+            failed_at = datetime.fromisoformat(msg["failed_at"])
+        except Exception:
+            remove_keys.add(msg_key)
+            continue
         if datetime.now() - failed_at > timedelta(hours=1):
-            to_remove.append(i)
+            remove_keys.add(msg_key)
             continue
 
         receive_id = msg.get("receive_id") or msg.get("user_id", "")
@@ -381,11 +459,25 @@ def flush_failed(cfg: dict):
         ok = _feishu_send_one(receive_id, msg["content"], feishu_cfg,
                               receive_id_type=id_type, retry_count=2)
         if ok:
-            to_remove.append(i)
+            remove_keys.add(msg_key)
             print(f"  ✅ 重发成功: {msg['failed_at'][:16]}")
         else:
-            msg["retry_count"] = msg.get("retry_count", 0) + 1
+            retry_counts[msg_key] = msg.get("retry_count", 0) + 1
 
-    if to_remove:
-        FailedMessageQueue.remove_indices(to_remove)
-        print(f"  已清理 {len(to_remove)} 条（成功或过期）")
+    if not remove_keys and not retry_counts:
+        return
+
+    with _json_file_lock(_FAILED_MSG_FILE, exclusive=True):
+        current = FailedMessageQueue._load_unlocked()
+        kept = []
+        for msg in current:
+            msg_key = FailedMessageQueue._key(msg)
+            if msg_key in remove_keys:
+                continue
+            if msg_key in retry_counts:
+                msg["retry_count"] = max(msg.get("retry_count", 0), retry_counts[msg_key])
+            kept.append(msg)
+        FailedMessageQueue._save_unlocked(kept)
+
+    if remove_keys:
+        print(f"  已清理 {len(remove_keys)} 条（成功或过期）")

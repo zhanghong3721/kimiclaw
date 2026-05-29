@@ -880,8 +880,8 @@ def build_monitor_intraday_card(
     price_symbol = {"USD": "$", "HKD": "HK$", "CNY": "¥"}.get(str(currency).upper(), _cur(stock))
     market = stock.get("market", "CN")
 
-    is_up = price >= open_price
-    if market == "CN":
+    is_up = price_diff >= 0
+    if market in ("CN", "HK"):
         line_color = "#C5221F" if is_up else "#0B8043"
         area_color_top = "rgba(197,34,31,0.18)" if is_up else "rgba(11,128,67,0.18)"
         area_color_bot = "rgba(197,34,31,0.02)" if is_up else "rgba(11,128,67,0.02)"
@@ -890,7 +890,7 @@ def build_monitor_intraday_card(
         line_color = "#00C805" if is_up else "#F04438"
         area_color_top = "rgba(0,200,5,0.18)" if is_up else "rgba(240,68,56,0.18)"
         area_color_bot = "rgba(0,200,5,0.02)" if is_up else "rgba(240,68,56,0.02)"
-        change_color = "#00C805" if is_up else "#F04438"
+        change_color = "green" if is_up else "red"
 
     title_block = f"## {title} {price_symbol}{price:.2f}\n### <font color='{change_color}'>{change:+.2f}%  {price_diff:+.2f}</font>"
 
@@ -915,7 +915,7 @@ def build_monitor_intraday_card(
             "area": {"style": {"fill": {"gradient": "linear", "x0": 0, "y0": 0, "x1": 0, "y1": 1, "stops": [{"offset": 0, "color": area_color_top}, {"offset": 1, "color": area_color_bot}]}, "curveType": "monotone"}},
             "point": {"style": {"size": 0, "fill": line_color}, "state": {"dimension_hover": {"size": 4, "stroke": "#FFFFFF", "lineWidth": 2, "fill": line_color}}},
             "markLine": [
-                {"y": open_price, "line": {"style": {"stroke": "#DADCE0", "lineWidth": 1, "lineDash": [4, 4]}}, "label": {"visible": False}, "startSymbol": {"visible": False}, "endSymbol": {"visible": False}},
+                {"y": pre_close, "line": {"style": {"stroke": "#DADCE0", "lineWidth": 1, "lineDash": [4, 4]}}, "label": {"visible": False}, "startSymbol": {"visible": False}, "endSymbol": {"visible": False}},
             ] + [
                 {"y": mp["price"], "line": {"style": {"stroke": mp.get("color", "#FF9800"), "lineWidth": 1, "lineDash": mp.get("dash", [4, 4])}}, "label": {"visible": True, "text": mp.get("label", ""), "position": "insideEndBottom", "style": {"fill": mp.get("color", "#FF9800"), "fontSize": 9}}, "startSymbol": {"visible": False}, "endSymbol": {"visible": False}}
                 for mp in (mark_prices or [])

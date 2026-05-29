@@ -13,9 +13,11 @@ from __future__ import annotations
 import ast
 import json
 import os
+import fcntl
 import sys
 import time
 import requests
+from contextlib import contextmanager
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Optional
@@ -26,6 +28,45 @@ _INTRADAY_CACHE  = _ROOT_DIR / "data" / "intraday_cache.json"
 
 _SKILL_NAME = "stock-assistant-v2"
 _TECH_CACHE_FILE = _ROOT_DIR / "data" / "tech_cache.json"
+
+
+@contextmanager
+def _json_file_lock(path: Path, exclusive: bool):
+    lock_path = path.with_name(f".{path.name}.lock")
+    lock_path.parent.mkdir(exist_ok=True)
+    with open(lock_path, "a+", encoding="utf-8") as lock_f:
+        fcntl.flock(lock_f, fcntl.LOCK_EX if exclusive else fcntl.LOCK_SH)
+        try:
+            yield
+        finally:
+            fcntl.flock(lock_f, fcntl.LOCK_UN)
+
+
+def _read_json_unlocked(path: Path, default):
+    if path.exists():
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+            if isinstance(default, dict) and not isinstance(data, dict):
+                return default
+            if isinstance(default, list) and not isinstance(data, list):
+                return default
+            return data
+        except Exception:
+            pass
+    return default
+
+
+def _atomic_write_json(path: Path, data, *, indent=None):
+    path.parent.mkdir(exist_ok=True)
+    tmp = path.with_name(f".{path.name}.{os.getpid()}.{time.time_ns()}.tmp")
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=indent)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, path)
+    finally:
+        tmp.unlink(missing_ok=True)
 
 
 def _find_versioned(name: str) -> Path:
@@ -262,6 +303,11 @@ class TechnicalCalculator:
     @staticmethod
     def _aligned_time_str(mock_now=None) -> str:
         now    = mock_now or datetime.now()
+        tv     = now.hour * 100 + now.minute
+        if 930 <= tv < 935:
+            return None
+        if 1300 <= tv < 1305:
+            return None
         minute = (now.minute // 5) * 5 - 5
         if minute < 0:
             minute += 60
@@ -297,33 +343,32 @@ class TechnicalCalculator:
     def _load_tech_cache() -> dict:
         """加载当日技术指标缓存，跨日自动清空。"""
         today = datetime.now().strftime("%Y-%m-%d")
-        if _TECH_CACHE_FILE.exists():
-            try:
-                data = json.loads(_TECH_CACHE_FILE.read_text(encoding="utf-8"))
-                if data.get("date") == today:
-                    return data.get("entries", {})
-            except Exception:
-                pass
+        with _json_file_lock(_TECH_CACHE_FILE, exclusive=False):
+            data = _read_json_unlocked(_TECH_CACHE_FILE, {})
+            if data.get("date") == today:
+                return data.get("entries", {})
         return {}
 
     @staticmethod
-    def _save_tech_cache(cache: dict):
+    def _save_tech_cache(updates: dict):
         """保存技术指标缓存，附带日期用于跨日清空。"""
         today = datetime.now().strftime("%Y-%m-%d")
-        _TECH_CACHE_FILE.parent.mkdir(exist_ok=True)
-        _TECH_CACHE_FILE.write_text(
-            json.dumps({"date": today, "entries": cache}, ensure_ascii=False),
-            encoding="utf-8",
-        )
+        with _json_file_lock(_TECH_CACHE_FILE, exclusive=True):
+            current = _read_json_unlocked(_TECH_CACHE_FILE, {})
+            entries = current.get("entries", {}) if current.get("date") == today else {}
+            entries.update(updates)
+            _atomic_write_json(_TECH_CACHE_FILE, {"date": today, "entries": entries})
 
     @classmethod
     def calculate_all(cls, code: str, time_str: str = None,
-                      mock_now=None, kimi_cfg: dict = None) -> dict:
+                      mock_now=None, kimi_cfg: dict = None,
+                      read_cache: bool = True,
+                      write_cache: bool = True) -> dict:
         """
         获取指定股票的 iFind 5分钟技术指标。
         - 命中当日缓存直接返回，不发 API 请求。
-        - iFind 数据有发布延迟：首次失败等 10s 重试同一时间点，最多重试 3 次。
-        - 全部失败返回 error dict，由上层决定是否用上次缓存数据。
+        - iFind 数据有发布延迟，重试由 monitor.py 批量管理，避免每只股票各等一遍。
+        - 获取失败返回 error dict，由上层决定是否用上次缓存数据。
         """
         is_market_closed = False
         effective_now    = mock_now or datetime.now()
@@ -336,13 +381,20 @@ class TechnicalCalculator:
                 if is_market_closed
                 else cls._aligned_time_str(mock_now=mock_now)
             )
+        if not time_str:
+            return {
+                "code": code, "interval": "5min",
+                "error": "最新5分钟K线尚未收盘，跳过本轮技术指标",
+                "_not_ready": True,
+            }
 
-        cache     = cls._load_tech_cache()
         cache_key = f"{code}@{time_str}"
 
         # ── 缓存命中，直接返回 ────────────────────────────────
-        if cache_key in cache:
-            return cache[cache_key]
+        if read_cache:
+            cache = cls._load_tech_cache()
+            if cache_key in cache:
+                return cache[cache_key]
 
         # ── 单次请求（不在此处重试，重试由 monitor.py 批量管理）──
         result = cls.fetch_from_kimi(code, time_str, kimi_cfg=kimi_cfg)
@@ -350,7 +402,7 @@ class TechnicalCalculator:
         if result is None:
             return {
                 "code": code, "time": time_str, "interval": "5min",
-                "error": "无法获取数据（已重试3次）",
+                "error": "无法获取技术指标数据",
                 "MA5": None, "MA10": None, "MA20": None, "MA60": None,
                 "EXPMA12": None, "EXPMA50": None, "SAR": None,
                 "BOLL_MID": None, "BOLL_UPPER": None, "BOLL_LOWER": None,
@@ -370,8 +422,8 @@ class TechnicalCalculator:
             result["market_closed"] = True
 
         # ── 写缓存 ────────────────────────────────────────────
-        cache[cache_key] = result
-        cls._save_tech_cache(cache)
+        if write_cache:
+            cls._save_tech_cache({cache_key: result})
 
         return result
 
@@ -547,32 +599,40 @@ def fetch_daily_kline(code: str, days: int = 60) -> Optional[list]:
     return rows if rows else None
 
 
-def _load_kline_cache() -> dict:
+def _pruned_kline_cache(cache: dict) -> dict:
+    from datetime import datetime as _dt2, timedelta as _td2
+    cutoff = (_dt2.now() - _td2(days=7)).strftime("%Y-%m-%d")
+    return {k: v for k, v in cache.items()
+            if isinstance(v, dict) and v.get("date", "") >= cutoff}
+
+
+def _load_kline_cache_unlocked() -> dict:
     if _CACHE_FILE.exists():
         try:
-            cache = json.loads(_CACHE_FILE.read_text(encoding="utf-8"))
-            # 清掉 7 天前的条目
-            from datetime import datetime as _dt2, timedelta as _td2
-            cutoff = (_dt2.now() - _td2(days=7)).strftime("%Y-%m-%d")
-            cache = {k: v for k, v in cache.items()
-                     if isinstance(v, dict) and v.get("date", "") >= cutoff}
-            return cache
+            return _pruned_kline_cache(json.loads(_CACHE_FILE.read_text(encoding="utf-8")))
         except Exception:
             pass
     return {}
 
 
-def _save_kline_cache(cache: dict):
-    _CACHE_FILE.parent.mkdir(exist_ok=True)
-    # 只保留 watchlist 里还在的股票，自动清理已删除标的
-    wl_file = _find_versioned("watchlist")
-    if wl_file.exists():
-        try:
-            codes = {s["code"] for s in json.loads(wl_file.read_text(encoding="utf-8"))}
-            cache = {k: v for k, v in cache.items() if k in codes}
-        except Exception:
-            pass
-    _CACHE_FILE.write_text(json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8")
+def _load_kline_cache() -> dict:
+    with _json_file_lock(_CACHE_FILE, exclusive=False):
+        return _load_kline_cache_unlocked()
+
+
+def _save_kline_cache(updates: dict):
+    with _json_file_lock(_CACHE_FILE, exclusive=True):
+        current = _load_kline_cache_unlocked()
+        current.update(updates)
+        # 只保留 watchlist 里还在的股票，自动清理已删除标的
+        wl_file = _find_versioned("watchlist")
+        if wl_file.exists():
+            try:
+                codes = {s["code"] for s in json.loads(wl_file.read_text(encoding="utf-8"))}
+                current = {k: v for k, v in current.items() if k in codes}
+            except Exception:
+                pass
+        _atomic_write_json(_CACHE_FILE, current, indent=2)
 
 
 def get_kline(code: str, days: int = 60, force: bool = False) -> Optional[list]:
@@ -591,13 +651,14 @@ def get_kline(code: str, days: int = 60, force: bool = False) -> Optional[list]:
     else:
         rows = fetch_daily_kline(code, days)
     if rows:
-        cache[code] = {"date": today, "fetched_at": datetime.now().strftime("%H:%M"), "data": rows}
-        _save_kline_cache(cache)
+        _save_kline_cache({
+            code: {"date": today, "fetched_at": datetime.now().strftime("%H:%M"), "data": rows}
+        })
     return rows
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# 日内分时数据（A股：同花顺 v6/time / 港股+美股：腾讯财经 minute/query）
+# 日内分时数据（A股：同花顺 v6/time / 港股：腾讯财经 minute/query / 美股：腾讯财经 UsMinute/query）
 # ══════════════════════════════════════════════════════════════════════════════
 
 def fetch_intraday(code: str, date: str = "today") -> Optional[dict]:
@@ -700,7 +761,7 @@ def fetch_hk_intraday(code: str) -> Optional[dict]:
 def fetch_us_intraday(code: str) -> Optional[dict]:
     """腾讯财经拉取美股日内分时（当日），返回格式与 fetch_intraday 对齐。"""
     tc = _code_to_tencent_us(code)
-    url = f"https://web.ifzq.gtimg.cn/appstock/app/minute/query?code={tc}"
+    url = f"https://web.ifzq.gtimg.cn/appstock/app/UsMinute/query?code={tc}"
     headers = {
         "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36",
         "Referer":    "https://gu.qq.com/",
@@ -754,27 +815,31 @@ def get_intraday(code: str, date: str = "today") -> Optional[dict]:
 
     cache_key = f"{code}_{date}"
     _INTRADAY_CACHE.parent.mkdir(exist_ok=True)
-    cache = {}
-    if _INTRADAY_CACHE.exists():
+
+    def _prune_intraday_cache(items: dict) -> dict:
+        from datetime import datetime as _dt3, timedelta as _td3
+        cutoff = (_dt3.now() - _td3(days=7)).strftime("%Y-%m-%d").replace("-", "")
+        return {k: v for k, v in items.items()
+                if k.split("_")[-1].replace("-", "") >= cutoff}
+
+    with _json_file_lock(_INTRADAY_CACHE, exclusive=False):
         try:
-            cache = json.loads(_INTRADAY_CACHE.read_text(encoding="utf-8"))
+            cache = _read_json_unlocked(_INTRADAY_CACHE, {})
             # 清掉 7 天前的条目（key 格式 code_YYYYMMDD 或 code_YYYY-MM-DD）
-            from datetime import datetime as _dt3, timedelta as _td3
-            cutoff = (_dt3.now() - _td3(days=7)).strftime("%Y-%m-%d").replace("-", "")
-            cache = {k: v for k, v in cache.items()
-                     if k.split("_")[-1].replace("-", "") >= cutoff}
+            cache = _prune_intraday_cache(cache)
         except Exception:
-            pass
+            cache = {}
 
     if cache_key in cache:
         return cache[cache_key]
 
     data = fetch_intraday(code, date)
     if data:
-        cache[cache_key] = data
-        _INTRADAY_CACHE.write_text(
-            json.dumps(cache, ensure_ascii=False, indent=2), encoding="utf-8"
-        )
+        with _json_file_lock(_INTRADAY_CACHE, exclusive=True):
+            current = _read_json_unlocked(_INTRADAY_CACHE, {})
+            current[cache_key] = data
+            current = _prune_intraday_cache(current)
+            _atomic_write_json(_INTRADAY_CACHE, current, indent=2)
     return data
 
 
