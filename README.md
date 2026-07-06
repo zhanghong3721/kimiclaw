@@ -1,12 +1,12 @@
-# OpenClaw Backup - 2026-07-05
+# OpenClaw Backup - 2026-07-06
 
 Backup of `~/.openclaw` configuration directory.
 
 ## Backup Info
 
-- **Date**: 2026-07-05
+- **Date**: 2026-07-06
 - **Time**: 09:00:01
-- **Branch**: backup/2026-07-05
+- **Branch**: backup/2026-07-06
 
 ## Contents
 
@@ -24,7 +24,7 @@ Backup of `~/.openclaw` configuration directory.
 
 ```bash
 # Clone specific date
-git clone --branch backup/2026-07-05 git@github.com:zhanghong3721/kimiclaw.git ~/.openclaw
+git clone --branch backup/2026-07-06 git@github.com:zhanghong3721/kimiclaw.git ~/.openclaw
 
 # Or clone main branch for latest
 git clone git@github.com:zhanghong3721/kimiclaw.git ~/.openclaw
