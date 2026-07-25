@@ -6,7 +6,7 @@ This repository contains daily backups of the OpenClaw configuration.
 
 | Date | Branch | Size |
 |------|--------|------|
-| 2026-07-24 | backup/2026-07-24 | 1.6G |
+| 2026-07-25 | backup/2026-07-25 | 1.6G |
 
 ## List All Backups
 
