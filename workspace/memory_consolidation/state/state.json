@@ -1,24 +1,25 @@
 {
   "diary": {
-    "count": 62,
-    "last_ts": "2026-05-28T03:57:02.381918",
-    "last_day": 46,
+    "count": 63,
+    "last_ts": "2026-07-28T03:38:42.835424",
+    "last_day": 107,
     "last_sessions": 1,
     "last_messages": 16,
     "last_filename": "day46-2026-05-28-auth_json_ghost_and_three_restarts.md",
     "last_latency_s": 25.5,
-    "last_skip": "conversation_hash_unchanged"
+    "last_skip": "conversation_hash_unchanged",
+    "last_error": "HTTP Error 429: Too Many Requests"
   },
   "compact": {
-    "count": 60,
-    "last_ts": "2026-05-28T03:57:02.477789",
+    "count": 61,
+    "last_ts": "2026-07-28T03:39:14.796950",
     "last_invoke": 8,
     "last_sessions": 4,
     "last_messages": 16,
     "last_latency_s": 13.5,
     "last_model": "k2p6",
     "last_skip": "stm_hash_unchanged",
-    "last_error": "The read operation timed out"
+    "last_error": "HTTP Error 429: Too Many Requests"
   },
   "stm": {
     "count": 11,

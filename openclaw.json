@@ -1,7 +1,7 @@
 {
   "meta": {
     "lastTouchedVersion": "2026.3.13",
-    "lastTouchedAt": "2026-05-29T13:48:34.035Z"
+    "lastTouchedAt": "2026-07-27T07:42:51.597Z"
   },
   "env": {
     "KIMI_API_KEY": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
@@ -64,6 +64,9 @@
         "primary": "kimi-coding/k2p6"
       },
       "models": {
+        "kimi-coding/kimi-for-coding": {
+          "alias": "kimi-k2p6"
+        },
         "kimi-coding/k2p6": {
           "alias": "kimi-k2p6"
         }
@@ -381,6 +384,20 @@
         "shasum": "35813b9bae610b45764d3c968c5eee4dd0e39235",
         "resolvedAt": "2026-05-29T13:48:31.614Z",
         "installedAt": "2026-05-29T13:48:33.801Z"
+      },
+      "kimi-claw": {
+        "source": "path",
+        "sourcePath": "/tmp/tmp.MeIjO1mLOh/staged_main",
+        "installPath": "/root/.openclaw/extensions/kimi-claw",
+        "version": "0.27.1",
+        "installedAt": "2026-07-27T07:42:19.165Z"
+      },
+      "kimi-search": {
+        "source": "path",
+        "sourcePath": "/tmp/tmp.MeIjO1mLOh/staged_search",
+        "installPath": "/root/.openclaw/extensions/kimi-search",
+        "version": "0.1.15",
+        "installedAt": "2026-07-27T07:42:46.785Z"
       }
     }
   }

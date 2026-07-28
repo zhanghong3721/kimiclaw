@@ -1,12 +1,12 @@
 {
   "version": 1,
   "subscribe": {
-    "lastEventId": "19e6cbab-f2a2-883c-8000-0000c478c9d9"
+    "lastEventId": "19fa2aea-25d2-8256-8000-0000b2bd5a96"
   },
   "chats": {
     "19d85ed7-2992-8056-8000-0981f9a7726c": {
-      "lastSeenMessageId": "19e6cbab-f002-8307-8000-0a81d9b7b317",
-      "lastProcessedMessageId": "19e6cbab-f002-8307-8000-0a81d9b7b317",
+      "lastSeenMessageId": "19fa2aea-2332-8dd4-8000-0a81f3b6a6da",
+      "lastProcessedMessageId": "19fa2aea-2332-8dd4-8000-0a81f3b6a6da",
       "pending": []
     }
   }

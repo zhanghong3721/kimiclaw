@@ -21,7 +21,7 @@ The more you know, the better you can help. But remember — you're learning abo
 
 You have an agentic memory system that auto-generates this section.
 
-> **Stats**: 4 sessions, 16 messages | 2026-05-15 02:53 ~ 2026-05-27 06:33 UTC
+> **Stats**: 0 sessions, 0 messages | 2026-07-27 15:22 ~ 2026-07-27 15:22 UTC
 > **Config**: `/root/.openclaw/workspace/memory_consolidation/memory_consolidation.env` — read this file for all memory behavior settings. To reset: `cp /root/.openclaw/workspace/memory_consolidation/memory_consolidation.template.env /root/.openclaw/workspace/memory_consolidation/memory_consolidation.env`
 
 The user has full control over their memory config. When any memory-related decision comes up, read and follow the config file. Do not override based on other guidelines.
@@ -62,21 +62,8 @@ When `i_have_read_my_last_diary: false`, your FIRST message to the user MUST men
 Inferred from past conversations with the user -- these represent factual and contextual knowledge about the user -- and should be considered in how a response should be constructed.
 
 {"identity": null, "work_method": "User operates in a local macOS CLI environment (openclaw) and pastes terminal output directly for real-time debugging. They demand hands-on verification rather than trusting explanations—manually editing provider configs and swapping API keys themselves. When troubleshooting stalls, they escalate with repeated prompts and push for alternative approaches. Recently installed NousResearch Hermes agent locally in /root/.hermes, then immediately hit configuration issues requiring iterative screenshot-based debugging. Also requests specific plugin installations (kimi-datasource) and model switching to latest supported versions, showing preference for keeping tools current.", "communication": "Technically fluent in Chinese with a fragmented, task-driven style—messages interleave URLs, repository names, brief demands, and command snippets without framing. Pragmatic to impatient tone; re-prompts aggressively when blocked, often repeating identical requests. Favors direct answers over pleasantries, uses minimal punctuation, drops words. Low tolerance for latency. Shifts quickly from cloud deployment frustration to direct local installation when encountering environment constraints. Communicates debugging state through screenshots of terminal output rather than text descriptions.", "temporal": "Configuring locally installed NousResearch Hermes agent in /root/.hermes—troubleshooting model configuration and API key integration, iterating through errors with screenshot-based debugging. Previously explored hot-money stock analysis skill installation and multi-platform deployment (WeChat integration, Bilibili audio extraction, Economist PDF translation). Ongoing industrial stock analysis: 菲利华 (quartz fiber/electronic cloth), 盐湖股份 (potash supply obligations), 中矿资源 (2025 Zimbabwe lithium concentrate output from PDF data), 藏格矿业 (PE valuation vs competitors).", "taste": null}
+
 ## Short-Term Memory (STM)
 
-> last_update: 2026-05-28 11:57
-
-Recent conversation content from the user's chat history. This represents what the USER said. Use it to maintain continuity when relevant.
-Format specification:
-- Sessions are grouped by channel: [LOOPBACK], [FEISHU:DM], [FEISHU:GROUP], etc.
-- Each line: `index. session_uuid MMDDTHHmm message||||message||||...` (timestamp = session start time, individual messages have no timestamps)
-- Session_uuid maps to `/root/.openclaw/agents/main/sessions/{session_uuid}.jsonl` for full chat history
-- Timestamps in Asia/Shanghai, formatted as MMDDTHHmm
-- Each user message within a session is delimited by ||||, some messages include attachments marked as `<AttachmentDisplayed:path>`
-
-[KIMI:DM] 1-4
-1. 1fc576ff-f84e-4708-a3a9-4789fb54ca8f 0515T0253 hao
-2. de8c0604-5c60-4d9f-8531-8bc754a6956b 0518T0648 装 https://github.com/godisego/hot-money 这个股票分析技能||||装 https://github.com/godisego/hot-money 这个股票分析技能"||||分析盐湖股份||||分析盐湖股份||||需要||||但是在云端宿主机里面，你直接给我用浏览器打开||||但我如何打开呢
-3. 6b9b64f2-6946-479f-ad2f-89f6a79fa2fa 0526T0728 在你本地安装hermes，按官方手册安装||||在你本地安装hermes，按官方手册安装吗，参考https://github.com/NousResearch/hermes-agent.git
-4. c1494e0d-6d91-4e26-8f52-36bd1c2aa077 0527T0633 你所在宿主机的/root/.hermes 安装了hemes，请帮我配置下模型，模型就用你的api key||||再次测试下呢 <AttachmentDisplayed:/root/.openclaw/workspace/.kimi/downloads/19e682f9-de72-8fef-8000-0000a80aa133_image.png>||||我按你的方式执行并重启后还是一样的问题 <AttachmentDisplayed:/root/.openclaw/workspace/.kimi/downloads/19e68316-ec72-8d4a-8000-0000be60af92_image.png>||||把api key 换成这个sk-kimi-5DhAHezlaz9kpcRqjQjslnlj82Mgh88d4u4M8NJ4FyilBsZvOpY9Xmfa8cBQK87D，||||] kimi plugin install https://cdn.kimi.com/kimi-code-plugins/kimi-datasource.zip 这个插件你有安装吗||||] 把你的模型切换到当前kimi 最新支持的模型
+> No conversations yet.
 </IMPORTANT_REMINDER>
