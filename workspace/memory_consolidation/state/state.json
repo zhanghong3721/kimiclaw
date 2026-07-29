@@ -1,25 +1,25 @@
 {
   "diary": {
-    "count": 63,
-    "last_ts": "2026-07-28T03:38:42.835424",
+    "count": 66,
+    "last_ts": "2026-07-29T03:56:25.570437",
     "last_day": 107,
     "last_sessions": 1,
     "last_messages": 16,
     "last_filename": "day46-2026-05-28-auth_json_ghost_and_three_restarts.md",
     "last_latency_s": 25.5,
-    "last_skip": "conversation_hash_unchanged",
+    "last_skip": "no_sessions_today",
     "last_error": "HTTP Error 429: Too Many Requests"
   },
   "compact": {
-    "count": 61,
-    "last_ts": "2026-07-28T03:39:14.796950",
+    "count": 64,
+    "last_ts": "2026-07-29T03:58:34.272886",
     "last_invoke": 8,
     "last_sessions": 4,
     "last_messages": 16,
     "last_latency_s": 13.5,
     "last_model": "k2p6",
     "last_skip": "stm_hash_unchanged",
-    "last_error": "HTTP Error 429: Too Many Requests"
+    "last_error": "'text'"
   },
   "stm": {
     "count": 11,
