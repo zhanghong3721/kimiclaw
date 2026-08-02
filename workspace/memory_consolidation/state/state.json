@@ -1,7 +1,7 @@
 {
   "diary": {
-    "count": 74,
-    "last_ts": "2026-08-01T03:49:26.794671",
+    "count": 76,
+    "last_ts": "2026-08-02T03:40:38.831354",
     "last_day": 107,
     "last_sessions": 1,
     "last_messages": 16,
@@ -11,15 +11,15 @@
     "last_error": "HTTP Error 429: Too Many Requests"
   },
   "compact": {
-    "count": 72,
-    "last_ts": "2026-08-01T03:49:59.775271",
+    "count": 74,
+    "last_ts": "2026-08-02T03:41:53.486423",
     "last_invoke": 8,
     "last_sessions": 4,
     "last_messages": 16,
     "last_latency_s": 13.5,
     "last_model": "k2p6",
     "last_skip": "stm_hash_unchanged",
-    "last_error": "HTTP Error 429: Too Many Requests"
+    "last_error": "'text'"
   },
   "stm": {
     "count": 11,
