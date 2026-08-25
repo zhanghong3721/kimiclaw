@@ -1,7 +1,7 @@
 {
   "diary": {
-    "count": 119,
-    "last_ts": "2026-08-24T03:57:48.689933",
+    "count": 121,
+    "last_ts": "2026-08-25T03:39:35.995483",
     "last_day": 107,
     "last_sessions": 1,
     "last_messages": 16,
@@ -11,15 +11,15 @@
     "last_error": "HTTP Error 429: Too Many Requests"
   },
   "compact": {
-    "count": 117,
-    "last_ts": "2026-08-24T03:59:24.190008",
+    "count": 119,
+    "last_ts": "2026-08-25T03:42:12.027639",
     "last_invoke": 8,
     "last_sessions": 4,
     "last_messages": 16,
     "last_latency_s": 13.5,
     "last_model": "k2p6",
     "last_skip": "stm_hash_unchanged",
-    "last_error": "'text'"
+    "last_error": "The read operation timed out"
   },
   "stm": {
     "count": 11,
