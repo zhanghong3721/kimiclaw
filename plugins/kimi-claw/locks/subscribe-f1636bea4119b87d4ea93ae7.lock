@@ -1,10 +1,10 @@
 {
   "lockVersion": 2,
-  "pid": 993262,
-  "acquiredAt": "2026-07-27T07:43:02.935Z",
-  "heartbeatAt": "2026-09-16T01:00:41.953Z",
+  "pid": 1037600,
+  "acquiredAt": "2026-09-16T10:31:23.832Z",
+  "heartbeatAt": "2026-09-17T01:00:39.360Z",
   "key": "f1636bea4119b87d4ea93ae7",
   "bridgeUrl": "wss://www.kimi.com/api-claw/bots/agent-ws",
-  "instanceId": "connector-993262-0a2b67b6-4e05-439a-b748-03b713684a8f",
+  "instanceId": "connector-1037600-2cf6c036-3a15-4d6e-867e-bbd38d1042da",
   "deviceId": "unknown-device"
 }

@@ -40,8 +40,8 @@
         },
         "models": [
           {
-            "id": "k2p6",
-            "name": "k2p6",
+            "id": "k2d8-preview",
+            "name": "k2d8-preview",
             "reasoning": true,
             "input": [
               "text",
@@ -61,14 +61,14 @@
   "agents": {
     "defaults": {
       "model": {
-        "primary": "kimi-coding/k2p6"
+        "primary": "kimi-coding/k2d8-preview"
       },
       "models": {
         "kimi-coding/kimi-for-coding": {
-          "alias": "kimi-k2p6"
+          "alias": "kimi-k2d8-preview"
         },
-        "kimi-coding/k2p6": {
-          "alias": "kimi-k2p6"
+        "kimi-coding/k2d8-preview": {
+          "alias": "kimi-k2d8-preview"
         }
       },
       "memorySearch": {
@@ -251,7 +251,7 @@
           "defaultModel": {
             "enabled": true,
             "provider": "kimi-coding",
-            "modelId": "k2p6",
+            "modelId": "k2d8-preview",
             "apiKey": "sk-kimi-JpKtjTDppotc4hcImI7r6LTdWzG9VfKDOnBzLVT4i6iY4cgHF4JTAsjQujxVA9Xy",
             "baseUrl": "https://agent-gw.kimi.com/coding"
           }
